@@ -1,0 +1,34 @@
+This is an example file
+
+The actual example starts after the dotted line
+- - - - - - - - - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+:20:3996-11-11111111
+:25:DABADKKK/111111-11111111
+:28C:00001/001
+:60F:C090924EUR54484,04
+:86:For your inform. IBAN no.: FI1111111111111111
+:86:DABADKKK                                                 
+:86:111111-11111111
+:86:DANSKE BANK                        HOLMENS KANAL 2-12
+:61:0909250925DR583,92NMSC1110030403010139//1234
+:86:11100304030101391234
+Beneficiary name
+Beneficiary name
+:61:0909300930DR390,40NMSC0000000000754003//1234
+:86:00000000007540031234
+Beneficiary name
+Beneficiary name
+:61:0909300930DR265,41NMSC0000101603533361//1234
+:86:00001016035333611234
+Beneficiary name
+Beneficiary name
+:61:0910010930DR62,60NCHGFees according//to advice
+:86:Fees according to advice
+:61:0909290929DR55,00NMSC0000000000000269//1234
+:86:00000000000002691234
+Beneficiary name
+Beneficiary name
+:61:0910010930CR0,23FINTInterest
+:62F:C090930EUR53126,94
+:64:C090930EUR53189,31
