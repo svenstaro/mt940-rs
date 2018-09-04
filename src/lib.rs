@@ -1,6 +1,5 @@
 extern crate combine;
 
-use combine::parser::byte;
 use combine::parser::char;
 use combine::parser::repeat::take_until;
 use combine::*;
@@ -30,21 +29,29 @@ where
     I: Stream<Item = char>,
     I::Error: ParseError<I::Item, I::Range, I::Position>,
 {
-    (mt940_tag(), take_until(byte::bytes(&b"\r\n"[..])))
+    (mt940_tag(), take_until(char::string("\r\n")))
 }
 
-// fn mt940_statement<I>() -> impl Parser<Input = I, Output = (String)>
-// where
-//     I: Stream<Item = char>,
-//     I::Error: ParseError<I::Item, I::Range, I::Position>,
-// {
-//     let record_start = (mt940_tag, take_until(byte::bytes(&b"\r\n"[..])));
-//
-//     (
-//         record_start,
-//         many((not_followed_by(look_ahead(mt940_tag)), "\r\n")),
-//     )
-// }
+fn mt940_record<I>() -> impl Parser<Input = I, Output = Record>
+where
+    I: Stream<Item = char>,
+    I::Error: ParseError<I::Item, I::Range, I::Position>,
+{
+    (
+        mt940_record_start(),
+        many::<String, _>(
+            (
+                not_followed_by(look_ahead(mt940_tag()).map(|_| "mt940_tag")),
+                char::string("\r\n"),
+            )
+                .map(|(_, x)| x),
+        ),
+    )
+        .map(|(start, rest)| Record {
+            tag: start.0,
+            message: format!("{start}{rest}", start=start.1, rest=rest),
+        })
+}
 
 #[cfg(test)]
 mod tests {
@@ -52,32 +59,31 @@ mod tests {
 
     #[test]
     fn parse_mt940_tag() {
-        let result = mt940_tag().parse(":20:");
-        assert_eq!(result, Ok(("20".to_string(), "")));
+        let expected = Ok(("20".to_string(), ""));
+        let result = mt940_tag().easy_parse(":20:");
+        assert_eq!(expected, result);
     }
 
-    // #[test]
-    // fn parse_mt940_message() {
-    //     assert_eq!(
-    //         mt940_message("3996-11-11111111\r\n".into()),
-    //         Ok((EMPTY, "3996-11-11111111".into()))
-    //     );
-    // }
-    //
-    // #[test]
-    // fn parse_mt940_record() {
-    //     assert_eq!(
-    //         mt940_record(":20:3996-11-11111111\r\n".into()),
-    //         Ok((
-    //             EMPTY,
-    //             Statement {
-    //                 prefix: "20".to_string(),
-    //                 message: "3996-11-11111111".to_string(),
-    //             }
-    //         ))
-    //     );
-    // }
-    //
+    #[test]
+    fn parse_mt940_record_start() {
+        let expected = Ok((("20".to_string(), "3996-11-11111111".to_string()), "\r\n"));
+        let result = mt940_record_start().easy_parse(":20:3996-11-11111111\r\n");
+        assert_eq!(expected, result);
+    }
+
+    #[test]
+    fn parse_mt940_record() {
+        let expected = Ok((
+            Record {
+                tag: "20".to_string(),
+                message: "3996-11-11111111\r\nTESTTEST\r\nMORETEST\r\n".to_string(),
+            },
+            "",
+        ));
+        let result = mt940_record().easy_parse(":20:3996-11-11111111\r\nTESTTEST\r\nMORETEST\r\n");
+        assert_eq!(expected, result);
+    }
+
     // #[test]
     // fn parse_mt940_statement() {
     //     let test_data = ":20:3996-1234567890\r\n:25:DABADKKK/1234567890\r\n";
