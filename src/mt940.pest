@@ -1,0 +1,7 @@
+tag_without_sep = { ASCII_ALPHANUMERIC+ }
+tag = { ":" ~ tag_without_sep+ ~ ":" }
+// From: http://www.sepaforcorporates.com/swift-for-corporates/quick-guide-swift-mt101-format/
+swift_char = _{ ASCII_ALPHANUMERIC | "/" | "-" | "?" | ":" | "(" | ")" | "." | "," | "‘" | "+" | "{" | "}" | " " | NEWLINE }
+message = { (!tag ~ swift_char)+ }
+record = { tag ~ message }
+statement = _{ SOI ~ record+ ~ EOI }
