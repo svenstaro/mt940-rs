@@ -1,8 +1,16 @@
-extern crate combine;
+extern crate pest;
+#[macro_use]
+extern crate pest_derive;
 
-use combine::parser::char;
-use combine::parser::repeat::take_until;
-use combine::*;
+#[cfg(test)]
+#[macro_use]
+extern crate pretty_assertions;
+
+use pest::Parser;
+
+#[derive(Parser)]
+#[grammar = "mt940.pest"]
+pub struct MT940Parser;
 
 #[derive(Debug, PartialEq)]
 pub struct Record {
@@ -10,57 +18,29 @@ pub struct Record {
     pub message: String,
 }
 
-fn mt940_tag<I>() -> impl Parser<Input = I, Output = String>
-where
-    I: Stream<Item = char>,
-    I::Error: ParseError<I::Item, I::Range, I::Position>,
-{
-    (
-        token(':'),
-        char::digit(),
-        many::<String, _>(char::alpha_num()),
-        token(':'),
-    )
-        .map(|(_, x, y, _)| format!("{}{}", x, y))
-}
-
-fn mt940_record_start<I>() -> impl Parser<Input = I, Output = (String, String)>
-where
-    I: Stream<Item = char>,
-    I::Error: ParseError<I::Item, I::Range, I::Position>,
-{
-    (mt940_tag(), take_until(char::string("\r\n")))
-}
-
-fn mt940_record<I>() -> impl Parser<Input = I, Output = Record>
-where
-    I: Stream<Item = char>,
-    I::Error: ParseError<I::Item, I::Range, I::Position>,
-{
-    (
-        mt940_record_start(),
-        many::<Vec<_>, _>(
-            (
-                not_followed_by(look_ahead(mt940_tag()).map(|_| "mt940_tag")),
-                take_until(char::string("\r\n")),
-                char::string("\r\n"),
-            )
-                .map(|(_, x, _): (_, String, _)| x),
-        ),
-    )
-        .map(|(start, rest)| Record {
-            tag: start.0,
-            message: format!("{start}{rest}", start = start.1, rest = rest.join("\n")),
-        })
-}
-
-/// A Statement is just a list of Records.
-fn mt940_statement<I>() -> impl Parser<Input = I, Output = Vec<Record>>
-where
-    I: Stream<Item = char>,
-    I::Error: ParseError<I::Item, I::Range, I::Position>,
-{
-    many1::<Vec<_>, _>(mt940_record())
+fn parse_mt940(statement: &str) -> Result<Vec<Record>, pest::error::Error<Rule>> {
+    let parse_result = MT940Parser::parse(Rule::statement, statement)?;
+    let mut records = vec![];
+    for record in parse_result {
+        if let Rule::record = record.as_rule() {
+            let mut inner_record = record.into_inner();
+            let tag = inner_record
+                .next()
+                .unwrap()
+                .clone()
+                .into_inner()
+                .next()
+                .unwrap()
+                .as_str()
+                .to_owned();
+            let message = inner_record
+                .as_str()
+                .replace("\r\n", "\n")
+                .to_owned();
+            records.push(Record { tag, message });
+        }
+    }
+    Ok(records)
 }
 
 #[cfg(test)]
@@ -69,29 +49,35 @@ mod tests {
 
     #[test]
     fn parse_mt940_tag() {
-        let expected = Ok(("20".to_string(), ""));
-        let result = mt940_tag().easy_parse(":20:");
-        assert_eq!(expected, result);
+        let expected = "20";
+        let result = MT940Parser::parse(Rule::tag, ":20:");
+        assert_eq!(
+            expected,
+            result.unwrap().next().unwrap().into_inner().as_str()
+        );
     }
 
     #[test]
-    fn parse_mt940_record_start() {
-        let expected = Ok((("20".to_string(), "3996-11-11111111".to_string()), "\r\n"));
-        let result = mt940_record_start().easy_parse(":20:3996-11-11111111\r\n");
-        assert_eq!(expected, result);
+    fn parse_mt940_record_single_line() {
+        let expected = Record {
+            tag: "20".to_string(),
+            message: "3996-11-11111111\n".to_string(),
+        };
+        let result = parse_mt940(":20:3996-11-11111111\r\n").unwrap();
+        assert_eq!(expected, result[0]);
     }
 
     #[test]
     fn parse_mt940_record() {
-        let expected = Ok((
-            Record {
-                tag: "20".to_string(),
-                message: "3996-11-11111111\nTESTTEST\nMORETEST".to_string(),
-            },
-            "",
-        ));
-        let result = mt940_record().easy_parse(":20:3996-11-11111111\r\nTESTTEST\r\nMORETEST\r\n:50:some-other-message\r\n");
-        assert_eq!(expected, result);
+        let expected = Record {
+            tag: "20".to_string(),
+            message: "3996-11-11111111\nTES TTEST\nMORETEST\n".to_string(),
+        };
+        let result = parse_mt940(
+            ":20:3996-11-11111111\r\nTES TTEST\r\nMORETEST\r\n:50:some-other-message\r\n",
+        )
+        .unwrap();
+        assert_eq!(expected, result[0]);
     }
 
     #[test]
@@ -118,67 +104,66 @@ mod tests {
             \r\n
         ";
 
-        let expected = Ok((
-            vec![
-                Record {
-                    tag: "20".to_string(),
-                    message: "3996-1234567890".to_string(),
-                },
-                Record {
-                    tag: "25".to_string(),
-                    message: "DABADKKK/1234567890".to_string(),
-                },
-                Record {
-                    tag: "28C".to_string(),
-                    message: "00014/001".to_string(),
-                },
-                Record {
-                    tag: "60F".to_string(),
-                    message: "C091019DKK3859701,48".to_string(),
-                },
-                Record {
-                    tag: "86".to_string(),
-                    message: "For your inform. IBAN no.: DK5030001234567890\n\
-                              DABADKKK\n\
-                              1234567890\n\
-                              DANSKE BANK                        HOLMENS KANAL 2-12\
-                              ".to_string(),
-                },
-                Record {
-                    tag: "61".to_string(),
-                    message: "0910201020DK5312,50NMSCDBT.teste kunden".to_string(),
-                },
-                Record {
-                    tag: "86".to_string(),
-                    message: "F.M.T.\n\
-                              V/TESTE KUNDEN\n\
-                              HOLMENS KANAL 2-12\n\
-                              1192  KOBENHAVN H\n\
-                              ".to_string(),
-                },
-                Record {
-                    tag: "61".to_string(),
-                    message: "0910201020DK3009,51NMSCDBT.Pet Van Park".to_string(),
-                },
-                Record {
-                    tag: "86".to_string(),
-                    message: "DBTS 1111272333/Bnf. PET VAN PARK AMSTERDAM/Bnf.acc. NL47ABNAXXXX\n\
-                              558756/Our fee DKK 40,00/Foreign fee DKK 200,00"
-                        .to_string(),
-                },
-                Record {
-                    tag: "62F".to_string(),
-                    message: "C091020DKK3851379,47".to_string(),
-                },
-                Record {
-                    tag: "64".to_string(),
-                    message: "C091020DKK3851379,47".to_string(),
-                },
-            ],
-            "",
-        ));
+        let expected = vec![
+            Record {
+                tag: "20".to_string(),
+                message: "3996-1234567890\n".to_string(),
+            },
+            Record {
+                tag: "25".to_string(),
+                message: "DABADKKK/1234567890".to_string(),
+            },
+            Record {
+                tag: "28C".to_string(),
+                message: "00014/001".to_string(),
+            },
+            Record {
+                tag: "60F".to_string(),
+                message: "C091019DKK3859701,48".to_string(),
+            },
+            Record {
+                tag: "86".to_string(),
+                message: "For your inform. IBAN no.: DK5030001234567890\n\
+                          DABADKKK\n\
+                          1234567890\n\
+                          DANSKE BANK                        HOLMENS KANAL 2-12\
+                          "
+                .to_string(),
+            },
+            Record {
+                tag: "61".to_string(),
+                message: "0910201020DK5312,50NMSCDBT.teste kunden\n".to_string(),
+            },
+            Record {
+                tag: "86".to_string(),
+                message: "F.M.T.\n\
+                          V/TESTE KUNDEN\n\
+                          HOLMENS KANAL 2-12\n\
+                          1192  KOBENHAVN H\n\
+                          "
+                .to_string(),
+            },
+            Record {
+                tag: "61".to_string(),
+                message: "0910201020DK3009,51NMSCDBT.Pet Van Park\n".to_string(),
+            },
+            Record {
+                tag: "86".to_string(),
+                message: "DBTS 1111272333/Bnf. PET VAN PARK AMSTERDAM/Bnf.acc. NL47ABNAXXXX\n\
+                          558756/Our fee DKK 40,00/Foreign fee DKK 200,00"
+                    .to_string(),
+            },
+            Record {
+                tag: "62F".to_string(),
+                message: "C091020DKK3851379,47".to_string(),
+            },
+            Record {
+                tag: "64".to_string(),
+                message: "C091020DKK3851379,47".to_string(),
+            },
+        ];
 
-        let result = mt940_statement().easy_parse(test_data);
+        let result = parse_mt940(test_data).unwrap();
         assert_eq!(expected, result);
     }
 }
