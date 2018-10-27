@@ -2,7 +2,11 @@
 name = "mt940-rs"
 version = "0.1.0"
 authors = ["Sven-Hendrik Haase <svenstaro@gmail.com>"]
+edition = "2018"
 
-[dependencies.nom]
-version = "4"
-features = ["verbose-errors"]
+[dependencies]
+pest = "2"
+pest_derive = "2"
+
+[dev-dependencies]
+pretty_assertions = "0.5"
