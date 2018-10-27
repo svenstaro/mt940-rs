@@ -36,6 +36,7 @@ fn parse_mt940(statement: &str) -> Result<Vec<Record>, pest::error::Error<Rule>>
             let message = inner_record
                 .as_str()
                 .replace("\r\n", "\n")
+                .trim()
                 .to_owned();
             records.push(Record { tag, message });
         }
@@ -61,7 +62,7 @@ mod tests {
     fn parse_mt940_record_single_line() {
         let expected = Record {
             tag: "20".to_string(),
-            message: "3996-11-11111111\n".to_string(),
+            message: "3996-11-11111111".to_string(),
         };
         let result = parse_mt940(":20:3996-11-11111111\r\n").unwrap();
         assert_eq!(expected, result[0]);
@@ -71,7 +72,7 @@ mod tests {
     fn parse_mt940_record() {
         let expected = Record {
             tag: "20".to_string(),
-            message: "3996-11-11111111\nTES TTEST\nMORETEST\n".to_string(),
+            message: "3996-11-11111111\nTES TTEST\nMORETEST".to_string(),
         };
         let result = parse_mt940(
             ":20:3996-11-11111111\r\nTES TTEST\r\nMORETEST\r\n:50:some-other-message\r\n",
@@ -88,9 +89,9 @@ mod tests {
             :28C:00014/001\r\n\
             :60F:C091019DKK3859701,48\r\n\
             :86:For your inform. IBAN no.: DK5030001234567890\r\n\
-            :86:DABADKKK                                                 \r\n\
-            :86:1234567890\r\n\
-            :86:DANSKE BANK                        HOLMENS KANAL 2-12\r\n\
+            DABADKKK                                                 \r\n\
+            1234567890\r\n\
+            DANSKE BANK                        HOLMENS KANAL 2-12\r\n\
             :61:0910201020DK5312,50NMSCDBT.teste kunden\r\n\
             :86:F.M.T.\r\n\
             V/TESTE KUNDEN\r\n\
@@ -101,13 +102,13 @@ mod tests {
             558756/Our fee DKK 40,00/Foreign fee DKK 200,00\r\n\
             :62F:C091020DKK3851379,47\r\n\
             :64:C091020DKK3851379,47\r\n\
-            \r\n
+            \r\n\
         ";
 
         let expected = vec![
             Record {
                 tag: "20".to_string(),
-                message: "3996-1234567890\n".to_string(),
+                message: "3996-1234567890".to_string(),
             },
             Record {
                 tag: "25".to_string(),
@@ -124,7 +125,7 @@ mod tests {
             Record {
                 tag: "86".to_string(),
                 message: "For your inform. IBAN no.: DK5030001234567890\n\
-                          DABADKKK\n\
+                          DABADKKK                                                 \n\
                           1234567890\n\
                           DANSKE BANK                        HOLMENS KANAL 2-12\
                           "
@@ -132,20 +133,20 @@ mod tests {
             },
             Record {
                 tag: "61".to_string(),
-                message: "0910201020DK5312,50NMSCDBT.teste kunden\n".to_string(),
+                message: "0910201020DK5312,50NMSCDBT.teste kunden".to_string(),
             },
             Record {
                 tag: "86".to_string(),
                 message: "F.M.T.\n\
                           V/TESTE KUNDEN\n\
                           HOLMENS KANAL 2-12\n\
-                          1192  KOBENHAVN H\n\
+                          1192  KOBENHAVN H\
                           "
                 .to_string(),
             },
             Record {
                 tag: "61".to_string(),
-                message: "0910201020DK3009,51NMSCDBT.Pet Van Park\n".to_string(),
+                message: "0910201020DK3009,51NMSCDBT.Pet Van Park".to_string(),
             },
             Record {
                 tag: "86".to_string(),
