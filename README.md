@@ -1,6 +1,6 @@
 # mt940-rs
 
-[![Build Status](https://travis-ci.org/svenstaro/mt940-rs.svg?branch=master)](https://travis-ci.org/svenstaro/mt940-rs)
+[![Build Status](https://travis-ci.com/svenstaro/mt940-rs.svg?branch=master)](https://travis-ci.org/svenstaro/mt940-rs)
 [![Crates.io](https://img.shields.io/crates/v/mt940-rs.svg)](https://crates.io/crates/mt940-rs)
 [![dependency status](https://deps.rs/repo/github/svenstaro/mt940-rs/status.svg)](https://deps.rs/repo/github/svenstaro/mt940-rs)
 [![license](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/svenstaro/mt940-rs/blob/master/LICENSE)
