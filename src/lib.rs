@@ -22,7 +22,7 @@ fn parse_mt940(statement: &str) -> Result<Vec<Record>, pest::error::Error<Rule>>
     let parse_result = MT940Parser::parse(Rule::statement, statement)?;
     let mut records = vec![];
     for record in parse_result {
-        if let Rule::record = record.as_rule() {
+        if let Rule::entry = record.as_rule() {
             let mut inner_record = record.into_inner();
             let tag = inner_record
                 .next()

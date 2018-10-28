@@ -11,6 +11,8 @@ Parse mt940 statements in Rust.
 
 ## Resources
 
+Lots of test data copied from https://github.com/WoLpH/mt940
+
 - https://danskebank.com/en-uk/ci/Products-Services/Transaction-Services/Online-Services/Integration-Services/Documents/Formats/FormatDescriptionSWIFT_MT942/MT942.pdf
 - https://danskebank.com/en-uk/ci/Products-Services/Transaction-Services/Online-Services/Integration-Services/Formats/Pages/SWIFT-formats.aspx
 - https://deutschebank.nl/nl/docs/MT94042_EN.pdf

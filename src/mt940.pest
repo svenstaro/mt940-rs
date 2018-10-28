@@ -2,6 +2,21 @@ tag_without_sep = { ASCII_ALPHANUMERIC+ }
 tag = { ":" ~ tag_without_sep+ ~ ":" }
 // From: http://www.sepaforcorporates.com/swift-for-corporates/quick-guide-swift-mt101-format/
 swift_char = _{ ASCII_ALPHANUMERIC | "/" | "-" | "?" | ":" | "(" | ")" | "." | "," | "‘" | "+" | "{" | "}" | " " | NEWLINE }
-message = { (!tag ~ swift_char)+ }
-record = { tag ~ message }
-statement = _{ SOI ~ record+ ~ EOI }
+field = { (!tag ~ swift_char)+ }
+entry = { tag ~ field }
+statement = _{ SOI ~ entry+ ~ EOI }
+
+tag_20_message = {  }
+
+transaction = {
+    tag_20_message ~
+    tag_21_message? ~
+    tag_25_message ~
+    tag_28c_message ~
+    (tag_60a_message | tag_60f_message | tag_60m_message) ~
+    (tag_61_message ~ tag_86_message?)* ~
+    (tag_62a_message | tag_62f_message | tag_62m_message) ~
+    tag_64_message? ~
+    tag_65_message* ~
+    tag_86_message?
+}
