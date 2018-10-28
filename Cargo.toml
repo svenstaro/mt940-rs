@@ -6,6 +6,7 @@ authors = ["Sven-Hendrik Haase <svenstaro@gmail.com>"]
 [dependencies]
 pest = "2"
 pest_derive = "2"
+derive_builder = "0.7"
 
 [dev-dependencies]
 pretty_assertions = "0.5"
