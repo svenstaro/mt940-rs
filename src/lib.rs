@@ -2,9 +2,6 @@ extern crate pest;
 #[macro_use]
 extern crate pest_derive;
 
-#[macro_use]
-extern crate derive_builder;
-
 #[cfg(test)]
 #[macro_use]
 extern crate pretty_assertions;
@@ -15,10 +12,9 @@ use pest::Parser;
 #[grammar = "mt940.pest"]
 pub struct MT940Parser;
 
-#[derive(Debug, PartialEq, Builder)]
+#[derive(Debug, Eq, PartialEq)]
 pub struct Message {
     pub transaction_ref_no: String,
-    #[builder(default)]
     pub ref_to_related_msg: Option<String>,
     pub account_id: String,
     // pub statement_no: u32,
@@ -26,80 +22,86 @@ pub struct Message {
     // pub opening_balance: u32,
 }
 
-fn parse_mt940(statement: &str) -> Result<Vec<Message>, pest::error::Error<Rule>> {
-    let parsed_statement = MT940Parser::parse(Rule::statement, statement)?;
-    let mut messages = vec![];
-    for parsed_message in parsed_statement {
-        if let Rule::EOI = parsed_message.as_rule() {
+#[derive(Debug, Eq, PartialEq)]
+pub struct Field {
+    pub tag: String,
+    pub value: String,
+}
+
+pub fn parse_fields(statement: &str) -> Result<Vec<Field>, pest::error::Error<Rule>> {
+    let parsed_fields = MT940Parser::parse(Rule::fields, statement)?;
+
+    let mut fields = vec![];
+    for parsed_field in parsed_fields {
+        if let Rule::EOI = parsed_field.as_rule() {
             break;
         }
-
-        let mut m_builder = MessageBuilder::default();
-        let mut field_pairs = parsed_message.clone().into_inner();
-        for field_pair in field_pairs {
-            println!("{:#?}", field_pair);
-            match field_pair.as_rule() {
-                Rule::field_20_entry => {
-                    m_builder.transaction_ref_no(
-                        field_pair
-                            .clone()
-                            .into_inner()
-                            .skip(1)
-                            .next()
-                            .unwrap()
-                            .as_str()
-                            .to_owned(),
-                    );
-                }
-                Rule::field_21_entry => {
-                    m_builder.ref_to_related_msg(Some(
-                        field_pair
-                            .clone()
-                            .into_inner()
-                            .skip(1)
-                            .next()
-                            .unwrap()
-                            .as_str()
-                            .to_owned(),
-                    ));
-                }
-                Rule::field_25_entry => {
-                    m_builder.account_id(
-                        field_pair
-                            .clone()
-                            .into_inner()
-                            .skip(1)
-                            .next()
-                            .unwrap()
-                            .as_str()
-                            .to_owned(),
-                    );
-                }
-                _ => (),
-            };
-        }
-        let message = m_builder.build();
-        match message {
-            Ok(m) => messages.push(m),
-            Err(e) => panic!(e),
-        }
-        // println!("{:#?}", field_pairs.as_rule());
-        //     let tag = inner_record
-        //         .next()
-        //         .unwrap()
-        //         .clone()
-        //         .into_inner()
-        //         .next()
-        //         .unwrap()
-        //         .as_str()
-        //         .to_owned();
-        //     let message = inner_record
-        //         .as_str()
-        //         .replace("\r\n", "\n")
-        //         .trim()
-        //         .to_owned();
-        // messages.push(message);
+        let inner = parsed_field.into_inner();
+        let tag = inner
+            .clone()
+            .next()
+            .unwrap()
+            .into_inner()
+            .as_str()
+            .to_string();
+        let value = inner
+            .clone()
+            .skip(1)
+            .next()
+            .unwrap()
+            .as_str()
+            .trim()
+            .replace("\r\n", "\n")
+            .to_string();
+        let field = Field { tag, value };
+        fields.push(field);
     }
+
+    Ok(fields)
+}
+
+fn parse_mt940(statement: &str) -> Result<Vec<Message>, String> {
+    let fields = parse_fields(statement).map_err(|e| format!("{}", e))?;
+
+    println!("{:#?}", fields);
+
+    let mut messages = vec![];
+    let mut current_transaction_ref_no = "";
+
+    // Only a few tags may follow after each specific tag.
+    let mut next_expected_tags = vec!["20"];
+
+    for field in fields {
+        // TODO Log crate
+        println!("current tag: {}", field.tag);
+        if !next_expected_tags.contains(&&field.tag.as_str()) {
+            // TODO: Custom Error type
+            return Err(format!(
+                "Expected one of {expected:?}, instead found {found}",
+                expected = next_expected_tags,
+                found = field.tag
+            ));
+        }
+
+
+
+        next_expected_tags = match field.tag.as_str() {
+            "20" => vec!["21", "25"],
+            "21" => vec!["25"],
+            "25" => vec!["28", "28C"],
+            "28" | "28C" => vec!["60M", "60F"],
+            "60M" | "60F" => vec!["61", "62M", "62F", "86"],
+            "61" => vec!["86", "62M", "62F"],
+            "86" => vec!["61", "62M", "62F"],
+            "62M" | "62F" => vec!["64", "65", "86"],
+            "64" => vec!["65", "86"],
+            "65" => vec!["65", "86"],
+            "86" => vec![],
+            _ => unreachable!(),
+        };
+        println!("{:#?}", next_expected_tags);
+    }
+
     Ok(messages)
 }
 

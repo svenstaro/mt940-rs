@@ -1,36 +1,34 @@
-//tag_without_sep = { ASCII_ALPHANUMERIC+ }
-//tag = { ":" ~ tag_without_sep+ ~ ":" }
-tag = { ":" ~ ASCII_ALPHANUMERIC+ ~ ":" }
+tag_no = { ASCII_ALPHANUMERIC+ }
+tag = { ":" ~ tag_no ~ ":" }
 // From: http://www.sepaforcorporates.com/swift-for-corporates/quick-guide-swift-mt101-format/
 swift_char = _{ ASCII_ALPHANUMERIC | "/" | "-" | "?" | ":" | "(" | ")" | "." | "," | "‘" | "+" | "{" | "}" | " " | NEWLINE }
-//field = { (!tag ~ swift_char)+ }
-//entry = { tag ~ field }
+field_value = { (!tag ~ swift_char)+ }
+field = { tag ~ field_value }
+fields = _{ SOI ~ field+ ~ EOI }
+
+year = { ASCII_DIGIT{2} }
+month = { "0" | "1" ~ '0'..'2' }
+day = { '0'..'3' ~ ASCII_DIGIT }
+date = { year ~ month ~ day }
+
+//field_20_no = { ":20:" }
+//field_20_subfields = { (!tag ~ swift_char{1, 16}) }
+//field_20_entry = { field_20_no ~ field_20_subfields }
 //
-//year = { ASCII_DIGIT{2} }
-//month = { "0" | "1" ~ '0'..'2' }
-//day = { '0'..'3' ~ ASCII_DIGIT }
-//date = { year ~ month ~ day }
-
-field_20_no = { ":20:" }
-field_20_subfields = { (!tag ~ swift_char{1, 16}) }
-field_20_entry = { field_20_no ~ field_20_subfields }
-
-field_21_no = { ":21:" }
-field_21_subfields = { (!tag ~ swift_char{1, 16}) }
-field_21_entry = { field_21_no ~ field_21_subfields }
-
-field_25_no = { ":25:" }
-field_25_subfields = { (!tag ~ swift_char){1, 35} }
-field_25_entry = { field_25_no ~ field_25_subfields }
-
-message = {
-    field_20_entry ~
-    field_21_entry? ~
-    field_25_entry ~
-    ANY*
-}
-
-statement = _{ SOI ~ message+ ~ EOI }
+//field_21_no = { ":21:" }
+//field_21_subfields = { (!tag ~ swift_char{1, 16}) }
+//field_21_entry = { field_21_no ~ field_21_subfields }
+//
+//field_25_no = { ":25:" }
+//field_25_subfields = { (!tag ~ swift_char){1, 35} }
+//field_25_entry = { field_25_no ~ field_25_subfields }
+//
+//message = {
+//    field_20_entry ~
+//    field_21_entry? ~
+//    field_25_entry ~
+//    ANY*
+//}
 
 // transaction = {
 //     tag_20_message ~
