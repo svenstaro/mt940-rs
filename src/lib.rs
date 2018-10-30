@@ -2,6 +2,9 @@ extern crate pest;
 #[macro_use]
 extern crate pest_derive;
 
+#[macro_use]
+extern crate log;
+
 #[cfg(test)]
 #[macro_use]
 extern crate pretty_assertions;
@@ -12,16 +15,88 @@ use pest::Parser;
 #[grammar = "mt940.pest"]
 pub struct MT940Parser;
 
+#[derive(Debug)]
+pub enum Error {
+    Multiple20Tags,
+    No20Tag,
+}
+
 #[derive(Debug, Eq, PartialEq)]
 pub struct Message {
+    // Tag :20:
     pub transaction_ref_no: String,
+
+    // Tag :21:
     pub ref_to_related_msg: Option<String>,
+
+    // Tag :25:
     pub account_id: String,
     // pub statement_no: u32,
     // pub sequence_no: u32,
     // pub opening_balance: u32,
 }
 
+impl Message {
+    /// Construct a new `Message` from a list of fields.
+    ///
+    /// Must start with field `:20:`. Must not contain more than one `:20:` tag.
+    fn from_fields(fields: Vec<Field>) -> Result<Message, Error> {
+        // Only a few tags may follow after each specific tag.
+        let mut next_expected_tags = vec!["20"];
+
+        match field.tag.as_str() {
+            "20" => {
+                transaction_ref_no = Some(field.value);
+                next_expected_tags = vec!["21", "25"];
+            },
+            "21" => {
+                ref_to_related_msg = Some(field.value);
+                next_expected_tags = vec!["25"];
+            },
+            "25" => {
+                account_id = Some(field.value);
+                next_expected_tags = vec!["28", "28C"];
+            },
+            "28" | "28C" => {
+                next_expected_tags = vec!["60M", "60F"];
+            },
+            "60M" | "60F" => {
+                next_expected_tags = vec!["61", "62M", "62F", "86"];
+            },
+            "61" => {
+                next_expected_tags = vec!["86", "62M", "62F"];
+            },
+            "86" => {
+                next_expected_tags = vec!["61", "62M", "62F"];
+            },
+            "62M" | "62F" => {
+                next_expected_tags = vec!["64", "65", "86"];
+            },
+            "64" => {
+                next_expected_tags = vec!["65", "86"];
+            },
+            "65" => {
+                next_expected_tags = vec!["65", "86"];
+            },
+            "86" => {
+                next_expected_tags = vec![];
+            },
+            _ => unreachable!(),
+        }
+
+        if !next_expected_tags.contains(&&field.tag.as_str()) {
+            // TODO: Custom Error type
+            return Err(format!(
+                "Expected one of {expected:?}, instead found {found}",
+                expected = next_expected_tags,
+                found = field.tag
+            ));
+        }
+    }
+}
+
+/// This is a generic struct that serves as a container for the first pass of the parser.
+/// It simply stores every field with absolutely no parsing or validation done on field values.
 #[derive(Debug, Eq, PartialEq)]
 pub struct Field {
     pub tag: String,
@@ -60,47 +135,28 @@ pub fn parse_fields(statement: &str) -> Result<Vec<Field>, pest::error::Error<Ru
     Ok(fields)
 }
 
-fn parse_mt940(statement: &str) -> Result<Vec<Message>, String> {
+fn parse_mt940(statement: &str) -> Result<Vec<Message>, Error> {
     let fields = parse_fields(statement).map_err(|e| format!("{}", e))?;
 
-    println!("{:#?}", fields);
-
     let mut messages = vec![];
-    let mut current_transaction_ref_no = "";
 
-    // Only a few tags may follow after each specific tag.
-    let mut next_expected_tags = vec!["20"];
-
+    let mut fields_for_next_message = vec![];
     for field in fields {
-        // TODO Log crate
-        println!("current tag: {}", field.tag);
-        if !next_expected_tags.contains(&&field.tag.as_str()) {
-            // TODO: Custom Error type
-            return Err(format!(
-                "Expected one of {expected:?}, instead found {found}",
-                expected = next_expected_tags,
-                found = field.tag
-            ));
+        fields_for_next_message.push(field);
+
+        // Any time we come across a tag :20: we start a new Message with all the currently
+        // accumulated Fields above.
+        if field.tag == ":20:" {
+            messages.push(Message::from_fields(fields_for_next_message)?)
         }
-
-
-
-        next_expected_tags = match field.tag.as_str() {
-            "20" => vec!["21", "25"],
-            "21" => vec!["25"],
-            "25" => vec!["28", "28C"],
-            "28" | "28C" => vec!["60M", "60F"],
-            "60M" | "60F" => vec!["61", "62M", "62F", "86"],
-            "61" => vec!["86", "62M", "62F"],
-            "86" => vec!["61", "62M", "62F"],
-            "62M" | "62F" => vec!["64", "65", "86"],
-            "64" => vec!["65", "86"],
-            "65" => vec!["65", "86"],
-            "86" => vec![],
-            _ => unreachable!(),
-        };
-        println!("{:#?}", next_expected_tags);
+        debug!("Now parsing tag: {}", field.tag);
     }
+
+    // Message {
+    //     transaction_ref_no,
+    //     ref_to_related_msg,
+    //     account_id,
+    // }
 
     Ok(messages)
 }

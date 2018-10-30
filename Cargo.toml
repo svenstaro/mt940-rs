@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["Sven-Hendrik Haase <svenstaro@gmail.com>"]
 
 [dependencies]
+log = "0.4"
 pest = "2"
 pest_derive = "2"
 
