@@ -17,8 +17,9 @@ pub struct MT940Parser;
 
 #[derive(Debug)]
 pub enum Error {
-    Multiple20Tags,
-    No20Tag,
+    PestParseError(pest::error::Error<Rule>),
+    UnexpectedTag,
+    RequiredTagNotFound(String, String),
 }
 
 #[derive(Debug, Eq, PartialEq)]
@@ -42,56 +43,71 @@ impl Message {
     /// Must start with field `:20:`. Must not contain more than one `:20:` tag.
     fn from_fields(fields: Vec<Field>) -> Result<Message, Error> {
         // Only a few tags may follow after each specific tag.
-        let mut next_expected_tags = vec!["20"];
+        let mut current_acceptable_tags = vec!["20"];
 
-        match field.tag.as_str() {
-            "20" => {
-                transaction_ref_no = Some(field.value);
-                next_expected_tags = vec!["21", "25"];
-            },
-            "21" => {
-                ref_to_related_msg = Some(field.value);
-                next_expected_tags = vec!["25"];
-            },
-            "25" => {
-                account_id = Some(field.value);
-                next_expected_tags = vec!["28", "28C"];
-            },
-            "28" | "28C" => {
-                next_expected_tags = vec!["60M", "60F"];
-            },
-            "60M" | "60F" => {
-                next_expected_tags = vec!["61", "62M", "62F", "86"];
-            },
-            "61" => {
-                next_expected_tags = vec!["86", "62M", "62F"];
-            },
-            "86" => {
-                next_expected_tags = vec!["61", "62M", "62F"];
-            },
-            "62M" | "62F" => {
-                next_expected_tags = vec!["64", "65", "86"];
-            },
-            "64" => {
-                next_expected_tags = vec!["65", "86"];
-            },
-            "65" => {
-                next_expected_tags = vec!["65", "86"];
-            },
-            "86" => {
-                next_expected_tags = vec![];
-            },
-            _ => unreachable!(),
+        let mut transaction_ref_no = None;
+        let mut ref_to_related_msg = None;
+        let mut account_id = None;
+
+        for field in fields {
+            debug!("Now parsing tag: {}", field.tag);
+
+            if !current_acceptable_tags.contains(&&field.tag.as_str()) {
+                return Err(Error::UnexpectedTag);
+            }
+
+            // Set the next acceptable tags.
+            match field.tag.as_str() {
+                "20" => {
+                    transaction_ref_no = Some(field.value);
+                    current_acceptable_tags = vec!["21", "25"];
+                }
+                "21" => {
+                    ref_to_related_msg = Some(field.value);
+                    current_acceptable_tags = vec!["25"];
+                }
+                "25" => {
+                    account_id = Some(field.value);
+                    current_acceptable_tags = vec!["28", "28C"];
+                }
+                "28" | "28C" => {
+                    current_acceptable_tags = vec!["60M", "60F"];
+                }
+                "60M" | "60F" => {
+                    current_acceptable_tags = vec!["61", "62M", "62F", "86"];
+                }
+                "61" => {
+                    current_acceptable_tags = vec!["86", "62M", "62F"];
+                }
+                "86" => {
+                    current_acceptable_tags = vec!["61", "62M", "62F"];
+                }
+                "62M" | "62F" => {
+                    current_acceptable_tags = vec!["64", "65", "86"];
+                }
+                "64" => {
+                    current_acceptable_tags = vec!["65", "86"];
+                }
+                "65" => {
+                    current_acceptable_tags = vec!["65", "86"];
+                }
+                "86" => {
+                    current_acceptable_tags = vec![];
+                }
+                _ => unreachable!(),
+            }
         }
 
-        if !next_expected_tags.contains(&&field.tag.as_str()) {
-            // TODO: Custom Error type
-            return Err(format!(
-                "Expected one of {expected:?}, instead found {found}",
-                expected = next_expected_tags,
-                found = field.tag
-            ));
-        }
+        let message = Message {
+            transaction_ref_no: transaction_ref_no.ok_or(Error::RequiredTagNotFound(
+                "20".to_string(),
+                "Transaction Reference Number".to_string(),
+            ))?,
+            ref_to_related_msg: ref_to_related_msg?,
+            account_id: account_id?,
+        };
+
+        Ok(message)
     }
 }
 
@@ -136,28 +152,24 @@ pub fn parse_fields(statement: &str) -> Result<Vec<Field>, pest::error::Error<Ru
 }
 
 fn parse_mt940(statement: &str) -> Result<Vec<Message>, Error> {
-    let fields = parse_fields(statement).map_err(|e| format!("{}", e))?;
+    let fields = parse_fields(statement).map_err(|e| Error::PestParseError(e))?;
 
-    let mut messages = vec![];
+    let mut fields_per_message = vec![];
 
-    let mut fields_for_next_message = vec![];
+    let mut current_20_tag_index = -1i32;
     for field in fields {
-        fields_for_next_message.push(field);
-
-        // Any time we come across a tag :20: we start a new Message with all the currently
-        // accumulated Fields above.
-        if field.tag == ":20:" {
-            messages.push(Message::from_fields(fields_for_next_message)?)
+        if field.tag == "20" {
+            current_20_tag_index += 1;
+            fields_per_message.push(vec![]);
         }
-        debug!("Now parsing tag: {}", field.tag);
+        fields_per_message[current_20_tag_index as usize].push(field);
     }
 
-    // Message {
-    //     transaction_ref_no,
-    //     ref_to_related_msg,
-    //     account_id,
-    // }
-
+    let mut messages = vec![];
+    for mf in fields_per_message {
+        let m = Message::from_fields(mf)?;
+        messages.push(m);
+    }
     Ok(messages)
 }
 
