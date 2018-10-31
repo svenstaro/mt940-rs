@@ -10,16 +10,52 @@ extern crate log;
 extern crate pretty_assertions;
 
 use pest::Parser;
+use std::error;
+use std::fmt;
+use std::fs;
 
 #[derive(Parser)]
 #[grammar = "mt940.pest"]
 pub struct MT940Parser;
 
 #[derive(Debug)]
-pub enum Error {
+pub enum ParseError {
     PestParseError(pest::error::Error<Rule>),
-    UnexpectedTag,
-    RequiredTagNotFound(String, String),
+    UnexpectedTagError,
+    RequiredTagNotFoundError,
+}
+
+#[derive(Debug)]
+struct UnexpectedTagError {
+    current_tag: String,
+    last_tag: String,
+    expected_tags: Vec<String>,
+}
+
+impl UnexpectedTagError {
+    fn new(current_tag: String, last_tag: String, expected_tags: Vec<String>) {
+    }
+}
+
+impl fmt::Display for UnexpectedTagError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "Unexpected tag '{}' found. Expected one of '{}'. The tag before this one was '{:?}.",
+            self.current_tag, self.last_tag, self.expected_tags
+        )
+    }
+}
+
+#[derive(Debug)]
+struct RequiredTagNotFoundError {
+    required_tag: String,
+}
+
+impl fmt::Display for RequiredTagNotFoundError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Required tag '{}' not found.", self.required_tag,)
+    }
 }
 
 #[derive(Debug, Eq, PartialEq)]
@@ -41,7 +77,7 @@ impl Message {
     /// Construct a new `Message` from a list of fields.
     ///
     /// Must start with field `:20:`. Must not contain more than one `:20:` tag.
-    fn from_fields(fields: Vec<Field>) -> Result<Message, Error> {
+    fn from_fields(fields: Vec<Field>) -> Result<Message, ParseError> {
         // Only a few tags may follow after each specific tag.
         let mut current_acceptable_tags = vec!["20"];
 
@@ -49,11 +85,22 @@ impl Message {
         let mut ref_to_related_msg = None;
         let mut account_id = None;
 
+        // For better error reporting.
+        let mut last_tag = String::default();
+
         for field in fields {
             debug!("Now parsing tag: {}", field.tag);
 
+            let current_acceptable_tags_owned = current_acceptable_tags
+                .iter()
+                .map(|x| x.to_string())
+                .collect();
             if !current_acceptable_tags.contains(&&field.tag.as_str()) {
-                return Err(Error::UnexpectedTag);
+                return Err(UnexpectedTag::new()
+                    field.tag,
+                    last_tag,
+                    current_acceptable_tags_owned,
+                ));
             }
 
             // Set the next acceptable tags.
@@ -80,7 +127,7 @@ impl Message {
                     current_acceptable_tags = vec!["86", "62M", "62F"];
                 }
                 "86" => {
-                    current_acceptable_tags = vec!["61", "62M", "62F"];
+                    current_acceptable_tags = vec!["61", "62M", "62F", "86"];
                 }
                 "62M" | "62F" => {
                     current_acceptable_tags = vec!["64", "65", "86"];
@@ -91,20 +138,22 @@ impl Message {
                 "65" => {
                     current_acceptable_tags = vec!["65", "86"];
                 }
-                "86" => {
-                    current_acceptable_tags = vec![];
-                }
                 _ => unreachable!(),
             }
+
+            last_tag = field.tag;
         }
 
         let message = Message {
-            transaction_ref_no: transaction_ref_no.ok_or(Error::RequiredTagNotFound(
+            transaction_ref_no: transaction_ref_no.ok_or(ParseError::RequiredTagNotFound(
                 "20".to_string(),
                 "Transaction Reference Number".to_string(),
             ))?,
-            ref_to_related_msg: ref_to_related_msg?,
-            account_id: account_id?,
+            ref_to_related_msg: ref_to_related_msg,
+            account_id: account_id.ok_or(ParseError::RequiredTagNotFound(
+                "25".to_string(),
+                "Account Identification".to_string(),
+            ))?,
         };
 
         Ok(message)
@@ -151,8 +200,8 @@ pub fn parse_fields(statement: &str) -> Result<Vec<Field>, pest::error::Error<Ru
     Ok(fields)
 }
 
-fn parse_mt940(statement: &str) -> Result<Vec<Message>, Error> {
-    let fields = parse_fields(statement).map_err(|e| Error::PestParseError(e))?;
+fn parse_mt940(statement: &str) -> Result<Vec<Message>, ParseError> {
+    let fields = parse_fields(statement).map_err(|e| ParseError::PestParseError(e))?;
 
     let mut fields_per_message = vec![];
 
@@ -212,7 +261,7 @@ mod tests {
 
     #[test]
     fn parse_mt940_statement() {
-        let test_data = "\
+        let test_data = "asdadad\
                          :20:3996-1234567890\r\n\
                          :25:DABADKKK/1234567890\r\n\
                          :28C:00014/001\r\n\
@@ -241,6 +290,21 @@ mod tests {
         }];
 
         let result = parse_mt940(test_data).unwrap();
+        assert_eq!(expected, result);
+    }
+
+    #[test]
+    fn parse_mt940_statement_dk_example() {
+        let test_data =
+            fs::read_to_string("tests/data/self-provided/MT940_DK_Example.sta").unwrap();
+
+        let expected = vec![Message {
+            transaction_ref_no: "3996-1234567890".to_string(),
+            ref_to_related_msg: None,
+            account_id: "DABADKKK/1234567890".to_string(),
+        }];
+
+        let result = parse_mt940(&test_data).unwrap();
         assert_eq!(expected, result);
     }
 }
