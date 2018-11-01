@@ -1,12 +1,17 @@
 [package]
-name = "mt940-rs"
+name = "mt940"
 version = "0.1.0"
 authors = ["Sven-Hendrik Haase <svenstaro@gmail.com>"]
 
 [dependencies]
+clap = "2"
+chrono = { version = "0.4", features = ["serde"] }
 log = "0.4"
 pest = "2"
 pest_derive = "2"
+serde = "1"
+serde_derive = "1"
+serde_json = "1"
 
 [dev-dependencies]
 pretty_assertions = "0.5"
