@@ -33,7 +33,16 @@ struct UnexpectedTagError {
 }
 
 impl UnexpectedTagError {
-    fn new(current_tag: String, last_tag: String, expected_tags: Vec<String>) {
+    fn new(
+        current_tag: String,
+        last_tag: String,
+        expected_tags: Vec<String>,
+        ) -> UnexpectedTagError {
+        UnexpectedTagError {
+            current_tag,
+            last_tag,
+            expected_tags,
+        }
     }
 }
 
@@ -50,6 +59,12 @@ impl fmt::Display for UnexpectedTagError {
 #[derive(Debug)]
 struct RequiredTagNotFoundError {
     required_tag: String,
+}
+
+impl RequiredTagNotFoundError {
+    fn new(required_tag: String) -> RequiredTagNotFoundError {
+        RequiredTagNotFoundError { required_tag }
+    }
 }
 
 impl fmt::Display for RequiredTagNotFoundError {
@@ -96,11 +111,11 @@ impl Message {
                 .map(|x| x.to_string())
                 .collect();
             if !current_acceptable_tags.contains(&&field.tag.as_str()) {
-                return Err(UnexpectedTag::new()
-                    field.tag,
-                    last_tag,
-                    current_acceptable_tags_owned,
-                ));
+                return Err(UnexpectedTagError::new(
+                        field.tag,
+                        last_tag,
+                        current_acceptable_tags_owned,
+                        ));
             }
 
             // Set the next acceptable tags.
@@ -146,14 +161,14 @@ impl Message {
 
         let message = Message {
             transaction_ref_no: transaction_ref_no.ok_or(ParseError::RequiredTagNotFound(
-                "20".to_string(),
-                "Transaction Reference Number".to_string(),
-            ))?,
-            ref_to_related_msg: ref_to_related_msg,
-            account_id: account_id.ok_or(ParseError::RequiredTagNotFound(
-                "25".to_string(),
-                "Account Identification".to_string(),
-            ))?,
+                                        "20".to_string(),
+                                        "Transaction Reference Number".to_string(),
+                                        ))?,
+                                        ref_to_related_msg: ref_to_related_msg,
+                                        account_id: account_id.ok_or(ParseError::RequiredTagNotFound(
+                                                "25".to_string(),
+                                                "Account Identification".to_string(),
+                                                ))?,
         };
 
         Ok(message)
