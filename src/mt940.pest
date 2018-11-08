@@ -2,12 +2,13 @@ tag_no = { ASCII_ALPHANUMERIC+ }
 tag = { ":" ~ tag_no ~ ":" }
 // From: http://www.sepaforcorporates.com/swift-for-corporates/quick-guide-swift-mt101-format/
 swift_char = _{ ASCII_ALPHANUMERIC | "/" | "-" | "?" | ":" | "(" | ")" | "." | "," | "‘" | "+" | "{" | "}" | " " | NEWLINE }
+amount_char = _{ ASCII_DIGIT | "," }
 field_value = { (!tag ~ swift_char)+ }
 field = { tag ~ field_value }
 fields = _{ SOI ~ (field | swift_char)+ ~ EOI }
 
 year = { ASCII_DIGIT{2} }
-month = { "0" | "1" ~ '0'..'2' }
+month = { '0'..'1' ~ '0'..'9' }
 day = { '0'..'3' ~ ASCII_DIGIT }
 date = { year ~ month ~ day }
 
@@ -23,3 +24,8 @@ tag_25_field = { SOI ~ account_no ~ EOI }
 statement_no = { swift_char{1, 5} }
 sequence_no = { swift_char{0, 5} }
 tag_28c_field = { SOI ~ statement_no ~ ("/" ~ sequence_no)? ~ EOI }
+
+debit_credit_indicator = { "D" | "C" }
+iso_currency_code = { ASCII_ALPHA{3} }
+amount = { amount_char{1, 15} }
+tag_60_field = { SOI ~ debit_credit_indicator ~ date ~ iso_currency_code ~ amount }

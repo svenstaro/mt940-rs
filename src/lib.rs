@@ -15,10 +15,15 @@ extern crate serde_json;
 #[macro_use]
 extern crate serde_derive;
 
+extern crate chrono;
+extern crate rust_decimal;
+
 mod errors;
 
+use chrono::prelude::*;
 use errors::{ParseError, RequiredTagNotFoundError, UnexpectedTagError};
 use pest::Parser;
+use rust_decimal::Decimal;
 use std::fs;
 
 #[derive(Parser)]
@@ -39,7 +44,27 @@ pub struct Message {
     // Tag :28: or :28C:
     pub statement_no: String,
     pub sequence_no: Option<String>,
-    // pub opening_balance: u32,
+
+    // Tag :60F: or :60M:
+    // In case this is :60F: it is the first opening balance.
+    // In case of :60M: this is the intermediate opening balance for statements following the
+    // first one.
+    pub opening_balance: Balance,
+}
+
+#[derive(Debug, Eq, PartialEq, Serialize, Deserialize)]
+pub struct Balance {
+    is_intermediate: bool,
+    debit_credit_indicator: DebitOrCredit,
+    date: NaiveDate,
+    iso_currency_code: String,
+    amount: Decimal,
+}
+
+#[derive(Debug, Eq, PartialEq, Serialize, Deserialize)]
+pub enum DebitOrCredit {
+    Debit,
+    Credit,
 }
 
 impl Message {
@@ -55,6 +80,7 @@ impl Message {
         let mut account_id = None;
         let mut statement_no = None;
         let mut sequence_no = None;
+        let mut opening_balance = None;
 
         // For better error reporting.
         let mut last_tag = String::default();
@@ -93,12 +119,82 @@ impl Message {
                 }
                 "28C" => {
                     let parsed_field = MT940Parser::parse(Rule::tag_28c_field, &field.value);
-                    println!("{:#?}", parsed_field);
-                    statement_no = Some(parsed_field.unwrap().as_str().to_string());
-                    // sequence_no = Some(field.value);
+                    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
+                    for pair in pairs {
+                        match pair.as_rule() {
+                            Rule::statement_no => statement_no = Some(pair.as_str().to_string()),
+                            Rule::sequence_no => sequence_no = Some(pair.as_str().to_string()),
+                            _ => (),
+                        };
+                    }
                     current_acceptable_tags = vec!["60M", "60F"];
                 }
                 "60M" | "60F" => {
+                    let is_intermediate = field.tag.as_str() == "60M";
+                    let mut debit_credit_indicator = None;
+                    let mut date = None;
+                    let mut iso_currency_code = None;
+                    let mut amount = None;
+                    let parsed_field = MT940Parser::parse(Rule::tag_60_field, &field.value);
+                    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
+                    for pair in pairs {
+                        match pair.as_rule() {
+                            Rule::debit_credit_indicator => {
+                                if pair.as_str() == "C" {
+                                    debit_credit_indicator = Some(DebitOrCredit::Credit);
+                                } else if pair.as_str() == "D" {
+                                    debit_credit_indicator = Some(DebitOrCredit::Debit);
+                                } else {
+                                    unreachable!();
+                                }
+                            }
+                            Rule::date => {
+                                let mut year = None;
+                                let mut month = None;
+                                let mut day = None;
+                                for p in pair.into_inner() {
+                                    match p.as_rule() {
+                                        // Here I'm making an assumption that will only work for
+                                        // a limited but fairly long time: That all years that we
+                                        // see are at least the year 2000 and upwards. The
+                                        // problem is sadly that banks didn't make the field be the
+                                        // full year number but only a 2-digit number!
+                                        // How stupid.
+                                        Rule::year => year = Some(format!("20{}", p.as_str())),
+                                        Rule::month => month = Some(p.as_str()),
+                                        Rule::day => day = Some(p.as_str()),
+                                        _ => unreachable!(),
+                                    }
+                                }
+                                date = Some(NaiveDate::from_ymd(
+                                    year.unwrap().parse().unwrap(),
+                                    month.unwrap().parse().unwrap(),
+                                    day.unwrap().parse().unwrap(),
+                                ));
+                            }
+                            Rule::iso_currency_code => {
+                                iso_currency_code = Some(pair.as_str().to_string())
+                            }
+                            Rule::amount => {
+                                // Split at decimal separator.
+                                let split_decimal_str: Vec<&str> =
+                                    pair.as_str().split(",").collect();
+                                let (int_part, frac_part) =
+                                    (split_decimal_str[0], split_decimal_str[1]);
+                                let whole_number: i64 =
+                                    format!("{}{}", int_part, frac_part).parse().unwrap();
+                                amount = Some(Decimal::new(whole_number, frac_part.len() as u32));
+                            }
+                            _ => (),
+                        };
+                    }
+                    opening_balance = Some(Balance {
+                        is_intermediate,
+                        debit_credit_indicator: debit_credit_indicator.unwrap(),
+                        date: date.unwrap(),
+                        iso_currency_code: iso_currency_code.unwrap(),
+                        amount: amount.unwrap(),
+                    });
                     current_acceptable_tags = vec!["61", "62M", "62F", "86"];
                 }
                 "61" => {
@@ -129,6 +225,8 @@ impl Message {
             account_id: account_id.ok_or(RequiredTagNotFoundError::new("25".to_string()))?,
             statement_no: statement_no.ok_or(RequiredTagNotFoundError::new("28C".to_string()))?,
             sequence_no: sequence_no,
+            opening_balance: opening_balance
+                .ok_or(RequiredTagNotFoundError::new("60".to_string()))?,
         };
 
         Ok(message)
