@@ -259,8 +259,7 @@ pub fn parse_fields(statement: &str) -> Result<Vec<Field>, pest::error::Error<Ru
             .to_string();
         let value = inner
             .clone()
-            .skip(1)
-            .next()
+            .nth(1)
             .unwrap()
             .as_str()
             .trim()
@@ -274,7 +273,7 @@ pub fn parse_fields(statement: &str) -> Result<Vec<Field>, pest::error::Error<Ru
 }
 
 pub fn parse_mt940(statement: &str) -> Result<Vec<Message>, ParseError> {
-    let fields = parse_fields(statement).map_err(|e| ParseError::PestParseError(e))?;
+    let fields = parse_fields(statement).map_err(ParseError::PestParseError)?;
 
     let mut fields_per_message = vec![];
 

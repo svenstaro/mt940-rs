@@ -6,6 +6,7 @@ extern crate serde_json;
 use clap::{App, Arg, AppSettings};
 use mt940::parse_mt940;
 use std::fs;
+use std::io::{self, Write};
 use std::path::Path;
 
 fn is_file(p: String) -> Result<(), String> {
@@ -53,20 +54,26 @@ fn main() -> Result<(), Box<std::error::Error>> {
             Arg::with_name("output")
                 .value_name("OUTPUT")
                 .takes_value(true)
-                .required(true)
                 .validator(has_parent_dir)
                 .help("Output file in JSON format"),
         )
         .get_matches();
 
     let statement_input = value_t_or_exit!(matches, "statement", String);
-    let output = value_t_or_exit!(matches, "output", String);
 
     let input = fs::read_to_string(statement_input)?;
 
     let parsed = parse_mt940(&input)?;
     let json = serde_json::to_string_pretty(&parsed)?;
-    fs::write(output, json)?;
+
+    if matches.is_present("output") {
+        // Write to a file.
+        let output = value_t_or_exit!(matches, "output", String);
+        fs::write(output, json)?;
+    } else {
+        // Write to stdout instead.
+        io::stdout().write_all(json.as_bytes())?;
+    };
 
     Ok(())
 }
