@@ -9,6 +9,10 @@ extern crate log;
 #[macro_use]
 extern crate pretty_assertions;
 
+extern crate strum;
+#[macro_use]
+extern crate strum_macros;
+
 extern crate serde;
 extern crate serde_json;
 
@@ -19,12 +23,17 @@ extern crate chrono;
 extern crate rust_decimal;
 
 mod errors;
+mod transaction_types;
+mod utils;
 
 use chrono::prelude::*;
 use errors::{ParseError, RequiredTagNotFoundError, UnexpectedTagError};
 use pest::Parser;
 use rust_decimal::Decimal;
-use std::fs;
+use std::str::FromStr;
+
+use transaction_types::TransactionTypeIdentificationCode;
+use utils::{decimal_from_mt940_amount, date_from_mt940_date};
 
 #[derive(Parser)]
 #[grammar = "mt940.pest"]
@@ -50,21 +59,104 @@ pub struct Message {
     // In case of :60M: this is the intermediate opening balance for statements following the
     // first one.
     pub opening_balance: Balance,
+
+    // Tag :61: and :86:
+    // Any :86: preceeded by :61: will provide more information to that :61:
+    pub statement_lines: Vec<StatementLine>,
+
+    // Tag :62F: or :62M:
+    // In case this is :62F: it is the first closing balance.
+    // In case of :62M: this is the intermediate opening balance for statements following the
+    // first one.
+    pub closing_balance: Balance,
+
+    // Tag :64:
+    pub closing_available_balance: Option<AvailableBalance>,
+
+    // Tag :65:
+    pub forward_available_balance: Option<AvailableBalance>,
+
+    // Tag :86:
+    pub information_to_account_owner: Option<String>,
+}
+
+#[derive(Debug, Eq, PartialEq, Serialize, Deserialize)]
+pub struct StatementLine {
+    pub value_date: NaiveDate,
+    pub entry_date: Option<NaiveDate>,
+    pub ext_debit_credit_indicator: ExtDebitOrCredit,
+    pub funds_code: Option<String>,
+    pub amount: Decimal,
+    pub transaction_type_ident_code: TransactionTypeIdentificationCode,
+    pub customer_ref: String,
+    pub bank_ref: Option<String>,
+    pub supplementary_details: Option<String>,
+    pub information_to_account_owner: Option<String>,
 }
 
 #[derive(Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Balance {
-    is_intermediate: bool,
-    debit_credit_indicator: DebitOrCredit,
-    date: NaiveDate,
-    iso_currency_code: String,
-    amount: Decimal,
+    pub is_intermediate: bool,
+    pub debit_credit_indicator: DebitOrCredit,
+    pub date: NaiveDate,
+    pub iso_currency_code: String,
+    pub amount: Decimal,
+}
+
+#[derive(Debug, Eq, PartialEq, Serialize, Deserialize)]
+pub struct AvailableBalance {
+    pub debit_credit_indicator: DebitOrCredit,
+    pub date: NaiveDate,
+    pub iso_currency_code: String,
+    pub amount: Decimal,
 }
 
 #[derive(Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub enum DebitOrCredit {
     Debit,
     Credit,
+}
+
+impl FromStr for DebitOrCredit {
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let dc = if s == "C" {
+            DebitOrCredit::Credit
+        } else if s == "D" {
+            DebitOrCredit::Debit
+        } else {
+            unreachable!()
+        };
+        Ok(dc)
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Serialize, Deserialize)]
+pub enum ExtDebitOrCredit {
+    Debit,
+    Credit,
+    ReverseDebit,
+    ReverseCredit,
+}
+
+impl FromStr for ExtDebitOrCredit {
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let dc = if s == "C" {
+            ExtDebitOrCredit::Credit
+        } else if s == "D" {
+            ExtDebitOrCredit::Debit
+        } else if s == "RD" {
+            ExtDebitOrCredit::ReverseCredit
+        } else if s == "RC" {
+            ExtDebitOrCredit::ReverseDebit
+        } else {
+            unreachable!()
+        };
+        Ok(dc)
+    }
 }
 
 impl Message {
@@ -81,8 +173,12 @@ impl Message {
         let mut statement_no = None;
         let mut sequence_no = None;
         let mut opening_balance = None;
+        let mut statement_lines = vec![];
+        let mut closing_balance = None;
+        let mut closing_available_balance = None;
+        let mut forward_available_balance = None;
+        let mut information_to_account_owner: Option<String> = None;
 
-        // For better error reporting.
         let mut last_tag = String::default();
 
         for field in fields {
@@ -140,50 +236,15 @@ impl Message {
                     for pair in pairs {
                         match pair.as_rule() {
                             Rule::debit_credit_indicator => {
-                                if pair.as_str() == "C" {
-                                    debit_credit_indicator = Some(DebitOrCredit::Credit);
-                                } else if pair.as_str() == "D" {
-                                    debit_credit_indicator = Some(DebitOrCredit::Debit);
-                                } else {
-                                    unreachable!();
-                                }
+                                debit_credit_indicator =
+                                    Some(DebitOrCredit::from_str(pair.as_str()).unwrap());
                             }
-                            Rule::date => {
-                                let mut year = None;
-                                let mut month = None;
-                                let mut day = None;
-                                for p in pair.into_inner() {
-                                    match p.as_rule() {
-                                        // Here I'm making an assumption that will only work for
-                                        // a limited but fairly long time: That all years that we
-                                        // see are at least the year 2000 and upwards. The
-                                        // problem is sadly that banks didn't make the field be the
-                                        // full year number but only a 2-digit number!
-                                        // How stupid.
-                                        Rule::year => year = Some(format!("20{}", p.as_str())),
-                                        Rule::month => month = Some(p.as_str()),
-                                        Rule::day => day = Some(p.as_str()),
-                                        _ => unreachable!(),
-                                    }
-                                }
-                                date = Some(NaiveDate::from_ymd(
-                                    year.unwrap().parse().unwrap(),
-                                    month.unwrap().parse().unwrap(),
-                                    day.unwrap().parse().unwrap(),
-                                ));
-                            }
+                            Rule::date => date = Some(date_from_mt940_date(pair.as_str()).unwrap()),
                             Rule::iso_currency_code => {
                                 iso_currency_code = Some(pair.as_str().to_string())
                             }
                             Rule::amount => {
-                                // Split at decimal separator.
-                                let split_decimal_str: Vec<&str> =
-                                    pair.as_str().split(",").collect();
-                                let (int_part, frac_part) =
-                                    (split_decimal_str[0], split_decimal_str[1]);
-                                let whole_number: i64 =
-                                    format!("{}{}", int_part, frac_part).parse().unwrap();
-                                amount = Some(Decimal::new(whole_number, frac_part.len() as u32));
+                                amount = Some(decimal_from_mt940_amount(pair.as_str()).unwrap());
                             }
                             _ => (),
                         };
@@ -198,18 +259,215 @@ impl Message {
                     current_acceptable_tags = vec!["61", "62M", "62F", "86"];
                 }
                 "61" => {
+                    let mut date = None;
+                    let mut short_date = None;
+                    let mut ext_debit_credit_indicator = None;
+                    let mut funds_code = None;
+                    let mut amount = None;
+                    let mut transaction_type_ident_code = None;
+                    let mut customer_ref = None;
+                    let mut bank_ref = None;
+                    let mut supplementary_details = None;
+                    let parsed_field = MT940Parser::parse(Rule::tag_61_field, &field.value);
+                    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
+                    for pair in pairs {
+                        match pair.as_rule() {
+                            Rule::date => date = Some(date_from_mt940_date(pair.as_str()).unwrap()),
+                            Rule::short_date => {
+                                let mut month = None;
+                                let mut day = None;
+                                for p in pair.into_inner() {
+                                    match p.as_rule() {
+                                        Rule::month => month = Some(p.as_str()),
+                                        Rule::day => day = Some(p.as_str()),
+                                        _ => unreachable!(),
+                                    }
+                                }
+                                // Since we only get month and day from the short date, we'll have
+                                // to make an assumption about the year.
+                                // We'll assume that this is in the same year as the statement
+                                // line's year. This might result in some cases where the
+                                // statement's year is 2018-12-31 and the entry is given as 0101
+                                // which would then result in this the entry date ending up as
+                                // 2018-01-01 even though it should be 2019-01-01. I'll not be too
+                                // smart about this for now but I'll keep an eye on this.
+                                short_date = Some(NaiveDate::from_ymd(
+                                    date.unwrap().year(),
+                                    month.unwrap().parse().unwrap(),
+                                    day.unwrap().parse().unwrap(),
+                                ));
+                            }
+                            Rule::ext_debit_credit_indicator => {
+                                ext_debit_credit_indicator =
+                                    Some(ExtDebitOrCredit::from_str(pair.as_str()).unwrap());
+                            }
+                            Rule::funds_code => {
+                                funds_code = Some(pair.as_str().to_string());
+                            }
+                            Rule::amount => {
+                                amount = Some(decimal_from_mt940_amount(pair.as_str()).unwrap());
+                            }
+                            Rule::transaction_type_ident_code => {
+                                // The actual transaction type ident code begins after the first
+                                // character. The first character is either "N" or "F".
+                                let actual_type_ident_code_str = &pair.as_str()[1..];
+                                match TransactionTypeIdentificationCode::from_str(
+                                    actual_type_ident_code_str,
+                                ) {
+                                    Ok(t) => transaction_type_ident_code = Some(t),
+                                    Err(strum::ParseError::VariantNotFound) => {
+                                        return Err(ParseError::InvalidTransactionIdentCode(
+                                            pair.as_str().to_string(),
+                                        ))
+                                    }
+                                };
+                            }
+                            Rule::customer_ref => {
+                                customer_ref = Some(pair.as_str().to_string());
+                            }
+                            Rule::bank_ref => {
+                                bank_ref = Some(pair.as_str().to_string());
+                            }
+                            Rule::supplementary_details => {
+                                supplementary_details = Some(pair.as_str().to_string());
+                            }
+                            _ => (),
+                        }
+                    }
+                    let statement_line = StatementLine {
+                        value_date: date.unwrap(),
+                        entry_date: short_date,
+                        ext_debit_credit_indicator: ext_debit_credit_indicator.unwrap(),
+                        funds_code: funds_code,
+                        amount: amount.unwrap(),
+                        transaction_type_ident_code: transaction_type_ident_code.unwrap(),
+                        customer_ref: customer_ref.unwrap(),
+                        bank_ref: bank_ref,
+                        supplementary_details: supplementary_details,
+                        information_to_account_owner: None,
+                    };
+                    statement_lines.push(statement_line);
                     current_acceptable_tags = vec!["61", "86", "62M", "62F"];
                 }
                 "86" => {
+                    let parsed_field = MT940Parser::parse(Rule::tag_86_field, &field.value);
+                    let info_to_account_owner = parsed_field.unwrap().as_str().to_string();
+                    // If the last tag was either :61: or :86: then this tag belongs to that
+                    // previous tag and we'll attach the information to the previous tag.
+                    match last_tag.as_str() {
+                        "61" | "86" => {
+                            if let Some(sl) = statement_lines.last_mut() {
+                                if let Some(ref mut info) = sl.information_to_account_owner {
+                                    info.push_str(&info_to_account_owner);
+                                } else {
+                                    sl.information_to_account_owner = Some(info_to_account_owner);
+                                }
+                            }
+                        }
+                        "62M" | "62F" | "64" | "65" => {
+                            if let Some(ref mut info) = information_to_account_owner {
+                                info.push_str(&info_to_account_owner);
+                            } else {
+                                information_to_account_owner = Some(info_to_account_owner);
+                            }
+                        }
+                        _ => (),
+                    }
                     current_acceptable_tags = vec!["61", "62M", "62F", "86"];
                 }
                 "62M" | "62F" => {
+                    let is_intermediate = field.tag.as_str() == "62M";
+                    let mut debit_credit_indicator = None;
+                    let mut date = None;
+                    let mut iso_currency_code = None;
+                    let mut amount = None;
+                    let parsed_field = MT940Parser::parse(Rule::tag_62_field, &field.value);
+                    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
+                    for pair in pairs {
+                        match pair.as_rule() {
+                            Rule::debit_credit_indicator => {
+                                debit_credit_indicator =
+                                    Some(DebitOrCredit::from_str(pair.as_str()).unwrap());
+                            }
+                            Rule::date => date = Some(date_from_mt940_date(pair.as_str()).unwrap()),
+                            Rule::iso_currency_code => {
+                                iso_currency_code = Some(pair.as_str().to_string())
+                            }
+                            Rule::amount => {
+                                amount = Some(decimal_from_mt940_amount(pair.as_str()).unwrap());
+                            }
+                            _ => (),
+                        };
+                    }
+                    closing_balance = Some(Balance {
+                        is_intermediate,
+                        debit_credit_indicator: debit_credit_indicator.unwrap(),
+                        date: date.unwrap(),
+                        iso_currency_code: iso_currency_code.unwrap(),
+                        amount: amount.unwrap(),
+                    });
                     current_acceptable_tags = vec!["64", "65", "86"];
                 }
                 "64" => {
+                    let mut debit_credit_indicator = None;
+                    let mut date = None;
+                    let mut iso_currency_code = None;
+                    let mut amount = None;
+                    let parsed_field = MT940Parser::parse(Rule::tag_64_field, &field.value);
+                    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
+                    for pair in pairs {
+                        match pair.as_rule() {
+                            Rule::debit_credit_indicator => {
+                                debit_credit_indicator =
+                                    Some(DebitOrCredit::from_str(pair.as_str()).unwrap());
+                            }
+                            Rule::date => date = Some(date_from_mt940_date(pair.as_str()).unwrap()),
+                            Rule::iso_currency_code => {
+                                iso_currency_code = Some(pair.as_str().to_string())
+                            }
+                            Rule::amount => {
+                                amount = Some(decimal_from_mt940_amount(pair.as_str()).unwrap());
+                            }
+                            _ => (),
+                        };
+                    }
+                    closing_available_balance = Some(AvailableBalance {
+                        debit_credit_indicator: debit_credit_indicator.unwrap(),
+                        date: date.unwrap(),
+                        iso_currency_code: iso_currency_code.unwrap(),
+                        amount: amount.unwrap(),
+                    });
                     current_acceptable_tags = vec!["65", "86"];
                 }
                 "65" => {
+                    let mut debit_credit_indicator = None;
+                    let mut date = None;
+                    let mut iso_currency_code = None;
+                    let mut amount = None;
+                    let parsed_field = MT940Parser::parse(Rule::tag_65_field, &field.value);
+                    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
+                    for pair in pairs {
+                        match pair.as_rule() {
+                            Rule::debit_credit_indicator => {
+                                debit_credit_indicator =
+                                    Some(DebitOrCredit::from_str(pair.as_str()).unwrap());
+                            }
+                            Rule::date => date = Some(date_from_mt940_date(pair.as_str()).unwrap()),
+                            Rule::iso_currency_code => {
+                                iso_currency_code = Some(pair.as_str().to_string())
+                            }
+                            Rule::amount => {
+                                amount = Some(decimal_from_mt940_amount(pair.as_str()).unwrap());
+                            }
+                            _ => (),
+                        };
+                    }
+                    forward_available_balance = Some(AvailableBalance {
+                        debit_credit_indicator: debit_credit_indicator.unwrap(),
+                        date: date.unwrap(),
+                        iso_currency_code: iso_currency_code.unwrap(),
+                        amount: amount.unwrap(),
+                    });
                     current_acceptable_tags = vec!["65", "86"];
                 }
                 _ => unreachable!(),
@@ -227,6 +485,12 @@ impl Message {
             sequence_no: sequence_no,
             opening_balance: opening_balance
                 .ok_or(RequiredTagNotFoundError::new("60".to_string()))?,
+            statement_lines: statement_lines,
+            closing_balance: closing_balance
+                .ok_or(RequiredTagNotFoundError::new("62".to_string()))?,
+            closing_available_balance,
+            forward_available_balance,
+            information_to_account_owner,
         };
 
         Ok(message)
