@@ -33,7 +33,7 @@ use rust_decimal::Decimal;
 use std::str::FromStr;
 
 use transaction_types::TransactionTypeIdentificationCode;
-use utils::{decimal_from_mt940_amount, date_from_mt940_date};
+use utils::{date_from_mt940_date, decimal_from_mt940_amount};
 
 #[derive(Parser)]
 #[grammar = "mt940.pest"]
