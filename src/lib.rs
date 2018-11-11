@@ -470,7 +470,7 @@ impl Message {
                     });
                     current_acceptable_tags = vec!["65", "86"];
                 }
-                _ => unreachable!(),
+                tag @ _ => return Err(ParseError::UnknownTagError(tag.to_string())),
             }
 
             last_tag = field.tag;
