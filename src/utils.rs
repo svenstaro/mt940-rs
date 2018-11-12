@@ -1,7 +1,7 @@
 use rust_decimal::Decimal;
 use chrono::prelude::*;
-
 use pest::Parser;
+
 use errors::AmountParseError;
 use MT940Parser;
 use Rule;

@@ -1,0 +1,693 @@
+[
+  {
+    "transaction_ref_no": "3996-11.11.11111",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1111.11.11111",
+    "statement_no": "00147",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-03-11",
+      "iso_currency_code": "NOK",
+      "amount": "94372951.20"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2010-03-23",
+        "entry_date": "2010-03-23",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "5968.64",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Overforing med",
+        "bank_ref": "melding",
+        "supplementary_details": null,
+        "information_to_account_owner": "Overforing med melding / DBTS 1234365263"
+      },
+      {
+        "value_date": "2010-03-23",
+        "entry_date": "2010-03-23",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "5906.03",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Overforing m/KID",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "DBTS 1234362788"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-03-23",
+      "iso_currency_code": "NOK",
+      "amount": "94361076.53"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2010-03-23",
+      "iso_currency_code": "NOK",
+      "amount": "94361076.53"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-11.11.11111",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1111.11.11111",
+    "statement_no": "00148",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-03-23",
+      "iso_currency_code": "NOK",
+      "amount": "94361076.53"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2010-03-26",
+        "entry_date": "2010-03-26",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "67731.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Overforing m/KID",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.Faktura 12345 -pakke"
+      },
+      {
+        "value_date": "2010-03-26",
+        "entry_date": "2010-03-26",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "104104.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Sumpost OCR-",
+        "bank_ref": "11111111111",
+        "supplementary_details": null,
+        "information_to_account_owner": "Sumpost OCR- 11111111111"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-03-26",
+      "iso_currency_code": "NOK",
+      "amount": "94397449.53"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2010-03-26",
+      "iso_currency_code": "NOK",
+      "amount": "94397449.53"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-11.11.11111",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1111.11.11111",
+    "statement_no": "00149",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-03-26",
+      "iso_currency_code": "NOK",
+      "amount": "94397449.53"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2010-03-30",
+        "entry_date": "2010-03-30",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "484900.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Sumpost OCR-",
+        "bank_ref": "22222222222",
+        "supplementary_details": null,
+        "information_to_account_owner": "Sumpost OCR- 22222222222"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-03-30",
+      "iso_currency_code": "NOK",
+      "amount": "94882349.53"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2010-03-30",
+      "iso_currency_code": "NOK",
+      "amount": "94882349.53"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-11.11.11111",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1111.11.11111",
+    "statement_no": "00150",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-03-30",
+      "iso_currency_code": "NOK",
+      "amount": "94882349.53"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2010-04-01",
+        "entry_date": "2010-03-31",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "143.60",
+        "transaction_type_ident_code": "CHG",
+        "customer_ref": "Gebyrer i folge",
+        "bank_ref": "nota",
+        "supplementary_details": null,
+        "information_to_account_owner": "Gebyrer i folge nota"
+      },
+      {
+        "value_date": "2010-04-01",
+        "entry_date": "2010-03-31",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "440525.65",
+        "transaction_type_ident_code": "INT",
+        "customer_ref": "Rente",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-03-31",
+      "iso_currency_code": "NOK",
+      "amount": "95322731.58"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2010-03-31",
+      "iso_currency_code": "NOK",
+      "amount": "94882349.53"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-11.11.11111",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1111.11.11111",
+    "statement_no": "00151",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-03-31",
+      "iso_currency_code": "NOK",
+      "amount": "95322731.58"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2010-04-06",
+        "entry_date": "2010-04-06",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "681920.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Overforing med",
+        "bank_ref": "melding",
+        "supplementary_details": null,
+        "information_to_account_owner": "Overforing med melding / DBT.MVA 1T2010"
+      },
+      {
+        "value_date": "2010-04-06",
+        "entry_date": "2010-04-06",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "562279.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Sumpost OCR-",
+        "bank_ref": "33333333333",
+        "supplementary_details": null,
+        "information_to_account_owner": "Sumpost OCR- 33333333333"
+      },
+      {
+        "value_date": "2010-04-06",
+        "entry_date": "2010-04-06",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "1846647.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Sumpost OCR-",
+        "bank_ref": "44444444444",
+        "supplementary_details": null,
+        "information_to_account_owner": "Sumpost OCR- 44444444444"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-06",
+      "iso_currency_code": "NOK",
+      "amount": "97049737.58"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-06",
+      "iso_currency_code": "NOK",
+      "amount": "97049737.58"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-11.11.11111",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1111.11.11111",
+    "statement_no": "00152",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-06",
+      "iso_currency_code": "NOK",
+      "amount": "97049737.58"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2010-04-07",
+        "entry_date": "2010-04-07",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "134766.25",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Overforing m/KID",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.Fakt 123"
+      },
+      {
+        "value_date": "2010-04-07",
+        "entry_date": "2010-04-07",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "134154.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Overforing m/KID",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.Faktura 1234"
+      },
+      {
+        "value_date": "2010-04-07",
+        "entry_date": "2010-04-07",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "101525.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Overforing m/KID",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.faktura 12345"
+      },
+      {
+        "value_date": "2010-04-07",
+        "entry_date": "2010-04-07",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "31809.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Overforing m/KID",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.Faktura 123456"
+      },
+      {
+        "value_date": "2010-04-07",
+        "entry_date": "2010-04-07",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "31250.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Overforing m/KID",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.Faktura1234567"
+      },
+      {
+        "value_date": "2010-04-07",
+        "entry_date": "2010-04-07",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "30278.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Overforing m/KID",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.Faktura 12345678"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-07",
+      "iso_currency_code": "NOK",
+      "amount": "96585955.33"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-07",
+      "iso_currency_code": "NOK",
+      "amount": "96585955.33"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-11.11.11111",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1111.11.11111",
+    "statement_no": "00153",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-07",
+      "iso_currency_code": "NOK",
+      "amount": "96585955.33"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2010-04-08",
+        "entry_date": "2010-04-08",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "16231.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Sumpost OCR-",
+        "bank_ref": "55555555555",
+        "supplementary_details": null,
+        "information_to_account_owner": "Sumpost OCR- 55555555555"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-08",
+      "iso_currency_code": "NOK",
+      "amount": "96602186.33"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-08",
+      "iso_currency_code": "NOK",
+      "amount": "96602186.33"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-11.11.11111",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1111.11.11111",
+    "statement_no": "00154",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-08",
+      "iso_currency_code": "NOK",
+      "amount": "96602186.33"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2010-04-09",
+        "entry_date": "2010-04-09",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "339596.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Sumpost OCR-",
+        "bank_ref": "66666666666",
+        "supplementary_details": null,
+        "information_to_account_owner": "Sumpost OCR- 66666666666"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-09",
+      "iso_currency_code": "NOK",
+      "amount": "96941782.33"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-09",
+      "iso_currency_code": "NOK",
+      "amount": "96941782.33"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-11.11.11111",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1111.11.11111",
+    "statement_no": "00155",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-09",
+      "iso_currency_code": "NOK",
+      "amount": "96941782.33"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2010-04-12",
+        "entry_date": "2010-04-12",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "101946.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Overforing m/KID",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.Faktura  123"
+      },
+      {
+        "value_date": "2010-04-12",
+        "entry_date": "2010-04-12",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "11834.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Overforing m/KID",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.Faktura1234"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-12",
+      "iso_currency_code": "NOK",
+      "amount": "96828002.33"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-12",
+      "iso_currency_code": "NOK",
+      "amount": "96828002.33"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-11.11.11111",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1111.11.11111",
+    "statement_no": "00156",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-12",
+      "iso_currency_code": "NOK",
+      "amount": "96828002.33"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2010-04-13",
+        "entry_date": "2010-04-13",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "128593.75",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Overforing uten",
+        "bank_ref": "melding",
+        "supplementary_details": null,
+        "information_to_account_owner": "Overforing uten melding / DBT.Feil v bilag 5-2008"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-13",
+      "iso_currency_code": "NOK",
+      "amount": "96699408.58"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-13",
+      "iso_currency_code": "NOK",
+      "amount": "96699408.58"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-11.11.11111",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1111.11.11111",
+    "statement_no": "00157",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-13",
+      "iso_currency_code": "NOK",
+      "amount": "96699408.58"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2010-04-14",
+        "entry_date": "2010-04-14",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "5968.64",
+        "transaction_type_ident_code": "STO",
+        "customer_ref": "Overforing",
+        "bank_ref": "001120971",
+        "supplementary_details": null,
+        "information_to_account_owner": "Overforing 111111111 / 13.05.2008\nYour referance: 13.05.2008\nSenders name\nAdress\nPostal code and City"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-14",
+      "iso_currency_code": "NOK",
+      "amount": "96705377.22"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-14",
+      "iso_currency_code": "NOK",
+      "amount": "96705377.22"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-11.11.11111",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1111.11.11111",
+    "statement_no": "00158",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-14",
+      "iso_currency_code": "NOK",
+      "amount": "96705377.22"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2010-04-15",
+        "entry_date": "2010-04-15",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "30278.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Sumpost OCR-",
+        "bank_ref": "77777777777",
+        "supplementary_details": null,
+        "information_to_account_owner": "Sumpost OCR- 77777777777"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-15",
+      "iso_currency_code": "NOK",
+      "amount": "96735655.22"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-15",
+      "iso_currency_code": "NOK",
+      "amount": "96735655.22"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-11.11.11111",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1111.11.11111",
+    "statement_no": "00159",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-15",
+      "iso_currency_code": "NOK",
+      "amount": "96735655.22"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2010-04-16",
+        "entry_date": "2010-04-16",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "19945.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Sumpost OCR-",
+        "bank_ref": "88888888888",
+        "supplementary_details": null,
+        "information_to_account_owner": "Sumpost OCR- 88888888888"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-16",
+      "iso_currency_code": "NOK",
+      "amount": "96755600.22"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2010-04-16",
+      "iso_currency_code": "NOK",
+      "amount": "96755600.22"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  }
+]

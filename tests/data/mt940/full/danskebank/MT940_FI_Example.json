@@ -1,0 +1,105 @@
+[
+  {
+    "transaction_ref_no": "3996-11-11111111",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/111111-11111111",
+    "statement_no": "00001",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-09-24",
+      "iso_currency_code": "EUR",
+      "amount": "54484.04"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2009-10-01",
+        "entry_date": "2009-09-30",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "0.23",
+        "transaction_type_ident_code": "INT",
+        "customer_ref": "Interest",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "For your inform. IBAN no.: FI1111111111111111DABADKKK111111-11111111DANSKE BANK                        HOLMENS KANAL 2-12"
+      },
+      {
+        "value_date": "2009-09-25",
+        "entry_date": "2009-09-25",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "583.92",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "1110030403010139",
+        "bank_ref": "1234",
+        "supplementary_details": null,
+        "information_to_account_owner": "11100304030101391234\nBeneficiary name\nBeneficiary name"
+      },
+      {
+        "value_date": "2009-09-30",
+        "entry_date": "2009-09-30",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "390.40",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "0000000000754003",
+        "bank_ref": "1234",
+        "supplementary_details": null,
+        "information_to_account_owner": "00000000007540031234\nBeneficiary name\nBeneficiary name"
+      },
+      {
+        "value_date": "2009-09-30",
+        "entry_date": "2009-09-30",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "265.41",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "0000101603533361",
+        "bank_ref": "1234",
+        "supplementary_details": null,
+        "information_to_account_owner": "00001016035333611234\nBeneficiary name\nBeneficiary name"
+      },
+      {
+        "value_date": "2009-10-01",
+        "entry_date": "2009-09-30",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "62.60",
+        "transaction_type_ident_code": "CHG",
+        "customer_ref": "Fees according",
+        "bank_ref": "to advice",
+        "supplementary_details": null,
+        "information_to_account_owner": "Fees according to advice"
+      },
+      {
+        "value_date": "2009-09-29",
+        "entry_date": "2009-09-29",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "55.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "0000000000000269",
+        "bank_ref": "1234",
+        "supplementary_details": null,
+        "information_to_account_owner": "00000000000002691234\nBeneficiary name\nBeneficiary name"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-09-30",
+      "iso_currency_code": "EUR",
+      "amount": "53126.94"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2009-09-30",
+      "iso_currency_code": "EUR",
+      "amount": "53189.31"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  }
+]

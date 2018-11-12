@@ -5,10 +5,6 @@ extern crate pest_derive;
 #[macro_use]
 extern crate log;
 
-#[cfg(test)]
-#[macro_use]
-extern crate pretty_assertions;
-
 extern crate strum;
 #[macro_use]
 extern crate strum_macros;
@@ -22,18 +18,33 @@ extern crate serde_derive;
 extern crate chrono;
 extern crate rust_decimal;
 
+#[cfg(test)]
+#[macro_use]
+extern crate proptest;
+
+#[cfg(test)]
+#[macro_use]
+extern crate pretty_assertions;
+
+#[cfg(test)]
+extern crate regex;
+
 mod errors;
+mod tag_parsers;
 mod transaction_types;
 mod utils;
 
 use chrono::prelude::*;
-use errors::{ParseError, RequiredTagNotFoundError, UnexpectedTagError};
 use pest::Parser;
 use rust_decimal::Decimal;
 use std::str::FromStr;
 
-use transaction_types::TransactionTypeIdentificationCode;
-use utils::{date_from_mt940_date, decimal_from_mt940_amount};
+pub use errors::{ParseError, RequiredTagNotFoundError, UnexpectedTagError};
+use tag_parsers::{
+    parse_20_tag, parse_21_tag, parse_25_tag, parse_28c_tag, parse_60_tag, parse_61_tag,
+    parse_62_tag, parse_86_tag, parse_64_tag, parse_65_tag,
+};
+pub use transaction_types::TransactionTypeIdentificationCode;
 
 #[derive(Parser)]
 #[grammar = "mt940.pest"]
@@ -50,7 +61,7 @@ pub struct Message {
     // Tag :25:
     pub account_id: String,
 
-    // Tag :28: or :28C:
+    // Tag :28C:
     pub statement_no: String,
     pub sequence_no: Option<String>,
 
@@ -188,6 +199,8 @@ impl Message {
                 .iter()
                 .map(|x| x.to_string())
                 .collect();
+
+            // We reject unexpected tag.
             if !current_acceptable_tags.contains(&&field.tag.as_str()) {
                 return Err(UnexpectedTagError::new(
                     field.tag,
@@ -196,162 +209,36 @@ impl Message {
                 ))?;
             }
 
-            // Set the next acceptable tags.
             match field.tag.as_str() {
                 "20" => {
-                    let parsed_field = MT940Parser::parse(Rule::tag_20_field, &field.value);
-                    transaction_ref_no = Some(parsed_field.unwrap().as_str().to_string());
+                    transaction_ref_no = Some(parse_20_tag(&field));
                     current_acceptable_tags = vec!["21", "25"];
                 }
                 "21" => {
-                    let parsed_field = MT940Parser::parse(Rule::tag_21_field, &field.value);
-                    ref_to_related_msg = Some(parsed_field.unwrap().as_str().to_string());
+                    ref_to_related_msg = Some(parse_21_tag(&field));
                     current_acceptable_tags = vec!["25"];
                 }
                 "25" => {
-                    let parsed_field = MT940Parser::parse(Rule::tag_25_field, &field.value);
-                    account_id = Some(parsed_field.unwrap().as_str().to_string());
+                    account_id = Some(parse_25_tag(&field));
                     current_acceptable_tags = vec!["28", "28C"];
                 }
                 "28C" => {
-                    let parsed_field = MT940Parser::parse(Rule::tag_28c_field, &field.value);
-                    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
-                    for pair in pairs {
-                        match pair.as_rule() {
-                            Rule::statement_no => statement_no = Some(pair.as_str().to_string()),
-                            Rule::sequence_no => sequence_no = Some(pair.as_str().to_string()),
-                            _ => (),
-                        };
-                    }
+                    let res = parse_28c_tag(&field);
+                    statement_no = res.0;
+                    sequence_no = res.1;
                     current_acceptable_tags = vec!["60M", "60F"];
                 }
                 "60M" | "60F" => {
-                    let is_intermediate = field.tag.as_str() == "60M";
-                    let mut debit_credit_indicator = None;
-                    let mut date = None;
-                    let mut iso_currency_code = None;
-                    let mut amount = None;
-                    let parsed_field = MT940Parser::parse(Rule::tag_60_field, &field.value);
-                    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
-                    for pair in pairs {
-                        match pair.as_rule() {
-                            Rule::debit_credit_indicator => {
-                                debit_credit_indicator =
-                                    Some(DebitOrCredit::from_str(pair.as_str()).unwrap());
-                            }
-                            Rule::date => date = Some(date_from_mt940_date(pair.as_str()).unwrap()),
-                            Rule::iso_currency_code => {
-                                iso_currency_code = Some(pair.as_str().to_string())
-                            }
-                            Rule::amount => {
-                                amount = Some(decimal_from_mt940_amount(pair.as_str()).unwrap());
-                            }
-                            _ => (),
-                        };
-                    }
-                    opening_balance = Some(Balance {
-                        is_intermediate,
-                        debit_credit_indicator: debit_credit_indicator.unwrap(),
-                        date: date.unwrap(),
-                        iso_currency_code: iso_currency_code.unwrap(),
-                        amount: amount.unwrap(),
-                    });
+                    opening_balance = Some(parse_60_tag(&field));
                     current_acceptable_tags = vec!["61", "62M", "62F", "86"];
                 }
                 "61" => {
-                    let mut date = None;
-                    let mut short_date = None;
-                    let mut ext_debit_credit_indicator = None;
-                    let mut funds_code = None;
-                    let mut amount = None;
-                    let mut transaction_type_ident_code = None;
-                    let mut customer_ref = None;
-                    let mut bank_ref = None;
-                    let mut supplementary_details = None;
-                    let parsed_field = MT940Parser::parse(Rule::tag_61_field, &field.value);
-                    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
-                    for pair in pairs {
-                        match pair.as_rule() {
-                            Rule::date => date = Some(date_from_mt940_date(pair.as_str()).unwrap()),
-                            Rule::short_date => {
-                                let mut month = None;
-                                let mut day = None;
-                                for p in pair.into_inner() {
-                                    match p.as_rule() {
-                                        Rule::month => month = Some(p.as_str()),
-                                        Rule::day => day = Some(p.as_str()),
-                                        _ => unreachable!(),
-                                    }
-                                }
-                                // Since we only get month and day from the short date, we'll have
-                                // to make an assumption about the year.
-                                // We'll assume that this is in the same year as the statement
-                                // line's year. This might result in some cases where the
-                                // statement's year is 2018-12-31 and the entry is given as 0101
-                                // which would then result in this the entry date ending up as
-                                // 2018-01-01 even though it should be 2019-01-01. I'll not be too
-                                // smart about this for now but I'll keep an eye on this.
-                                short_date = Some(NaiveDate::from_ymd(
-                                    date.unwrap().year(),
-                                    month.unwrap().parse().unwrap(),
-                                    day.unwrap().parse().unwrap(),
-                                ));
-                            }
-                            Rule::ext_debit_credit_indicator => {
-                                ext_debit_credit_indicator =
-                                    Some(ExtDebitOrCredit::from_str(pair.as_str()).unwrap());
-                            }
-                            Rule::funds_code => {
-                                funds_code = Some(pair.as_str().to_string());
-                            }
-                            Rule::amount => {
-                                amount = Some(decimal_from_mt940_amount(pair.as_str()).unwrap());
-                            }
-                            Rule::transaction_type_ident_code => {
-                                // The actual transaction type ident code begins after the first
-                                // character. The first character is either "N" or "F".
-                                let actual_type_ident_code_str = &pair.as_str()[1..];
-                                match TransactionTypeIdentificationCode::from_str(
-                                    actual_type_ident_code_str,
-                                ) {
-                                    Ok(t) => transaction_type_ident_code = Some(t),
-                                    Err(strum::ParseError::VariantNotFound) => {
-                                        return Err(ParseError::InvalidTransactionIdentCode(
-                                            pair.as_str().to_string(),
-                                        ))
-                                    }
-                                };
-                            }
-                            Rule::customer_ref => {
-                                customer_ref = Some(pair.as_str().to_string());
-                            }
-                            Rule::bank_ref => {
-                                bank_ref = Some(pair.as_str().to_string());
-                            }
-                            Rule::supplementary_details => {
-                                supplementary_details = Some(pair.as_str().to_string());
-                            }
-                            _ => (),
-                        }
-                    }
-                    let statement_line = StatementLine {
-                        value_date: date.unwrap(),
-                        entry_date: short_date,
-                        ext_debit_credit_indicator: ext_debit_credit_indicator.unwrap(),
-                        funds_code: funds_code,
-                        amount: amount.unwrap(),
-                        transaction_type_ident_code: transaction_type_ident_code.unwrap(),
-                        customer_ref: customer_ref.unwrap(),
-                        bank_ref: bank_ref,
-                        supplementary_details: supplementary_details,
-                        information_to_account_owner: None,
-                    };
+                    let statement_line = parse_61_tag(&field)?;
                     statement_lines.push(statement_line);
                     current_acceptable_tags = vec!["61", "86", "62M", "62F"];
                 }
                 "86" => {
-                    let parsed_field = MT940Parser::parse(Rule::tag_86_field, &field.value);
-                    let info_to_account_owner = parsed_field.unwrap().as_str().to_string();
+                    let info_to_account_owner = parse_86_tag(&field);
                     // If the last tag was either :61: or :86: then this tag belongs to that
                     // previous tag and we'll attach the information to the previous tag.
                     match last_tag.as_str() {
@@ -376,98 +263,15 @@ impl Message {
                     current_acceptable_tags = vec!["61", "62M", "62F", "86"];
                 }
                 "62M" | "62F" => {
-                    let is_intermediate = field.tag.as_str() == "62M";
-                    let mut debit_credit_indicator = None;
-                    let mut date = None;
-                    let mut iso_currency_code = None;
-                    let mut amount = None;
-                    let parsed_field = MT940Parser::parse(Rule::tag_62_field, &field.value);
-                    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
-                    for pair in pairs {
-                        match pair.as_rule() {
-                            Rule::debit_credit_indicator => {
-                                debit_credit_indicator =
-                                    Some(DebitOrCredit::from_str(pair.as_str()).unwrap());
-                            }
-                            Rule::date => date = Some(date_from_mt940_date(pair.as_str()).unwrap()),
-                            Rule::iso_currency_code => {
-                                iso_currency_code = Some(pair.as_str().to_string())
-                            }
-                            Rule::amount => {
-                                amount = Some(decimal_from_mt940_amount(pair.as_str()).unwrap());
-                            }
-                            _ => (),
-                        };
-                    }
-                    closing_balance = Some(Balance {
-                        is_intermediate,
-                        debit_credit_indicator: debit_credit_indicator.unwrap(),
-                        date: date.unwrap(),
-                        iso_currency_code: iso_currency_code.unwrap(),
-                        amount: amount.unwrap(),
-                    });
+                    closing_balance = Some(parse_62_tag(&field));
                     current_acceptable_tags = vec!["64", "65", "86"];
                 }
                 "64" => {
-                    let mut debit_credit_indicator = None;
-                    let mut date = None;
-                    let mut iso_currency_code = None;
-                    let mut amount = None;
-                    let parsed_field = MT940Parser::parse(Rule::tag_64_field, &field.value);
-                    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
-                    for pair in pairs {
-                        match pair.as_rule() {
-                            Rule::debit_credit_indicator => {
-                                debit_credit_indicator =
-                                    Some(DebitOrCredit::from_str(pair.as_str()).unwrap());
-                            }
-                            Rule::date => date = Some(date_from_mt940_date(pair.as_str()).unwrap()),
-                            Rule::iso_currency_code => {
-                                iso_currency_code = Some(pair.as_str().to_string())
-                            }
-                            Rule::amount => {
-                                amount = Some(decimal_from_mt940_amount(pair.as_str()).unwrap());
-                            }
-                            _ => (),
-                        };
-                    }
-                    closing_available_balance = Some(AvailableBalance {
-                        debit_credit_indicator: debit_credit_indicator.unwrap(),
-                        date: date.unwrap(),
-                        iso_currency_code: iso_currency_code.unwrap(),
-                        amount: amount.unwrap(),
-                    });
+                    closing_available_balance = Some(parse_64_tag(&field));
                     current_acceptable_tags = vec!["65", "86"];
                 }
                 "65" => {
-                    let mut debit_credit_indicator = None;
-                    let mut date = None;
-                    let mut iso_currency_code = None;
-                    let mut amount = None;
-                    let parsed_field = MT940Parser::parse(Rule::tag_65_field, &field.value);
-                    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
-                    for pair in pairs {
-                        match pair.as_rule() {
-                            Rule::debit_credit_indicator => {
-                                debit_credit_indicator =
-                                    Some(DebitOrCredit::from_str(pair.as_str()).unwrap());
-                            }
-                            Rule::date => date = Some(date_from_mt940_date(pair.as_str()).unwrap()),
-                            Rule::iso_currency_code => {
-                                iso_currency_code = Some(pair.as_str().to_string())
-                            }
-                            Rule::amount => {
-                                amount = Some(decimal_from_mt940_amount(pair.as_str()).unwrap());
-                            }
-                            _ => (),
-                        };
-                    }
-                    forward_available_balance = Some(AvailableBalance {
-                        debit_credit_indicator: debit_credit_indicator.unwrap(),
-                        date: date.unwrap(),
-                        iso_currency_code: iso_currency_code.unwrap(),
-                        amount: amount.unwrap(),
-                    });
+                    forward_available_balance = Some(parse_65_tag(&field));
                     current_acceptable_tags = vec!["65", "86"];
                 }
                 tag @ _ => return Err(ParseError::UnknownTagError(tag.to_string())),
@@ -505,6 +309,53 @@ pub struct Field {
     pub value: String,
 }
 
+impl Field {
+    pub fn new(tag: &str, value: &str) -> Field {
+        Field {
+            tag: tag.to_string(),
+            value: value.to_string(),
+        }
+    }
+}
+
+/// Parse a statement that looks like this:
+///
+///   ignored stuff in front
+///   blah blah
+///   :123:something
+///   :456:something else
+///   :789:even with
+///   new line
+///   like this
+///   :012:and then more stuff
+///
+/// The result will be a list of fields.
+/// There is no validation of the contents of the fields. There contents could be nonsensical.
+///
+/// # Example
+/// ```
+/// use mt940::{parse_fields, Field};
+///
+/// let input = "ignored stuff in front\r\n\
+///              blah blah\r\n\
+///              :123:something\r\n\
+///              :456:something else\r\n\
+///              :789:even with\r\n\
+///              new line\r\n\
+///              like this\r\n\
+///              :012:and then more stuff\r\n\
+///              \r\n";
+///
+/// let expected = vec![
+///     Field::new("123", "something"),
+///     Field::new("456", "something else"),
+///     Field::new("789", "even with\nnew line\nlike this"),
+///     Field::new("012", "and then more stuff"),
+/// ];
+///
+/// let input_parsed = parse_fields(input).unwrap();
+/// assert_eq!(expected, input_parsed);
+/// ```
 pub fn parse_fields(statement: &str) -> Result<Vec<Field>, pest::error::Error<Rule>> {
     let parsed_fields = MT940Parser::parse(Rule::fields, statement)?;
 
@@ -514,28 +365,111 @@ pub fn parse_fields(statement: &str) -> Result<Vec<Field>, pest::error::Error<Ru
             break;
         }
         let inner = parsed_field.into_inner();
-        let tag = inner
-            .clone()
-            .next()
-            .unwrap()
-            .into_inner()
-            .as_str()
-            .to_string();
+        let tag = inner.clone().next().unwrap().into_inner().as_str();
         let value = inner
             .clone()
             .nth(1)
             .unwrap()
             .as_str()
             .trim()
-            .replace("\r\n", "\n")
-            .to_string();
-        let field = Field { tag, value };
+            .replace("\r\n", "\n");
+        let field = Field::new(tag, &value);
         fields.push(field);
     }
 
     Ok(fields)
 }
 
+/// Parse and validate a MT940 statement.
+///
+/// Result will be a list of all contained messages.
+///
+/// # Example
+/// ```
+/// # extern crate chrono;
+/// # extern crate rust_decimal;
+/// # use chrono::prelude::*;
+/// # use rust_decimal::Decimal;
+/// # use std::str::FromStr;
+/// # use mt940::{Message, AvailableBalance, Balance, StatementLine};
+/// # use mt940::{DebitOrCredit, ExtDebitOrCredit, TransactionTypeIdentificationCode};
+/// use mt940::parse_mt940;
+///
+/// let input = "\
+///     :20:3996-11-11111111\r\n\
+///     :25:DABADKKK/111111-11111111\r\n\
+///     :28C:00001/001\r\n\
+///     :60F:C090924EUR54484,04\r\n\
+///     :61:0909250925DR583,92NMSC1110030403010139//1234\r\n\
+///     :86:11100304030101391234\r\n\
+///     Beneficiary name\r\n\
+///     Something else\r\n\
+///     :61:0910010930DR62,60NCHGcustomer id//bank id\r\n\
+///     :86:Fees according to advice\r\n\
+///     :62F:C090930EUR53126,94\r\n\
+///     :64:C090930EUR53189,31\r\n\
+///     \r\n";
+///
+/// let expected = vec![Message {
+///     transaction_ref_no: "3996-11-11111111".to_string(),
+///     ref_to_related_msg: None,
+///     account_id: "DABADKKK/111111-11111111".to_string(),
+///     statement_no: "00001".to_string(),
+///     sequence_no: Some("001".to_string()),
+///     opening_balance: Balance {
+///         is_intermediate: false,
+///         debit_credit_indicator: DebitOrCredit::Credit,
+///         date: NaiveDate::from_ymd(2009, 09, 24),
+///         iso_currency_code: "EUR".to_string(),
+///         amount: Decimal::from_str("54484.04").unwrap(),
+///     },
+///     statement_lines: vec![
+///         StatementLine {
+///             value_date: NaiveDate::from_ymd(2009, 09, 25),
+///             entry_date: Some(NaiveDate::from_ymd(2009, 09, 25)),
+///             ext_debit_credit_indicator: ExtDebitOrCredit::Debit,
+///             funds_code: Some("R".to_string()),
+///             amount: Decimal::from_str("583.92").unwrap(),
+///             transaction_type_ident_code: TransactionTypeIdentificationCode::MSC,
+///             customer_ref: "1110030403010139".to_string(),
+///             bank_ref: Some("1234".to_string()),
+///             supplementary_details: None,
+///             information_to_account_owner: Some(
+///                 "11100304030101391234\nBeneficiary name\nSomething else".to_string(),
+///             ),
+///         },
+///         StatementLine {
+///             value_date: NaiveDate::from_ymd(2009, 10, 01),
+///             entry_date: Some(NaiveDate::from_ymd(2009, 09, 30)),
+///             ext_debit_credit_indicator: ExtDebitOrCredit::Debit,
+///             funds_code: Some("R".to_string()),
+///             amount: Decimal::from_str("62.60").unwrap(),
+///             transaction_type_ident_code: TransactionTypeIdentificationCode::CHG,
+///             customer_ref: "customer id".to_string(),
+///             bank_ref: Some("bank id".to_string()),
+///             supplementary_details: None,
+///             information_to_account_owner: Some("Fees according to advice".to_string()),
+///         },
+///     ],
+///     closing_balance: Balance {
+///         is_intermediate: false,
+///         debit_credit_indicator: DebitOrCredit::Credit,
+///         date: NaiveDate::from_ymd(2009, 09, 30),
+///         iso_currency_code: "EUR".to_string(),
+///         amount: Decimal::from_str("53126.94").unwrap(),
+///     },
+///     closing_available_balance: Some(AvailableBalance {
+///         debit_credit_indicator: DebitOrCredit::Credit,
+///         date: NaiveDate::from_ymd(2009, 09, 30),
+///         iso_currency_code: "EUR".to_string(),
+///         amount: Decimal::from_str("53189.31").unwrap(),
+///     }),
+///     forward_available_balance: None,
+///     information_to_account_owner: None,
+/// }];
+/// let input_parsed = parse_mt940(input).unwrap();
+/// assert_eq!(expected, input_parsed);
+/// ```
 pub fn parse_mt940(statement: &str) -> Result<Vec<Message>, ParseError> {
     let fields = parse_fields(statement).map_err(ParseError::PestParseError)?;
 
@@ -560,87 +494,47 @@ pub fn parse_mt940(statement: &str) -> Result<Vec<Message>, ParseError> {
 
 #[cfg(test)]
 mod tests {
+    use regex::Regex;
+
     use super::*;
 
-    // #[test]
-    // fn parse_mt940_tag() {
-    //     let expected = "20";
-    //     let result = MT940Parser::parse(Rule::tag, ":20:");
-    //     assert_eq!(
-    //         expected,
-    //         result.unwrap().next().unwrap().into_inner().as_str()
-    //     );
-    // }
-
-    // #[test]
-    // fn parse_mt940_record_single_line() {
-    //     let expected = Record {
-    //         tag: "20".to_string(),
-    //         message: "3996-11-11111111".to_string(),
-    //     };
-    //     let result = parse_mt940(":20:3996-11-11111111\r\n").unwrap();
-    //     assert_eq!(expected, result[0]);
-    // }
-    //
-    // #[test]
-    // fn parse_mt940_record() {
-    //     let expected = Record {
-    //         tag: "20".to_string(),
-    //         message: "3996-11-11111111\nTES TTEST\nMORETEST".to_string(),
-    //     };
-    //     let result = parse_mt940(
-    //         ":20:3996-11-11111111\r\nTES TTEST\r\nMORETEST\r\n:50:some-other-message\r\n",
-    //     )
-    //     .unwrap();
-    //     assert_eq!(expected, result[0]);
-    // }
-
     #[test]
-    fn parse_mt940_statement() {
-        let test_data = "asdadad\
-                         :20:3996-1234567890\r\n\
-                         :25:DABADKKK/1234567890\r\n\
-                         :28C:00014/001\r\n\
-                         :60F:C091019DKK3859701,48\r\n\
-                         :86:For your inform. IBAN no.: DK5030001234567890\r\n\
-                         DABADKKK                                                 \r\n\
-                         1234567890\r\n\
-                         DANSKE BANK                        HOLMENS KANAL 2-12\r\n\
-                         :61:0910201020DK5312,50NMSCDBT.teste kunden\r\n\
-                         :86:F.M.T.\r\n\
-                         V/TESTE KUNDEN\r\n\
-                         HOLMENS KANAL 2-12\r\n\
-                         1192  KOBENHAVN H\r\n\
-                         :61:0910201020DK3009,51NMSCDBT.Pet Van Park\r\n\
-                         :86:DBTS 1111272333/Bnf. PET VAN PARK AMSTERDAM/Bnf.acc. NL47ABNAXXXX\r\n\
-                         558756/Our fee DKK 40,00/Foreign fee DKK 200,00\r\n\
-                         :62F:C091020DKK3851379,47\r\n\
-                         :64:C091020DKK3851379,47\r\n\
-                         \r\n\
-                         ";
+    fn parse_mt940_fields() {
+        let input = "ignored stuff in front
+                     blah blah
+                     :123:something\r\n\
+                     :456:something else\r\n\
+                     :789:even with\r\n\
+                     new line\r\n\
+                     like this\r\n\
+                     :012:and then more stuff\r\n\
+                     \r\n";
 
-        let expected = vec![Message {
-            transaction_ref_no: "3996-1234567890".to_string(),
-            ref_to_related_msg: None,
-            account_id: "DABADKKK/1234567890".to_string(),
-        }];
+        let expected = vec![
+            Field::new("123", "something"),
+            Field::new("456", "something else"),
+            Field::new("789", "even with\nnew line\nlike this"),
+            Field::new("012", "and then more stuff"),
+        ];
 
-        let result = parse_mt940(test_data).unwrap();
-        assert_eq!(expected, result);
+        let input_parsed = parse_fields(input).unwrap();
+        assert_eq!(expected, input_parsed);
     }
 
-    #[test]
-    fn parse_mt940_statement_dk_example() {
-        let test_data =
-            fs::read_to_string("tests/data/self-provided/MT940_DK_Example.sta").unwrap();
+    proptest! {
+        #[test]
+        fn dont_crash(tag in "[[:alnum:]]+", value in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]+") {
+            let re_tag_like = Regex::new(":.*:").unwrap();
+            prop_assume!(!re_tag_like.is_match(&value), "Can't have a value that looks like a tag");
 
-        let expected = vec![Message {
-            transaction_ref_no: "3996-1234567890".to_string(),
-            ref_to_related_msg: None,
-            account_id: "DABADKKK/1234567890".to_string(),
-        }];
+            // I know this is pretty arbitrary but I think it's a reasonable assumption to make.
+            // I don't think banks encode information in leading or trailing whitespace considering
+            // these formats are made for print.
+            let re_only_whitespace = Regex::new(r"\s+").unwrap();
+            prop_assume!(!re_only_whitespace.is_match(&value), "Can't have a value that's only whitespace");
 
-        let result = parse_mt940(&test_data).unwrap();
-        assert_eq!(expected, result);
+            let parsed = parse_fields(&format!(":{}:{}", tag, value)).unwrap();
+            prop_assert_eq!((&parsed[0].tag, &parsed[0].value), (&tag, &value));
+        }
     }
 }

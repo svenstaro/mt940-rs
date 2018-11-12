@@ -7,6 +7,7 @@ The actual example starts after the dotted line
 :25:DABADKKK/111111-11111111
 :28C:00001/001
 :60F:C090924EUR54484,04
+:61:0910010930CR0,23FINTInterest
 :86:For your inform. IBAN no.: FI1111111111111111
 :86:DABADKKK                                                 
 :86:111111-11111111
@@ -29,6 +30,5 @@ Beneficiary name
 :86:00000000000002691234
 Beneficiary name
 Beneficiary name
-:61:0910010930CR0,23FINTInterest
 :62F:C090930EUR53126,94
 :64:C090930EUR53189,31
