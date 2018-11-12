@@ -386,6 +386,7 @@ pub fn parse_fields(statement: &str) -> Result<Vec<Field>, pest::error::Error<Ru
 ///
 /// # Example
 /// ```
+/// # extern crate mt940;
 /// # extern crate chrono;
 /// # extern crate rust_decimal;
 /// # use chrono::prelude::*;
