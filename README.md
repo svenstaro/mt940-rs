@@ -6,8 +6,48 @@
 [![dependency status](https://deps.rs/repo/github/svenstaro/mt940-rs/status.svg)](https://deps.rs/repo/github/svenstaro/mt940-rs)
 [![license](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/svenstaro/mt940-rs/blob/master/LICENSE)
 
+**A strict bank statement parser in Rust.**
 
-Parse mt940 statements in Rust.
+## Features
+
+- Parse MT940 bank statements.
+- Strict and well-researched.
+- Super simple API and nice Rusty structs.
+
+## Planned features
+
+- MT941 support
+- MT942 support
+
+## Example
+
+```rust
+extern crate mt940;
+use mt940::parse_mt940;
+
+let input = "\
+    :20:3996-11-11111111\r\n\
+    :25:DABADKKK/111111-11111111\r\n\
+    :28C:00001/001\r\n\
+    :60F:C090924EUR54484,04\r\n\
+    :61:0909250925DR583,92NMSC1110030403010139//1234\r\n\
+    :86:11100304030101391234\r\n\
+    Beneficiary name\r\n\
+    Something else\r\n\
+    :61:0910010930DR62,60NCHGcustomer id//bank id\r\n\
+    :86:Fees according to advice\r\n\
+    :62F:C090930EUR53126,94\r\n\
+    :64:C090930EUR53189,31\r\n\
+    \r\n";
+
+let input_parsed = parse_mt940(input).unwrap();
+assert_eq!(input_parsed.transaction_ref_no, "3996-11-11111111");
+```
+
+## Caveats
+
+Some banks bank use weird derivates of MT940 that are do not strictly follow the specification.
+In that case, I recommend you do some pre-processing of those statements.
 
 ## Resources and acknowledgements
 
@@ -16,6 +56,12 @@ Referencing proper docs is important because because banks seem to be somewhat l
 ### Other projects
 
 - Lots of test data copied from https://github.com/WoLpH/mt940
+
+### iotafinance.com
+
+Amazing interactive docs.
+
+- http://www.iotafinance.com/en/SWIFT-ISO15022-Message-types-in-category-9.html
 
 ### DanskeBank
 
