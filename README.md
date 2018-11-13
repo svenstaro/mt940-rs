@@ -58,7 +58,7 @@ Documentation is [here](https://docs.rs/mt940).
 
 ## Caveats
 
-Some banks bank use weird derivates of MT940 that are do not strictly follow the specification.
+Some banks bank use weird derivates of MT940 that do not strictly follow the specification.
 In that case, I recommend you do some pre-processing of those statements.
 
 ## Resources and acknowledgements
