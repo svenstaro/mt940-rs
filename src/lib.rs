@@ -374,14 +374,16 @@ impl Field {
 
 /// Parse a MT940 statement to a list of its fields.
 ///
-///     ignored stuff in front
-///     blah blah
-///     :123:something
-///     :456:something else
-///     :789:even with
-///     new line
-///     like this
-///     :012:and then more stuff
+/// ```ignore
+/// ignored stuff in front
+/// blah blah
+/// :123:something
+/// :456:something else
+/// :789:even with
+/// new line
+/// like this
+/// :012:and then more stuff
+/// ```
 ///
 /// The result will be a [`Vec`] of [`Field`]s.
 /// There is no validation of the contents of the `Field`s. The contents could be nonsensical.
