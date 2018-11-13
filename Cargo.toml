@@ -1,7 +1,16 @@
 [package]
 name = "mt940"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Sven-Hendrik Haase <svenstaro@gmail.com>"]
+repository = "https://github.com/svenstaro/mt940-rs"
+license = "MIT"
+readme = "README.md"
+keywords = ["mt940", "sepa", "bank", "banking", "fintech", "fints", "hbci"]
+categories = ["parser-implementations", "command-line-utilities", "command-line-interface"]
+
+[badges]
+travis-ci = { repository = "svenstaro/mt940-rs", branch = "master" }
+maintenance = { status = "actively-developed" }
 
 [dependencies]
 clap = "2"

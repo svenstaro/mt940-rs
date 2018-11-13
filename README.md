@@ -6,20 +6,21 @@
 [![dependency status](https://deps.rs/repo/github/svenstaro/mt940-rs/status.svg)](https://deps.rs/repo/github/svenstaro/mt940-rs)
 [![license](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/svenstaro/mt940-rs/blob/master/LICENSE)
 
-**A strict bank statement parser in Rust.**
+**A strict MT940 bank statement parser in Rust.**
 
 ## Features
 
 - Parse MT940 bank statements.
 - Strict and well-researched.
 - Super simple API and nice Rusty structs.
+- Small commandline utility that allows for quick and easy conversion of MT940 statements to JSON.
 
 ## Planned features
 
 - MT941 support
 - MT942 support
 
-## Example
+## Library usagage example
 
 ```rust
 extern crate mt940;
@@ -45,6 +46,10 @@ fn main() {
     assert_eq!(input_parsed[0].transaction_ref_no, "3996-11-11111111");
 }
 ```
+
+## CLI usage example
+
+    cargo run --bin sta2json tests/data/mt940/full/danskebank/MT940_DK_Example.sta
 
 ## Caveats
 
