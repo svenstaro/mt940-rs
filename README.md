@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.com/svenstaro/mt940-rs.svg?branch=master)](https://travis-ci.com/svenstaro/mt940-rs)
 [![Docs Status](https://docs.rs/mt940/badge.svg)](https://docs.rs/mt940)
 [![codecov](https://codecov.io/gh/svenstaro/mt940-rs/branch/master/graph/badge.svg)](https://codecov.io/gh/svenstaro/mt940-rs)
-[![Crates.io](https://img.shields.io/crates/v/mt940-rs.svg)](https://crates.io/crates/mt940-rs)
+[![Crates.io](https://img.shields.io/crates/v/mt940.svg)](https://crates.io/crates/mt940)
 [![dependency status](https://deps.rs/repo/github/svenstaro/mt940-rs/status.svg)](https://deps.rs/repo/github/svenstaro/mt940-rs)
 [![license](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/svenstaro/mt940-rs/blob/master/LICENSE)
 
