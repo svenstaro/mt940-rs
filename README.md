@@ -1,6 +1,7 @@
 # mt940-rs
 
 [![Build Status](https://travis-ci.com/svenstaro/mt940-rs.svg?branch=master)](https://travis-ci.org/svenstaro/mt940-rs)
+[![Docs Status](https://docs.rs/mt940/badge.svg)](https://docs.rs/mt940)
 [![codecov](https://codecov.io/gh/svenstaro/mt940-rs/branch/master/graph/badge.svg)](https://codecov.io/gh/svenstaro/mt940-rs)
 [![Crates.io](https://img.shields.io/crates/v/mt940-rs.svg)](https://crates.io/crates/mt940-rs)
 [![dependency status](https://deps.rs/repo/github/svenstaro/mt940-rs/status.svg)](https://deps.rs/repo/github/svenstaro/mt940-rs)
@@ -20,7 +21,7 @@
 - MT941 support
 - MT942 support
 
-## Library usagage example
+## Library usage example
 
 ```rust
 extern crate mt940;
@@ -50,6 +51,10 @@ fn main() {
 ## CLI usage example
 
     cargo run --bin sta2json tests/data/mt940/full/danskebank/MT940_DK_Example.sta
+    
+## Documentation
+
+Documentation is [here](https://docs.rs/mt940).
 
 ## Caveats
 
