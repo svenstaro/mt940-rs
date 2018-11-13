@@ -1,5 +1,9 @@
 use std::fmt;
 
+/// Enum containing every SEPA-specified transaction type identification code.
+///
+/// See here for source:
+/// http://www.sepaforcorporates.com/swift-for-corporates/list-mt940-transaction-type-identification-codes/
 #[derive(Debug, Eq, PartialEq, Serialize, Deserialize, EnumString)]
 pub enum TransactionTypeIdentificationCode {
     BNK,

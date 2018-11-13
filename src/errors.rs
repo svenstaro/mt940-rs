@@ -3,6 +3,7 @@ use std::fmt;
 
 use Rule;
 
+/// Error thrown when parsing of a MT940 amount fails.
 #[derive(Debug)]
 pub enum AmountParseError {
     TooManyCommas,
@@ -10,6 +11,7 @@ pub enum AmountParseError {
     IntParseError(std::num::ParseIntError),
 }
 
+/// Error thrown when parsing fails.
 #[derive(Debug)]
 pub enum ParseError {
     PestParseError(pest::error::Error<Rule>),
@@ -55,6 +57,10 @@ impl From<RequiredTagNotFoundError> for ParseError {
     }
 }
 
+/// Error thrown when an unexpected tag was found.
+///
+/// Some tags must never follow other tags. If that happens for some reason, we can safely assume
+/// that the input data is faulty.
 #[derive(Debug)]
 pub struct UnexpectedTagError {
     current_tag: String,
@@ -92,6 +98,7 @@ impl fmt::Display for UnexpectedTagError {
     }
 }
 
+/// Error thrown if a required tag was not found.
 #[derive(Debug)]
 pub struct RequiredTagNotFoundError {
     required_tag: String,

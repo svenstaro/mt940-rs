@@ -1,3 +1,31 @@
+//! A fast and strict MT940 parser.
+//!
+//! # Example
+//! ```
+//! extern crate mt940;
+//! use mt940::parse_mt940;
+//!
+//! fn main() {
+//!     let input = "\
+//!         :20:3996-11-11111111\r\n\
+//!         :25:DABADKKK/111111-11111111\r\n\
+//!         :28C:00001/001\r\n\
+//!         :60F:C090924EUR54484,04\r\n\
+//!         :61:0909250925DR583,92NMSC1110030403010139//1234\r\n\
+//!         :86:11100304030101391234\r\n\
+//!         Beneficiary name\r\n\
+//!         Something else\r\n\
+//!         :61:0910010930DR62,60NCHGcustomer id//bank id\r\n\
+//!         :86:Fees according to advice\r\n\
+//!         :62F:C090930EUR53126,94\r\n\
+//!         :64:C090930EUR53189,31\r\n\
+//!         \r\n";
+//!
+//!     let input_parsed = parse_mt940(input).unwrap();
+//!     assert_eq!(input_parsed[0].transaction_ref_no, "3996-11-11111111");
+//! }
+//! ```
+
 extern crate pest;
 #[macro_use]
 extern crate pest_derive;
@@ -46,51 +74,66 @@ use tag_parsers::{
 };
 pub use transaction_types::TransactionTypeIdentificationCode;
 
+/// A pest parser for parsing a MT940 structure and fields.
 #[derive(Parser)]
 #[grammar = "mt940.pest"]
 pub struct MT940Parser;
 
+/// A single, parsed MT940 message.
+///
+/// Many of these might be contained in a bank statement.
+///
+/// For specific field documentation, see here:
+/// http://www.sepaforcorporates.com/swift-for-corporates/account-statement-mt940-file-format-overview/
 #[derive(Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Message {
-    // Tag :20:
+    /// Tag `:20:`
     pub transaction_ref_no: String,
 
-    // Tag :21:
+    /// Tag `:21:`
     pub ref_to_related_msg: Option<String>,
 
-    // Tag :25:
+    /// Tag `:25:`
     pub account_id: String,
 
-    // Tag :28C:
+    /// Tag `:28C:`
     pub statement_no: String,
+    /// Optional part of tag `:28C:`
     pub sequence_no: Option<String>,
 
-    // Tag :60F: or :60M:
-    // In case this is :60F: it is the first opening balance.
-    // In case of :60M: this is the intermediate opening balance for statements following the
-    // first one.
+    /// Tag `:60F:` or `:60M:`
+    ///
+    /// In case this is `:60F:` it is the first opening [`Balance`].
+    /// In case of `:60M:` this is the intermediate opening balance for statements following the
+    /// first one.
     pub opening_balance: Balance,
 
-    // Tag :61: and :86:
-    // Any :86: preceeded by :61: will provide more information to that :61:
+    /// Tag `:61:` and `:86:`
+    ///
+    /// Any `:86:` preceeded by `:61:` will provide more information to that `:61:`
     pub statement_lines: Vec<StatementLine>,
 
-    // Tag :62F: or :62M:
-    // In case this is :62F: it is the first closing balance.
-    // In case of :62M: this is the intermediate opening balance for statements following the
-    // first one.
+    /// Tag `:62F:` or `:62M:`
+    ///
+    /// In case this is `:62F:` it is the first closing [`Balance`].
+    /// In case of `:62M:` this is the intermediate closing balance for statements following the
+    /// first one.
     pub closing_balance: Balance,
 
-    // Tag :64:
+    /// Tag `:64:`
     pub closing_available_balance: Option<AvailableBalance>,
 
-    // Tag :65:
+    /// Tag `:65:`
     pub forward_available_balance: Option<AvailableBalance>,
 
-    // Tag :86:
+    /// Tag `:86:`
+    ///
+    /// A tag `:86:` not preceeded by a tag `:61` will provide information for the whole
+    /// [`Message`] as opposed to just the `StatementLine`.
     pub information_to_account_owner: Option<String>,
 }
 
+/// A `StatementLine` holds information contained in tag `:61:` and tag `:86:`.
 #[derive(Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub struct StatementLine {
     pub value_date: NaiveDate,
@@ -102,9 +145,16 @@ pub struct StatementLine {
     pub customer_ref: String,
     pub bank_ref: Option<String>,
     pub supplementary_details: Option<String>,
+    /// This information is contained in tag `:86:`
     pub information_to_account_owner: Option<String>,
 }
 
+/// Represents a balance of an account in between statements or at the start of a statement.
+///
+/// The difference to [`AvailableBalance`] is that a [`Balance`] might not be final in that it might
+/// have been continued from a previous bank statement. In that case, the [`Balance`] is said to be
+/// intermediate. This is signaled by `is_intermediate` being set to `true`. This is generally the
+/// case if this information is continued in tag `:60M:` as opposed to `:60F`.
 #[derive(Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Balance {
     pub is_intermediate: bool,
@@ -114,6 +164,7 @@ pub struct Balance {
     pub amount: Decimal,
 }
 
+/// Represents the currently available balance of an account.
 #[derive(Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub struct AvailableBalance {
     pub debit_credit_indicator: DebitOrCredit,
@@ -122,6 +173,7 @@ pub struct AvailableBalance {
     pub amount: Decimal,
 }
 
+/// Indiciates whether a transaction was `Debit` or `Credit`.
 #[derive(Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub enum DebitOrCredit {
     Debit,
@@ -143,6 +195,7 @@ impl FromStr for DebitOrCredit {
     }
 }
 
+/// Like [`DebitOrCredit`] with additional reverse variants.
 #[derive(Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub enum ExtDebitOrCredit {
     Debit,
@@ -171,7 +224,7 @@ impl FromStr for ExtDebitOrCredit {
 }
 
 impl Message {
-    /// Construct a new `Message` from a list of fields.
+    /// Construct a new [`Message`] from a list of `[Field]`s.
     ///
     /// Must start with field `:20:`. Must not contain more than one `:20:` tag.
     fn from_fields(fields: Vec<Field>) -> Result<Message, ParseError> {
@@ -302,6 +355,7 @@ impl Message {
 }
 
 /// This is a generic struct that serves as a container for the first pass of the parser.
+///
 /// It simply stores every field with absolutely no parsing or validation done on field values.
 #[derive(Debug, Eq, PartialEq)]
 pub struct Field {
@@ -318,19 +372,19 @@ impl Field {
     }
 }
 
-/// Parse a statement that looks like this:
+/// Parse a MT940 statement to a list of its fields.
 ///
-///   ignored stuff in front
-///   blah blah
-///   :123:something
-///   :456:something else
-///   :789:even with
-///   new line
-///   like this
-///   :012:and then more stuff
+///     ignored stuff in front
+///     blah blah
+///     :123:something
+///     :456:something else
+///     :789:even with
+///     new line
+///     like this
+///     :012:and then more stuff
 ///
-/// The result will be a list of fields.
-/// There is no validation of the contents of the fields. There contents could be nonsensical.
+/// The result will be a [`Vec`] of [`Field`]s.
+/// There is no validation of the contents of the `Field`s. The contents could be nonsensical.
 ///
 /// # Example
 /// ```
@@ -382,7 +436,7 @@ pub fn parse_fields(statement: &str) -> Result<Vec<Field>, pest::error::Error<Ru
 
 /// Parse and validate a MT940 statement.
 ///
-/// Result will be a list of all contained messages.
+/// Result will be a `Vec` of all contained [`Message`]s.
 ///
 /// # Example
 /// ```
