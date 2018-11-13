@@ -1,0 +1,1530 @@
+[
+  {
+    "transaction_ref_no": "3996-1234567890",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1234567890",
+    "statement_no": "00001",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-09-24",
+      "iso_currency_code": "DKK",
+      "amount": "2478926.70"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2009-09-29",
+        "entry_date": "2009-09-29",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "829419.78",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Dansken",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-01",
+        "entry_date": "2009-09-30",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "2214.00",
+        "transaction_type_ident_code": "CHG",
+        "customer_ref": "Gebyrer ifolge",
+        "bank_ref": "nota",
+        "supplementary_details": null,
+        "information_to_account_owner": "Gebyrer ifolge nota"
+      },
+      {
+        "value_date": "2009-09-25",
+        "entry_date": "2009-09-25",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "281.25",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.dansken",
+        "bank_ref": "momsmanual",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.dansken momsmanual"
+      },
+      {
+        "value_date": "2009-09-25",
+        "entry_date": "2009-09-25",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "50.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.DB  -",
+        "bank_ref": "70201234",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.DB  - 70201234"
+      },
+      {
+        "value_date": "2009-09-25",
+        "entry_date": "2009-09-25",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "50.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.DB  70201234",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-09-30",
+        "entry_date": "2009-09-29",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "2000.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DB faktura",
+        "bank_ref": "1234567",
+        "supplementary_details": null,
+        "information_to_account_owner": "DB faktura 1234567\nTestkunde\nHOLMENS KANAL 2-12\n1192  KOBENHAVN H"
+      },
+      {
+        "value_date": "2009-10-01",
+        "entry_date": "2009-09-30",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "5183.49",
+        "transaction_type_ident_code": "INT",
+        "customer_ref": "Rente",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-09-30",
+      "iso_currency_code": "DKK",
+      "amount": "1654095.16"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2009-09-30",
+      "iso_currency_code": "DKK",
+      "amount": "1651125.67"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-1234567890",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1234567890",
+    "statement_no": "00002",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-09-30",
+      "iso_currency_code": "DKK",
+      "amount": "1654095.16"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2009-10-01",
+        "entry_date": "2009-10-01",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "73561.41",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Overfort til:",
+        "bank_ref": "MasterCard",
+        "supplementary_details": null,
+        "information_to_account_owner": "Overfort til: MasterCard"
+      },
+      {
+        "value_date": "2009-10-01",
+        "entry_date": "2009-10-01",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "2204.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "Danske Bank A/S",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-02",
+        "entry_date": "2009-10-01",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "993.75",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "Danske Banksyste",
+        "bank_ref": "m A/",
+        "supplementary_details": null,
+        "information_to_account_owner": "Danske Banksystem A/\nTestkunde\nTestkunde\nHOLMENS KANAL 2-12\n1192  KOBENHAVN H"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-01",
+      "iso_currency_code": "DKK",
+      "amount": "1579323.50"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-01",
+      "iso_currency_code": "DKK",
+      "amount": "1578329.75"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-1234567890",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1234567890",
+    "statement_no": "00003",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-01",
+      "iso_currency_code": "DKK",
+      "amount": "1579323.50"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2009-10-02",
+        "entry_date": "2009-10-02",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "45161.88",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "TeleService",
+        "bank_ref": "1111252358",
+        "supplementary_details": null,
+        "information_to_account_owner": "TeleService 1111252358"
+      },
+      {
+        "value_date": "2009-10-02",
+        "entry_date": "2009-10-02",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "41581.45",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.testkund",
+        "bank_ref": "test",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.testkund test"
+      },
+      {
+        "value_date": "2009-10-02",
+        "entry_date": "2009-10-02",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "27259.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.danske",
+        "bank_ref": "finans",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.danske finans"
+      },
+      {
+        "value_date": "2009-10-02",
+        "entry_date": "2009-10-02",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "12398.75",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.banktesten--",
+        "bank_ref": "-",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.banktesten---"
+      },
+      {
+        "value_date": "2009-10-02",
+        "entry_date": "2009-10-02",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "10625.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.F.M.T",
+        "bank_ref": "v/teste kunden",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.Testkunde\nV/TESTKUNDE\nHOLMENS KANAL 2-12\n1192  KOBENHAVN H"
+      },
+      {
+        "value_date": "2009-10-02",
+        "entry_date": "2009-10-02",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "4600.70",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-02",
+        "entry_date": "2009-10-02",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "3547.60",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "TeleService",
+        "bank_ref": "1111252371",
+        "supplementary_details": null,
+        "information_to_account_owner": "TeleService 1111252371"
+      },
+      {
+        "value_date": "2009-10-02",
+        "entry_date": "2009-10-02",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "3260.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.TestBankeser",
+        "bank_ref": "vice",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.TestBankeservice"
+      },
+      {
+        "value_date": "2009-10-02",
+        "entry_date": "2009-10-02",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "3225.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-02",
+        "entry_date": "2009-10-02",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "2805.90",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Danskeah",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-02",
+        "entry_date": "2009-10-02",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "2482.09",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-02",
+        "entry_date": "2009-10-02",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "2130.50",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-02",
+        "entry_date": "2009-10-02",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "1813.50",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-02",
+        "entry_date": "2009-10-02",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "1546.50",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Tester",
+        "bank_ref": "Kundens d Nie",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.Tester Kundens d Nie\n4200 12345687890"
+      },
+      {
+        "value_date": "2009-10-02",
+        "entry_date": "2009-10-02",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "656.25",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "TeleService",
+        "bank_ref": "1111252360",
+        "supplementary_details": null,
+        "information_to_account_owner": "TeleService 1111252360"
+      },
+      {
+        "value_date": "2009-10-02",
+        "entry_date": "2009-10-02",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "314.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.testkund",
+        "bank_ref": "test",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.testkund test"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-02",
+      "iso_currency_code": "DKK",
+      "amount": "1415915.38"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-02",
+      "iso_currency_code": "DKK",
+      "amount": "1415915.38"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-1234567890",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1234567890",
+    "statement_no": "00004",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-02",
+      "iso_currency_code": "DKK",
+      "amount": "1415915.38"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2009-10-05",
+        "entry_date": "2009-10-05",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "22522.25",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Bank",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-05",
+        "entry_date": "2009-10-05",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "18281.25",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.DB Adm. og",
+        "bank_ref": "regnskab",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.DB Adm. og regnskab\n3191 3191602358"
+      },
+      {
+        "value_date": "2009-10-05",
+        "entry_date": "2009-10-05",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "14750.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Danskeu",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-05",
+        "entry_date": "2009-10-05",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "5663.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Udleg RM",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-05",
+        "entry_date": "2009-10-05",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "4250.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.F.M.T Testku",
+        "bank_ref": "v/nn",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.F.M.T Testkunde\nV/nn\nHOLMENS KANAL 2-12\n1192  KOBENHAVN H"
+      },
+      {
+        "value_date": "2009-10-05",
+        "entry_date": "2009-10-05",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "3383.40",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.1111252369",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-05",
+        "entry_date": "2009-10-05",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "3131.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-05",
+        "entry_date": "2009-10-05",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "1778.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.DB  udleg",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "4440 3339054894"
+      },
+      {
+        "value_date": "2009-10-05",
+        "entry_date": "2009-10-05",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "560.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-05",
+      "iso_currency_code": "DKK",
+      "amount": "1341596.48"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-05",
+      "iso_currency_code": "DKK",
+      "amount": "1341596.48"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-1234567890",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1234567890",
+    "statement_no": "00005",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-05",
+      "iso_currency_code": "DKK",
+      "amount": "1341596.48"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2009-10-06",
+        "entry_date": "2009-10-06",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "494402.67",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.5072252359",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-06",
+        "entry_date": "2009-10-06",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "3260.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "6160 0004722555",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-06",
+      "iso_currency_code": "DKK",
+      "amount": "850453.81"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-06",
+      "iso_currency_code": "DKK",
+      "amount": "850453.81"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-1234567890",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1234567890",
+    "statement_no": "00006",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-06",
+      "iso_currency_code": "DKK",
+      "amount": "850453.81"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2009-10-07",
+        "entry_date": "2009-10-07",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "3317.10",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.1111252372",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-07",
+      "iso_currency_code": "DKK",
+      "amount": "847136.71"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-07",
+      "iso_currency_code": "DKK",
+      "amount": "847136.71"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-1234567890",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1234567890",
+    "statement_no": "00007",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-07",
+      "iso_currency_code": "DKK",
+      "amount": "847136.71"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2009-10-09",
+        "entry_date": "2009-10-09",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "58379.48",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.1111252361",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-09",
+        "entry_date": "2009-10-09",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "24187.50",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.fdm T.Kund",
+        "bank_ref": "ers.",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.fdm T.Kund ers.\nTest\nHOLMENS KANAL 2-12\n1192  KOBENHAVN H"
+      },
+      {
+        "value_date": "2009-10-09",
+        "entry_date": "2009-10-09",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "19027.65",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.Testkunde\n4205 4205042008"
+      },
+      {
+        "value_date": "2009-10-09",
+        "entry_date": "2009-10-09",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "11071.83",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-09",
+        "entry_date": "2009-10-09",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "10550.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-09",
+        "entry_date": "2009-10-09",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "3800.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkundetes",
+        "bank_ref": "tkunde",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.TestkundeTestkunde"
+      },
+      {
+        "value_date": "2009-10-09",
+        "entry_date": "2009-10-09",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "3435.25",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-09",
+        "entry_date": "2009-10-09",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "3260.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.db  Testkund",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.db  Testkunde"
+      },
+      {
+        "value_date": "2009-10-09",
+        "entry_date": "2009-10-09",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "3240.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-09",
+        "entry_date": "2009-10-09",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "1758.75",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-09",
+        "entry_date": "2009-10-09",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "1487.50",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.1111252363",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-09",
+        "entry_date": "2009-10-09",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "270.50",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.kunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-09",
+        "entry_date": "2009-10-09",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "245.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Dansk",
+        "bank_ref": "Testkunde",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.Dansk Testkunde"
+      },
+      {
+        "value_date": "2009-10-09",
+        "entry_date": "2009-10-09",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "178.27",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.1111252364",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-09",
+        "entry_date": "2009-10-09",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "176.25",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-09",
+        "entry_date": "2009-10-09",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "16.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.1111252370",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-09",
+      "iso_currency_code": "DKK",
+      "amount": "706052.73"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-09",
+      "iso_currency_code": "DKK",
+      "amount": "706052.73"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-1234567890",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1234567890",
+    "statement_no": "00008",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-09",
+      "iso_currency_code": "DKK",
+      "amount": "706052.73"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2009-10-12",
+        "entry_date": "2009-10-12",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "748.75",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-12",
+        "entry_date": "2009-10-12",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "226.50",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.kunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-12",
+      "iso_currency_code": "DKK",
+      "amount": "705077.48"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-12",
+      "iso_currency_code": "DKK",
+      "amount": "705077.48"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-1234567890",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1234567890",
+    "statement_no": "00009",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-12",
+      "iso_currency_code": "DKK",
+      "amount": "705077.48"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2009-10-13",
+        "entry_date": "2009-10-13",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "1408.75",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.5072252362",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-13",
+        "entry_date": "2009-10-13",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "322.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-13",
+        "entry_date": "2009-10-13",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "187.98",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-13",
+      "iso_currency_code": "DKK",
+      "amount": "703158.75"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-13",
+      "iso_currency_code": "DKK",
+      "amount": "703158.75"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-1234567890",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1234567890",
+    "statement_no": "00010",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-13",
+      "iso_currency_code": "DKK",
+      "amount": "703158.75"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2009-10-14",
+        "entry_date": "2009-10-14",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "29340.90",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-14",
+        "entry_date": "2009-10-14",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "21626.08",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-14",
+        "entry_date": "2009-10-14",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "12834.38",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-14",
+        "entry_date": "2009-10-14",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "7215.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "Testkunde\nAdresse\n8600  SILKEBORG"
+      },
+      {
+        "value_date": "2009-10-14",
+        "entry_date": "2009-10-14",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "3925.87",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.1111252368",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-14",
+        "entry_date": "2009-10-14",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "1248.28",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.1111252367",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-14",
+        "entry_date": "2009-10-14",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "260.85",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-14",
+      "iso_currency_code": "DKK",
+      "amount": "626707.39"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-14",
+      "iso_currency_code": "DKK",
+      "amount": "626707.39"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-1234567890",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1234567890",
+    "statement_no": "00011",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-14",
+      "iso_currency_code": "DKK",
+      "amount": "626707.39"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2009-10-15",
+        "entry_date": "2009-10-15",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "12000.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.DB  net",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-15",
+        "entry_date": "2009-10-15",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "1327.58",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "Testkunde\nHOLMENS KANAL 2-12\n1192  KOBENHAVN H"
+      },
+      {
+        "value_date": "2009-10-15",
+        "entry_date": "2009-10-15",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "1250.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Danske",
+        "bank_ref": "Kunder",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.Danske Kunder"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-15",
+      "iso_currency_code": "DKK",
+      "amount": "612129.81"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-15",
+      "iso_currency_code": "DKK",
+      "amount": "612129.81"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-1234567890",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1234567890",
+    "statement_no": "00012",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-15",
+      "iso_currency_code": "DKK",
+      "amount": "612129.81"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2009-10-16",
+        "entry_date": "2009-10-16",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "182618.94",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.DBC Data",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-16",
+        "entry_date": "2009-10-16",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "59500.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.teste kunden",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "F.M.T.\nV/TESTE KUNDEN\nHOLMENS KANAL 2-12\n1192  KOBENHAVN H"
+      },
+      {
+        "value_date": "2009-10-16",
+        "entry_date": "2009-10-16",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "46875.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.db",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-16",
+        "entry_date": "2009-10-16",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "13581.02",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.dbc Testkund",
+        "bank_ref": "e",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBTS 5078078137/Bnf. DBC Testkunde BOX 1234/Bnf.acc. SE511200XXXX\n013390111069/Our fee DKK 20,00/Foreign fee DKK 100,00/Exch. Rate\n71,8400000"
+      },
+      {
+        "value_date": "2009-10-16",
+        "entry_date": "2009-10-16",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "7150.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.danske",
+        "bank_ref": "service",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.danske service"
+      },
+      {
+        "value_date": "2009-10-16",
+        "entry_date": "2009-10-16",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "2984.67",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Bankfee",
+        "bank_ref": "regul. EHI",
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.Bankfee regul. EHI\nDANSKE BANK DK   II APS\nC/O PETER NORDIC A/S\nHOLMENS KANAL 2-12\n1192  KOBENHAVN H"
+      },
+      {
+        "value_date": "2009-10-16",
+        "entry_date": "2009-10-16",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "2696.81",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-16",
+        "entry_date": "2009-10-16",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "1086.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-16",
+        "entry_date": "2009-10-16",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "897.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-16",
+        "entry_date": "2009-10-16",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "812.50",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-16",
+        "entry_date": "2009-10-16",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "525.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "Testkunde\nPETER PARK\nHOLMENS KANAL 2-12\n1192  KOBENHAVN H"
+      },
+      {
+        "value_date": "2009-10-16",
+        "entry_date": "2009-10-16",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "406.25",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "Testkunde KONSORTIET I/S\nAdresse\n1601  KOBENHAVN V"
+      },
+      {
+        "value_date": "2009-10-16",
+        "entry_date": "2009-10-16",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "693325.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "Bankfee NAPF 2",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "BANK DENMARK II APS\nC/O PETER NORDIC A/S\nHOLMENS KANAL 2-12\n1192  KOBENHAVN H"
+      },
+      {
+        "value_date": "2009-10-16",
+        "entry_date": "2009-10-16",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "1054100.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "Bankfee NAPF 1",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "BANK DENMARK APS\nC/O PETER NORDIC A/S\nHOLMENS KANAL 2-12\n1192  KOBENHAVN H"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-16",
+      "iso_currency_code": "DKK",
+      "amount": "2040421.62"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-1234567890",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1234567890",
+    "statement_no": "00012",
+    "sequence_no": "002",
+    "opening_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-16",
+      "iso_currency_code": "DKK",
+      "amount": "2040421.62"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2009-10-16",
+        "entry_date": "2009-10-16",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "2072226.11",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "Bankfee EHI 1",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "DANSKE BANK MARK APS\nC/O PETER NORDIC A/S\nHOLMENS KANAL 2-12\n1192  KOBENHAVN H"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-16",
+      "iso_currency_code": "DKK",
+      "amount": "4112647.73"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-16",
+      "iso_currency_code": "DKK",
+      "amount": "4112647.73"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-1234567890",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1234567890",
+    "statement_no": "00013",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-16",
+      "iso_currency_code": "DKK",
+      "amount": "4112647.73"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2009-10-19",
+        "entry_date": "2009-10-19",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "332214.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "Lon",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": null
+      },
+      {
+        "value_date": "2009-10-19",
+        "entry_date": "2009-10-19",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "530.25",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Testkunde",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "DBT.Testkunde"
+      },
+      {
+        "value_date": "2009-10-19",
+        "entry_date": "2009-10-19",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "K",
+        "amount": "79798.00",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "27208827 NEGATIV",
+        "bank_ref": "MOM",
+        "supplementary_details": null,
+        "information_to_account_owner": "27208827 NEGATIV MOM\nNavn\nAdresse \n6950  RINGKOBING"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-19",
+      "iso_currency_code": "DKK",
+      "amount": "3859701.48"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-19",
+      "iso_currency_code": "DKK",
+      "amount": "3859701.48"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "3996-1234567890",
+    "ref_to_related_msg": null,
+    "account_id": "DABADKKK/1234567890",
+    "statement_no": "00014",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-19",
+      "iso_currency_code": "DKK",
+      "amount": "3859701.48"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2009-10-20",
+        "entry_date": "2009-10-20",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "5312.50",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.teste kunden",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "F.M.T.\nV/TESTE KUNDEN\nHOLMENS KANAL 2-12\n1192  KOBENHAVN H"
+      },
+      {
+        "value_date": "2009-10-20",
+        "entry_date": "2009-10-20",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "K",
+        "amount": "3009.51",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "DBT.Pet Van Park",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "DBTS 1111272333/Bnf. PET VAN PARK AMSTERDAM/Bnf.acc. NL47ABNAXXXX\n558756/Our fee DKK 40,00/Foreign fee DKK 200,00"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-20",
+      "iso_currency_code": "DKK",
+      "amount": "3851379.47"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2009-10-20",
+      "iso_currency_code": "DKK",
+      "amount": "3851379.47"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  }
+]

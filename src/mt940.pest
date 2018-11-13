@@ -1,7 +1,48 @@
-tag_without_sep = { ASCII_ALPHANUMERIC+ }
-tag = { ":" ~ tag_without_sep+ ~ ":" }
+tag_no = { ASCII_ALPHANUMERIC+ }
+tag = { ":" ~ tag_no ~ ":" }
 // From: http://www.sepaforcorporates.com/swift-for-corporates/quick-guide-swift-mt101-format/
 swift_char = _{ ASCII_ALPHANUMERIC | "/" | "-" | "?" | ":" | "(" | ")" | "." | "," | "‘" | "+" | "{" | "}" | " " | NEWLINE }
-message = { (!tag ~ swift_char)+ }
-record = { tag ~ message }
-statement = _{ SOI ~ record+ ~ EOI }
+amount_char = _{ ASCII_DIGIT | "," }
+field_value = { (!tag ~ swift_char)+ }
+field = { tag ~ field_value }
+fields = _{ SOI ~ (field | swift_char)+ ~ EOI }
+
+year = { ASCII_DIGIT{2} }
+month = { '0'..'1' ~ '0'..'9' }
+day = { '0'..'3' ~ ASCII_DIGIT }
+date = { year ~ month ~ day }
+short_date = { month ~ day }
+
+transaction_ref_no = { swift_char{1, 16} }
+tag_20_field = { SOI ~ transaction_ref_no ~ EOI }
+
+related_ref = { swift_char{1, 16} }
+tag_21_field = { SOI ~ related_ref ~ EOI }
+
+account_no = { swift_char{1, 35} }
+tag_25_field = { SOI ~ account_no ~ EOI }
+
+statement_no = { swift_char{1, 5} }
+sequence_no = { swift_char{0, 5} }
+tag_28c_field = { SOI ~ statement_no ~ ("/" ~ sequence_no)? ~ EOI }
+
+debit_credit_indicator = { "D" | "C" }
+iso_currency_code = { ASCII_ALPHA{3} }
+amount = { amount_char{1, 15} }
+tag_60_field = { SOI ~ debit_credit_indicator ~ date ~ iso_currency_code ~ amount ~ EOI }
+
+ext_debit_credit_indicator = { "D" | "C" | "RD" | "RC" }
+funds_code = { ASCII_ALPHA{1} }
+transaction_type_ident_code = { ("N" | "F") ~ ASCII_ALPHANUMERIC{3} }
+customer_ref = { (!"//" ~ swift_char){1, 16} }
+bank_ref = { swift_char{1, 16} }
+supplementary_details = { swift_char{1, 34} }
+tag_61_field = { SOI ~ date ~ short_date? ~ ext_debit_credit_indicator ~ funds_code? ~ amount ~ transaction_type_ident_code ~ customer_ref ~ ("//" ~ bank_ref)? ~ (NEWLINE ~ supplementary_details)? ~ EOI }
+
+tag_86_field = { SOI ~ (!NEWLINE ~ (swift_char{1, 65} ~ NEWLINE?)){1, 6} ~ EOI }
+
+tag_62_field = { SOI ~ debit_credit_indicator ~ date ~ iso_currency_code ~ amount ~ EOI }
+
+tag_64_field = { SOI ~ debit_credit_indicator ~ date ~ iso_currency_code ~ amount ~ EOI }
+
+tag_65_field = { SOI ~ debit_credit_indicator ~ date ~ iso_currency_code ~ amount ~ EOI }
