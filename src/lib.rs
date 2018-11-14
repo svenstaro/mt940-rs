@@ -55,6 +55,9 @@ extern crate proptest;
 extern crate pretty_assertions;
 
 #[cfg(test)]
+extern crate rstest;
+
+#[cfg(test)]
 extern crate regex;
 
 mod errors;
@@ -67,10 +70,10 @@ use pest::Parser;
 use rust_decimal::Decimal;
 use std::str::FromStr;
 
-pub use errors::{ParseError, RequiredTagNotFoundError, UnexpectedTagError};
+pub use errors::{ParseError, RequiredTagNotFoundError, UnexpectedTagError, VariantNotFound};
 use tag_parsers::{
     parse_20_tag, parse_21_tag, parse_25_tag, parse_28c_tag, parse_60_tag, parse_61_tag,
-    parse_62_tag, parse_86_tag, parse_64_tag, parse_65_tag,
+    parse_62_tag, parse_64_tag, parse_65_tag, parse_86_tag,
 };
 pub use transaction_types::TransactionTypeIdentificationCode;
 
@@ -181,7 +184,7 @@ pub enum DebitOrCredit {
 }
 
 impl FromStr for DebitOrCredit {
-    type Err = ();
+    type Err = VariantNotFound;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let dc = if s == "C" {
@@ -189,7 +192,7 @@ impl FromStr for DebitOrCredit {
         } else if s == "D" {
             DebitOrCredit::Debit
         } else {
-            unreachable!()
+            return Err(VariantNotFound(s.into()));
         };
         Ok(dc)
     }
@@ -205,7 +208,7 @@ pub enum ExtDebitOrCredit {
 }
 
 impl FromStr for ExtDebitOrCredit {
-    type Err = ();
+    type Err = VariantNotFound;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let dc = if s == "C" {
@@ -217,7 +220,7 @@ impl FromStr for ExtDebitOrCredit {
         } else if s == "RC" {
             ExtDebitOrCredit::ReverseDebit
         } else {
-            unreachable!()
+            return Err(VariantNotFound(s.into()));
         };
         Ok(dc)
     }
@@ -227,7 +230,7 @@ impl Message {
     /// Construct a new [`Message`] from a list of `[Field]`s.
     ///
     /// Must start with field `:20:`. Must not contain more than one `:20:` tag.
-    fn from_fields(fields: Vec<Field>) -> Result<Message, ParseError> {
+    pub fn from_fields(fields: Vec<Field>) -> Result<Message, ParseError> {
         // Only a few tags may follow after each specific tag.
         let mut current_acceptable_tags = vec!["20"];
 
@@ -264,25 +267,25 @@ impl Message {
 
             match field.tag.as_str() {
                 "20" => {
-                    transaction_ref_no = Some(parse_20_tag(&field));
+                    transaction_ref_no = Some(parse_20_tag(&field)?);
                     current_acceptable_tags = vec!["21", "25"];
                 }
                 "21" => {
-                    ref_to_related_msg = Some(parse_21_tag(&field));
+                    ref_to_related_msg = Some(parse_21_tag(&field)?);
                     current_acceptable_tags = vec!["25"];
                 }
                 "25" => {
-                    account_id = Some(parse_25_tag(&field));
+                    account_id = Some(parse_25_tag(&field)?);
                     current_acceptable_tags = vec!["28", "28C"];
                 }
                 "28C" => {
-                    let res = parse_28c_tag(&field);
+                    let res = parse_28c_tag(&field)?;
                     statement_no = res.0;
                     sequence_no = res.1;
                     current_acceptable_tags = vec!["60M", "60F"];
                 }
                 "60M" | "60F" => {
-                    opening_balance = Some(parse_60_tag(&field));
+                    opening_balance = Some(parse_60_tag(&field)?);
                     current_acceptable_tags = vec!["61", "62M", "62F", "86"];
                 }
                 "61" => {
@@ -291,7 +294,7 @@ impl Message {
                     current_acceptable_tags = vec!["61", "86", "62M", "62F"];
                 }
                 "86" => {
-                    let info_to_account_owner = parse_86_tag(&field);
+                    let info_to_account_owner = parse_86_tag(&field)?;
                     // If the last tag was either :61: or :86: then this tag belongs to that
                     // previous tag and we'll attach the information to the previous tag.
                     match last_tag.as_str() {
@@ -316,15 +319,15 @@ impl Message {
                     current_acceptable_tags = vec!["61", "62M", "62F", "86"];
                 }
                 "62M" | "62F" => {
-                    closing_balance = Some(parse_62_tag(&field));
+                    closing_balance = Some(parse_62_tag(&field)?);
                     current_acceptable_tags = vec!["64", "65", "86"];
                 }
                 "64" => {
-                    closing_available_balance = Some(parse_64_tag(&field));
+                    closing_available_balance = Some(parse_64_tag(&field)?);
                     current_acceptable_tags = vec!["65", "86"];
                 }
                 "65" => {
-                    forward_available_balance = Some(parse_65_tag(&field));
+                    forward_available_balance = Some(parse_65_tag(&field)?);
                     current_acceptable_tags = vec!["65", "86"];
                 }
                 tag @ _ => return Err(ParseError::UnknownTagError(tag.to_string())),
@@ -372,6 +375,25 @@ impl Field {
     }
 }
 
+impl FromStr for Field {
+    type Err = ParseError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let mut parsed_field = MT940Parser::parse(Rule::field, s)?;
+        let inner = parsed_field.next().unwrap().into_inner();
+        let tag = inner.clone().next().unwrap().into_inner().as_str();
+        let value = inner
+            .clone()
+            .nth(1)
+            .unwrap()
+            .as_str()
+            .trim()
+            .replace("\r\n", "\n");
+        let field = Field::new(tag, &value);
+        Ok(field)
+    }
+}
+
 /// Parse a MT940 statement to a list of its fields.
 ///
 /// ```ignore
@@ -386,7 +408,7 @@ impl Field {
 /// ```
 ///
 /// The result will be a [`Vec`] of [`Field`]s.
-/// There is no validation of the contents of the `Field`s. The contents could be nonsensical.
+/// There is no validation of the contents of the [`Field`]s. The contents could be nonsensical.
 ///
 /// # Example
 /// ```
@@ -438,7 +460,7 @@ pub fn parse_fields(statement: &str) -> Result<Vec<Field>, pest::error::Error<Ru
 
 /// Parse and validate a MT940 statement.
 ///
-/// Result will be a `Vec` of all contained [`Message`]s.
+/// Result will be a [`Vec`] of all contained [`Message`]s.
 ///
 /// # Example
 /// ```

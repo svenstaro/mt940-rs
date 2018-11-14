@@ -3,6 +3,10 @@ use std::fmt;
 
 use Rule;
 
+/// Error thrown if a variant for an enum can't be found.
+#[derive(Debug)]
+pub struct VariantNotFound(pub String);
+
 /// Error thrown when parsing of a MT940 amount fails.
 #[derive(Debug)]
 pub enum AmountParseError {
@@ -42,6 +46,12 @@ impl fmt::Display for ParseError {
             ParseError::InvalidTransactionIdentCode(ref err) => write!(f, "Invalid Transaction Type Identification Code '{}'", err),
             ParseError::UnknownTagError(ref err) => write!(f, "Unknown Tag '{}'", err),
         }
+    }
+}
+
+impl From<pest::error::Error<Rule>> for ParseError {
+    fn from(err: pest::error::Error<Rule>) -> ParseError {
+        ParseError::PestParseError(err)
     }
 }
 

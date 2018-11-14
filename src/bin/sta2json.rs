@@ -63,7 +63,8 @@ fn main() -> Result<(), Box<std::error::Error>> {
 
     let input = fs::read_to_string(statement_input)?;
 
-    let parsed = parse_mt940(&input)?;
+    let parsed = parse_mt940(&input).unwrap_or_else(|e| panic!("{}", e));
+
     let json = serde_json::to_string_pretty(&parsed)?;
 
     if matches.is_present("output") {

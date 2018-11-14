@@ -11,29 +11,29 @@ use {
     TransactionTypeIdentificationCode,
 };
 
-pub fn parse_20_tag(field: &Field) -> String {
+pub fn parse_20_tag(field: &Field) -> Result<String, ParseError> {
     let parsed_field = MT940Parser::parse(Rule::tag_20_field, &field.value);
-    let transaction_ref_no = parsed_field.unwrap().as_str().to_string();
-    transaction_ref_no
+    let transaction_ref_no = parsed_field?.as_str().to_string();
+    Ok(transaction_ref_no)
 }
 
-pub fn parse_21_tag(field: &Field) -> String {
+pub fn parse_21_tag(field: &Field) -> Result<String, ParseError> {
     let parsed_field = MT940Parser::parse(Rule::tag_21_field, &field.value);
     let ref_to_related_msg = parsed_field.unwrap().as_str().to_string();
-    ref_to_related_msg
+    Ok(ref_to_related_msg)
 }
 
-pub fn parse_25_tag(field: &Field) -> String {
+pub fn parse_25_tag(field: &Field) -> Result<String, ParseError> {
     let parsed_field = MT940Parser::parse(Rule::tag_25_field, &field.value);
-    let account_id = parsed_field.unwrap().as_str().to_string();
-    account_id
+    let account_id = parsed_field?.as_str().to_string();
+    Ok(account_id)
 }
 
-pub fn parse_28c_tag(field: &Field) -> (Option<String>, Option<String>) {
+pub fn parse_28c_tag(field: &Field) -> Result<(Option<String>, Option<String>), ParseError> {
     let mut statement_no = None;
     let mut sequence_no = None;
     let parsed_field = MT940Parser::parse(Rule::tag_28c_field, &field.value);
-    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
+    let pairs = parsed_field?.next().unwrap().into_inner();
     for pair in pairs {
         match pair.as_rule() {
             Rule::statement_no => statement_no = Some(pair.as_str().to_string()),
@@ -41,17 +41,17 @@ pub fn parse_28c_tag(field: &Field) -> (Option<String>, Option<String>) {
             _ => (),
         };
     }
-    (statement_no, sequence_no)
+    Ok((statement_no, sequence_no))
 }
 
-pub fn parse_60_tag(field: &Field) -> Balance {
+pub fn parse_60_tag(field: &Field) -> Result<Balance, ParseError> {
     let is_intermediate = field.tag.as_str() == "60M";
     let mut debit_credit_indicator = None;
     let mut date = None;
     let mut iso_currency_code = None;
     let mut amount = None;
     let parsed_field = MT940Parser::parse(Rule::tag_60_field, &field.value);
-    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
+    let pairs = parsed_field?.next().unwrap().into_inner();
     for pair in pairs {
         match pair.as_rule() {
             Rule::debit_credit_indicator => {
@@ -72,7 +72,7 @@ pub fn parse_60_tag(field: &Field) -> Balance {
         iso_currency_code: iso_currency_code.unwrap(),
         amount: amount.unwrap(),
     };
-    opening_balance
+    Ok(opening_balance)
 }
 
 pub fn parse_61_tag(field: &Field) -> Result<StatementLine, ParseError> {
@@ -164,20 +164,20 @@ pub fn parse_61_tag(field: &Field) -> Result<StatementLine, ParseError> {
     Ok(statement_line)
 }
 
-pub fn parse_86_tag(field: &Field) -> String {
+pub fn parse_86_tag(field: &Field) -> Result<String, ParseError> {
     let parsed_field = MT940Parser::parse(Rule::tag_86_field, &field.value);
-    let information_to_account_owner = parsed_field.unwrap().as_str().to_string();
-    information_to_account_owner
+    let information_to_account_owner = parsed_field?.as_str().to_string();
+    Ok(information_to_account_owner)
 }
 
-pub fn parse_62_tag(field: &Field) -> Balance {
+pub fn parse_62_tag(field: &Field) -> Result<Balance, ParseError> {
     let is_intermediate = field.tag.as_str() == "62M";
     let mut debit_credit_indicator = None;
     let mut date = None;
     let mut iso_currency_code = None;
     let mut amount = None;
     let parsed_field = MT940Parser::parse(Rule::tag_62_field, &field.value);
-    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
+    let pairs = parsed_field?.next().unwrap().into_inner();
     for pair in pairs {
         match pair.as_rule() {
             Rule::debit_credit_indicator => {
@@ -198,16 +198,16 @@ pub fn parse_62_tag(field: &Field) -> Balance {
         iso_currency_code: iso_currency_code.unwrap(),
         amount: amount.unwrap(),
     };
-    closing_balance
+    Ok(closing_balance)
 }
 
-pub fn parse_64_tag(field: &Field) -> AvailableBalance {
+pub fn parse_64_tag(field: &Field) -> Result<AvailableBalance, ParseError> {
     let mut debit_credit_indicator = None;
     let mut date = None;
     let mut iso_currency_code = None;
     let mut amount = None;
     let parsed_field = MT940Parser::parse(Rule::tag_64_field, &field.value);
-    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
+    let pairs = parsed_field?.next().unwrap().into_inner();
     for pair in pairs {
         match pair.as_rule() {
             Rule::debit_credit_indicator => {
@@ -227,16 +227,16 @@ pub fn parse_64_tag(field: &Field) -> AvailableBalance {
         iso_currency_code: iso_currency_code.unwrap(),
         amount: amount.unwrap(),
     };
-    closing_available_balance
+    Ok(closing_available_balance)
 }
 
-pub fn parse_65_tag(field: &Field) -> AvailableBalance {
+pub fn parse_65_tag(field: &Field) -> Result<AvailableBalance, ParseError> {
     let mut debit_credit_indicator = None;
     let mut date = None;
     let mut iso_currency_code = None;
     let mut amount = None;
     let parsed_field = MT940Parser::parse(Rule::tag_65_field, &field.value);
-    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
+    let pairs = parsed_field?.next().unwrap().into_inner();
     for pair in pairs {
         match pair.as_rule() {
             Rule::debit_credit_indicator => {
@@ -256,5 +256,43 @@ pub fn parse_65_tag(field: &Field) -> AvailableBalance {
         iso_currency_code: iso_currency_code.unwrap(),
         amount: amount.unwrap(),
     };
-    forward_available_balance
+    Ok(forward_available_balance)
+}
+
+#[cfg(test)]
+mod tests {
+    use rstest::rstest_parametrize;
+
+    use super::*;
+    use rust_decimal::Decimal;
+
+    #[rstest_parametrize(
+        input,
+        expected_decimal,
+        case(":60F:C100318EUR380115,12", "380115.12"),
+        case(":60F:C100318EUR380115,1", "380115.10"),
+        case(":60F:C100318EUR380115,", "380115.00"),
+        case(":60F:C100318EUR0,12", "0.12"),
+        case(":60F:C100318EUR00,12", "0.12"),
+        case(":60F:C100318EUR001,12", "1.12")
+    )]
+    fn tag_60_input(input: &str, expected_decimal: &str) {
+        let expected = Balance {
+            is_intermediate: false,
+            debit_credit_indicator: DebitOrCredit::Credit,
+            date: NaiveDate::from_ymd(2010, 3, 18),
+            iso_currency_code: "EUR".into(),
+            amount: Decimal::from_str(expected_decimal).unwrap(),
+        };
+        let field = Field::from_str(input).unwrap();
+        let parsed = parse_60_tag(&field).unwrap();
+        assert_eq!(parsed, expected);
+    }
+
+    #[test]
+    fn tag_61_empty_entry_date() {
+        let field = Field::from_str(":61:110701CN50,00NDISNONREF").unwrap();
+        let parsed = parse_61_tag(&field).unwrap();
+        assert_eq!(parsed.entry_date, None);
+    }
 }

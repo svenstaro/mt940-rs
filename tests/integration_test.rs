@@ -18,7 +18,7 @@ use std::path::PathBuf;
     case("danskebank/MT940_DK_Example.sta"),
     case("danskebank/MT940_FI_Example.sta"),
     case("danskebank/MT940_NO_Example.sta"),
-    case("danskebank/MT940_SE_Example.sta")
+    case("danskebank/MT940_SE_Example.sta"),
 )]
 fn parse_mt940_statement(statement_path: &str) {
     let full_path = PathBuf::from(format!("tests/data/mt940/full/{}", statement_path));
