@@ -7,3 +7,4 @@
 xs 4014721040 1426388765 254140157 3278362649 # shrinks to input = " "
 xs 2379389651 2849630256 4258337865 3562771308 # shrinks to input = "?‘0?a0AaA0+}A?}+A"
 xs 764412369 531039598 808493476 1572896111 # shrinks to input = ":A:"
+xs 2711126658 3185225394 2365841839 1902225489 # shrinks to intermediate = "M", debit_credit_indicator = "C", date = "000101", iso_currency_code = "AaA", amount_before_decimal = "0000000000000", amount_after_decimal = "00"

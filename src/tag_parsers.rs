@@ -374,6 +374,38 @@ mod tests {
         }
     }
 
+    proptest! {
+        #[test]
+        fn tag_60_input(intermediate in r"[MF]",
+                        debit_credit_indicator in r"[DC]",
+                        date in r"[[:digit:]]{2}[01][0-9][0-3][[:digit:]]",
+                        iso_currency_code in r"[[:alpha:]]{3}",
+                        amount_before_decimal in r"[[:digit:]]{1, 12}",
+                        amount_after_decimal in r"[[:digit:]]{0, 2}") {
+            prop_assume!(NaiveDate::parse_from_str(&date, "%y%m%d").is_ok(), "We need a valid date");
+
+            let amount = format!("{},{}", amount_before_decimal, amount_after_decimal);
+            let input = format!(
+                "{debit_credit_indicator}{date}{iso_currency_code}{amount}",
+                debit_credit_indicator=debit_credit_indicator,
+                date=date,
+                iso_currency_code=iso_currency_code,
+                amount=amount,
+            );
+
+            let field = Field::from_str(&format!(":60{}:{}", intermediate, input)).unwrap();
+            let parsed = parse_60_tag(&field).unwrap();
+            let expected = Balance {
+                is_intermediate: if intermediate == "M" { true } else { false },
+                debit_credit_indicator: DebitOrCredit::from_str(&debit_credit_indicator).unwrap(),
+                date: date_from_mt940_date(&date).unwrap(),
+                iso_currency_code: iso_currency_code,
+                amount: decimal_from_mt940_amount(&amount).unwrap(),
+            };
+            prop_assert_eq!(parsed, expected);
+        }
+    }
+
     #[rstest_parametrize(
         input,
         expected_decimal,
@@ -384,7 +416,7 @@ mod tests {
         case(":60F:C100318EUR00,12", "0.12"),
         case(":60F:C100318EUR001,12", "1.12")
     )]
-    fn tag_60_input(input: &str, expected_decimal: &str) {
+    fn tag_60_input_specific(input: &str, expected_decimal: &str) {
         let expected = Balance {
             is_intermediate: false,
             debit_credit_indicator: DebitOrCredit::Credit,
