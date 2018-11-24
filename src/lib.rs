@@ -280,7 +280,7 @@ impl Message {
                 }
                 "28C" => {
                     let res = parse_28c_tag(&field)?;
-                    statement_no = res.0;
+                    statement_no = Some(res.0);
                     sequence_no = res.1;
                     current_acceptable_tags = vec!["60M", "60F"];
                 }
@@ -337,17 +337,14 @@ impl Message {
         }
 
         let message = Message {
-            transaction_ref_no: transaction_ref_no
-                .ok_or(RequiredTagNotFoundError::new("20".to_string()))?,
+            transaction_ref_no: transaction_ref_no.ok_or(RequiredTagNotFoundError::new("20"))?,
             ref_to_related_msg: ref_to_related_msg,
-            account_id: account_id.ok_or(RequiredTagNotFoundError::new("25".to_string()))?,
-            statement_no: statement_no.ok_or(RequiredTagNotFoundError::new("28C".to_string()))?,
+            account_id: account_id.ok_or(RequiredTagNotFoundError::new("25"))?,
+            statement_no: statement_no.ok_or(RequiredTagNotFoundError::new("28C"))?,
             sequence_no: sequence_no,
-            opening_balance: opening_balance
-                .ok_or(RequiredTagNotFoundError::new("60".to_string()))?,
+            opening_balance: opening_balance.ok_or(RequiredTagNotFoundError::new("60"))?,
             statement_lines: statement_lines,
-            closing_balance: closing_balance
-                .ok_or(RequiredTagNotFoundError::new("62".to_string()))?,
+            closing_balance: closing_balance.ok_or(RequiredTagNotFoundError::new("62"))?,
             closing_available_balance,
             forward_available_balance,
             information_to_account_owner,

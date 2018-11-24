@@ -27,13 +27,13 @@ pub enum ParseError {
 
 impl error::Error for ParseError {
     fn source(&self) -> Option<&(error::Error + 'static)> {
-         match *self {
-             ParseError::PestParseError(ref err) => Some(err),
-             ParseError::UnexpectedTagError(ref err) => Some(err),
-             ParseError::RequiredTagNotFoundError(ref err) => Some(err),
-             ParseError::InvalidTransactionIdentCode(ref _err) => None,
-             ParseError::UnknownTagError(ref _err) => None,
-         }
+        match *self {
+            ParseError::PestParseError(ref err) => Some(err),
+            ParseError::UnexpectedTagError(ref err) => Some(err),
+            ParseError::RequiredTagNotFoundError(ref err) => Some(err),
+            ParseError::InvalidTransactionIdentCode(ref _err) => None,
+            ParseError::UnknownTagError(ref _err) => None,
+        }
     }
 }
 
@@ -43,7 +43,9 @@ impl fmt::Display for ParseError {
             ParseError::PestParseError(ref err) => err.fmt(f),
             ParseError::UnexpectedTagError(ref err) => err.fmt(f),
             ParseError::RequiredTagNotFoundError(ref err) => err.fmt(f),
-            ParseError::InvalidTransactionIdentCode(ref err) => write!(f, "Invalid Transaction Type Identification Code '{}'", err),
+            ParseError::InvalidTransactionIdentCode(ref err) => {
+                write!(f, "Invalid Transaction Type Identification Code '{}'", err)
+            }
             ParseError::UnknownTagError(ref err) => write!(f, "Unknown Tag '{}'", err),
         }
     }
@@ -115,8 +117,10 @@ pub struct RequiredTagNotFoundError {
 }
 
 impl RequiredTagNotFoundError {
-    pub fn new(required_tag: String) -> RequiredTagNotFoundError {
-        RequiredTagNotFoundError { required_tag }
+    pub fn new(required_tag: &str) -> RequiredTagNotFoundError {
+        RequiredTagNotFoundError {
+            required_tag: required_tag.to_string(),
+        }
     }
 }
 

@@ -22,8 +22,8 @@ tag_21_field = { SOI ~ related_ref ~ EOI }
 account_no = { swift_char{1, 35} }
 tag_25_field = { SOI ~ account_no ~ EOI }
 
-statement_no = { swift_char{1, 5} }
-sequence_no = { swift_char{0, 5} }
+statement_no = { ASCII_DIGIT{1, 5} }
+sequence_no = { ASCII_DIGIT{0, 5} }
 tag_28c_field = { SOI ~ statement_no ~ ("/" ~ sequence_no)? ~ EOI }
 
 debit_credit_indicator = { "D" | "C" }

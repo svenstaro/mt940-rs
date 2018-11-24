@@ -3,6 +3,7 @@ use std::str::FromStr;
 use chrono::prelude::*;
 use pest::Parser;
 
+use errors::RequiredTagNotFoundError;
 use utils::{date_from_mt940_date, decimal_from_mt940_amount};
 use MT940Parser;
 use Rule;
@@ -12,24 +13,36 @@ use {
 };
 
 pub fn parse_20_tag(field: &Field) -> Result<String, ParseError> {
+    if field.tag != "20" {
+        Err(RequiredTagNotFoundError::new("20"))?;
+    }
     let parsed_field = MT940Parser::parse(Rule::tag_20_field, &field.value);
     let transaction_ref_no = parsed_field?.as_str().to_string();
     Ok(transaction_ref_no)
 }
 
 pub fn parse_21_tag(field: &Field) -> Result<String, ParseError> {
+    if field.tag != "21" {
+        Err(RequiredTagNotFoundError::new("21"))?;
+    }
     let parsed_field = MT940Parser::parse(Rule::tag_21_field, &field.value);
     let ref_to_related_msg = parsed_field.unwrap().as_str().to_string();
     Ok(ref_to_related_msg)
 }
 
 pub fn parse_25_tag(field: &Field) -> Result<String, ParseError> {
+    if field.tag != "25" {
+        Err(RequiredTagNotFoundError::new("21"))?;
+    }
     let parsed_field = MT940Parser::parse(Rule::tag_25_field, &field.value);
     let account_id = parsed_field?.as_str().to_string();
     Ok(account_id)
 }
 
-pub fn parse_28c_tag(field: &Field) -> Result<(Option<String>, Option<String>), ParseError> {
+pub fn parse_28c_tag(field: &Field) -> Result<(String, Option<String>), ParseError> {
+    if field.tag != "28C" {
+        Err(RequiredTagNotFoundError::new("28C"))?;
+    }
     let mut statement_no = None;
     let mut sequence_no = None;
     let parsed_field = MT940Parser::parse(Rule::tag_28c_field, &field.value);
@@ -41,10 +54,13 @@ pub fn parse_28c_tag(field: &Field) -> Result<(Option<String>, Option<String>), 
             _ => (),
         };
     }
-    Ok((statement_no, sequence_no))
+    Ok((statement_no.unwrap(), sequence_no))
 }
 
 pub fn parse_60_tag(field: &Field) -> Result<Balance, ParseError> {
+    if field.tag != "60M" && field.tag != "60F" {
+        Err(RequiredTagNotFoundError::new("60"))?;
+    }
     let is_intermediate = field.tag.as_str() == "60M";
     let mut debit_credit_indicator = None;
     let mut date = None;
@@ -76,6 +92,9 @@ pub fn parse_60_tag(field: &Field) -> Result<Balance, ParseError> {
 }
 
 pub fn parse_61_tag(field: &Field) -> Result<StatementLine, ParseError> {
+    if field.tag != "61" {
+        Err(RequiredTagNotFoundError::new("61"))?;
+    }
     let mut date = None;
     let mut short_date = None;
     let mut ext_debit_credit_indicator = None;
@@ -165,12 +184,18 @@ pub fn parse_61_tag(field: &Field) -> Result<StatementLine, ParseError> {
 }
 
 pub fn parse_86_tag(field: &Field) -> Result<String, ParseError> {
+    if field.tag != "86" {
+        Err(RequiredTagNotFoundError::new("86"))?;
+    }
     let parsed_field = MT940Parser::parse(Rule::tag_86_field, &field.value);
     let information_to_account_owner = parsed_field?.as_str().to_string();
     Ok(information_to_account_owner)
 }
 
 pub fn parse_62_tag(field: &Field) -> Result<Balance, ParseError> {
+    if field.tag != "62M" && field.tag != "62F" {
+        Err(RequiredTagNotFoundError::new("62"))?;
+    }
     let is_intermediate = field.tag.as_str() == "62M";
     let mut debit_credit_indicator = None;
     let mut date = None;
@@ -202,6 +227,9 @@ pub fn parse_62_tag(field: &Field) -> Result<Balance, ParseError> {
 }
 
 pub fn parse_64_tag(field: &Field) -> Result<AvailableBalance, ParseError> {
+    if field.tag != "64" {
+        Err(RequiredTagNotFoundError::new("64"))?;
+    }
     let mut debit_credit_indicator = None;
     let mut date = None;
     let mut iso_currency_code = None;
@@ -231,6 +259,9 @@ pub fn parse_64_tag(field: &Field) -> Result<AvailableBalance, ParseError> {
 }
 
 pub fn parse_65_tag(field: &Field) -> Result<AvailableBalance, ParseError> {
+    if field.tag != "65" {
+        Err(RequiredTagNotFoundError::new("65"))?;
+    }
     let mut debit_credit_indicator = None;
     let mut date = None;
     let mut iso_currency_code = None;
@@ -261,10 +292,87 @@ pub fn parse_65_tag(field: &Field) -> Result<AvailableBalance, ParseError> {
 
 #[cfg(test)]
 mod tests {
+    use regex::Regex;
     use rstest::rstest_parametrize;
 
     use super::*;
     use rust_decimal::Decimal;
+
+    proptest! {
+        #[test]
+        fn tag_20_input(input in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]{1, 16}") {
+            let re_tag_like = Regex::new(":.*:").unwrap();
+            prop_assume!(!re_tag_like.is_match(&input), "Can't have a value that looks like a tag");
+
+            let re_only_whitespace = Regex::new(r"\s+").unwrap();
+            prop_assume!(!re_only_whitespace.is_match(&input), "Can't have a value that's only whitespace");
+
+            let field = Field::from_str(&format!(":20:{}", input)).unwrap();
+            let parsed = parse_20_tag(&field).unwrap();
+            prop_assert_eq!(&parsed, &input);
+        }
+    }
+
+    proptest! {
+        #[test]
+        fn tag_21_input(input in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]{1, 16}") {
+            let re_tag_like = Regex::new(":.*:").unwrap();
+            prop_assume!(!re_tag_like.is_match(&input), "Can't have a value that looks like a tag");
+
+            let re_only_whitespace = Regex::new(r"\s+").unwrap();
+            prop_assume!(!re_only_whitespace.is_match(&input), "Can't have a value that's only whitespace");
+
+            let field = Field::from_str(&format!(":21:{}", input)).unwrap();
+            let parsed = parse_21_tag(&field).unwrap();
+            prop_assert_eq!(&parsed, &input);
+        }
+    }
+
+    proptest! {
+        #[test]
+        fn tag_25_input(input in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]{1, 35}") {
+            let re_tag_like = Regex::new(":.*:").unwrap();
+            prop_assume!(!re_tag_like.is_match(&input), "Can't have a value that looks like a tag");
+
+            let re_only_whitespace = Regex::new(r"\s+").unwrap();
+            prop_assume!(!re_only_whitespace.is_match(&input), "Can't have a value that's only whitespace");
+
+            let field = Field::from_str(&format!(":25:{}", input)).unwrap();
+            let parsed = parse_25_tag(&field).unwrap();
+            prop_assert_eq!(&parsed, &input);
+        }
+    }
+
+    proptest! {
+        #[test]
+        fn tag_28c_input(statement_no in r"[[:digit:]]{1, 5}",
+                         sequence_no in r"[[:digit:]]{0, 5}") {
+            let input = format!(
+                "{statement_no}{separator}{sequence_no}",
+                statement_no=statement_no,
+                separator=if sequence_no.is_empty() { "" } else { "/" },
+                sequence_no=sequence_no,
+            );
+
+            let re_tag_like = Regex::new(":.*:").unwrap();
+            prop_assume!(!re_tag_like.is_match(&input), "Can't have a value that looks like a tag");
+
+            let re_only_whitespace = Regex::new(r"\s+").unwrap();
+            prop_assume!(!re_only_whitespace.is_match(&input), "Can't have a value that's only whitespace");
+
+            let field = Field::from_str(&format!(":28C:{}", input)).unwrap();
+            let parsed = parse_28c_tag(&field).unwrap();
+            let expected = (
+                statement_no,
+                if sequence_no.is_empty() {
+                    None
+                } else {
+                    Some(sequence_no)
+                }
+            );
+            prop_assert_eq!(parsed, expected);
+        }
+    }
 
     #[rstest_parametrize(
         input,
