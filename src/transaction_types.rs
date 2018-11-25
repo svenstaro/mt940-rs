@@ -4,7 +4,7 @@ use std::fmt;
 ///
 /// See here for source:
 /// http://www.sepaforcorporates.com/swift-for-corporates/list-mt940-transaction-type-identification-codes/
-#[derive(Debug, Eq, PartialEq, Serialize, Deserialize, EnumString)]
+#[derive(Debug, Clone, Eq, PartialEq, Serialize, Deserialize, EnumString, EnumIter)]
 pub enum TransactionTypeIdentificationCode {
     BNK,
     BOE,
