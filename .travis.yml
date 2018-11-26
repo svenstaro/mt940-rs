@@ -1,17 +1,22 @@
 language: rust
 
+os:
+  - linux
+  - osx
+  - win
+
 rust:
   - stable
   - beta
   - nightly
 
 before_script: |
-  if [[ "$TRAVIS_RUST_VERSION" == nightly ]]; then
+  if [[ "$TRAVIS_RUST_VERSION" == nightly && "$TRAVIS_OS_NAME" == "linux" ]]; then
     RUSTFLAGS="--cfg procmacro2_semver_exempt" cargo install cargo-tarpaulin
   fi
 
 after_success: |
-  if [[ "$TRAVIS_RUST_VERSION" == nightly ]]; then
+  if [[ "$TRAVIS_RUST_VERSION" == nightly && "$TRAVIS_OS_NAME" == "linux" ]]; then
     cargo tarpaulin --out Xml
     bash <(curl -s https://codecov.io/bash)
   fi
