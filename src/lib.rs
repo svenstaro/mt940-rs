@@ -606,8 +606,8 @@ mod tests {
             // I know this is pretty arbitrary but I think it's a reasonable assumption to make.
             // I don't think banks encode information in leading or trailing whitespace considering
             // these formats are made for print.
-            let re_only_whitespace = Regex::new(r"\s+").unwrap();
-            prop_assume!(!re_only_whitespace.is_match(&value), "Can't have a value that's only whitespace");
+            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$").unwrap();
+            prop_assume!(re_no_ws_in_front_or_end.is_match(&value), "Can't have a value that has whitespace in front or end");
 
             let parsed = parse_fields(&format!(":{}:{}", tag, value)).unwrap();
             prop_assert_eq!((&parsed[0].tag, &parsed[0].value), (&tag, &value));
