@@ -407,6 +407,10 @@ mod tests {
     }
 
     proptest! {
+        #![proptest_config(ProptestConfig {
+            max_global_rejects: 4096, .. ProptestConfig::default()
+        })]
+
         #[test]
         fn tag_61_input(date in (r"[[:digit:]]{2}[01][0-9][0-3][[:digit:]]").prop_filter("We need a valid date", |d| NaiveDate::parse_from_str(&d, "%y%m%d").is_ok()),
                         has_short_date in proptest::bool::weighted(0.5),
@@ -422,11 +426,10 @@ mod tests {
                         ),
                         customer_ref in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]{1, 16}",
                         bank_ref in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]{0, 16}",
-                        supplementary_details_count in 0..6,
-                        supplementary_details in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]{1, 34}") {
+                        supplementary_details in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]{0, 34}") {
             let re_tag_like = Regex::new(":.*:").unwrap();
-            prop_assume!(!re_tag_like.is_match(&bank_ref), "Can't have a value that looks like a tag");
             prop_assume!(!re_tag_like.is_match(&customer_ref), "Can't have a value that looks like a tag");
+            prop_assume!(!re_tag_like.is_match(&bank_ref), "Can't have a value that looks like a tag");
             prop_assume!(!re_tag_like.is_match(&supplementary_details), "Can't have a value that looks like a tag");
 
             let re_bank_ref_separator = Regex::new(r"(//)").unwrap();
@@ -438,36 +441,32 @@ mod tests {
             let re_only_whitespace = Regex::new(r"\s+").unwrap();
             prop_assume!(!re_only_whitespace.is_match(&customer_ref), "Can't have a value that's only whitespace");
             prop_assume!(!re_only_whitespace.is_match(&bank_ref), "Can't have a value that's only whitespace");
+            prop_assume!(!re_only_whitespace.is_match(&supplementary_details), "Can't have a value that looks like a tag");
 
             let short_date = if has_short_date { &date[2..6] } else { "" };
             let amount = format!("{},{}", amount_before_decimal, amount_after_decimal);
             let transaction_type_ident_code = format!(
                 "{}{}",
                 transaction_type_ident_code_nf,
-                transaction_type_ident_code_enum,
-                );
+                transaction_type_ident_code_enum);
             let customer_bank_ref = format!(
                 "{customer_ref}{separator}{bank_ref}",
                 customer_ref=customer_ref,
                 separator=if bank_ref.is_empty() { "" } else { "//" },
-                bank_ref=bank_ref,
-                );
+                bank_ref=bank_ref);
 
-            let supplementary_details_lines = (0..supplementary_details_count).map(|_| supplementary_details.to_string()).collect::<Vec<String>>().join("\n");
             let input = format!(
                 "{date}{short_date}{ext_debit_credit_indicator}{funds_code}\
-                    {amount}{transaction_type_ident_code}\
-                    {customer_bank_ref}{supplementary_details_lines}",
-                    ext_debit_credit_indicator=ext_debit_credit_indicator,
-                    date=date,
-                    short_date=short_date,
-                    funds_code=funds_code,
-                    amount=amount,
-                    transaction_type_ident_code=transaction_type_ident_code,
-                    customer_bank_ref=customer_bank_ref,
-                    supplementary_details_lines="", //supplementary_details_lines,
-            );
-
+                 {amount}{transaction_type_ident_code}{customer_bank_ref}\
+                 \n{supplementary_details}",
+                ext_debit_credit_indicator=ext_debit_credit_indicator,
+                date=date,
+                short_date=short_date,
+                funds_code=funds_code,
+                amount=amount,
+                transaction_type_ident_code=transaction_type_ident_code,
+                customer_bank_ref=customer_bank_ref,
+                supplementary_details=supplementary_details);
             let field = Field::from_str(&format!(":61:{}", input)).unwrap();
             let parsed = parse_61_tag(&field).unwrap();
             let expected = StatementLine {
@@ -479,10 +478,33 @@ mod tests {
                 transaction_type_ident_code: TransactionTypeIdentificationCode::from_str(&transaction_type_ident_code_enum).unwrap(),
                 customer_ref,
                 bank_ref: if bank_ref.is_empty() { None } else { Some(bank_ref) },
-                supplementary_details: None, //Some(supplementary_details),
+                supplementary_details: if supplementary_details.is_empty() { None } else { Some(supplementary_details) },
                 information_to_account_owner: None,
             };
             prop_assert_eq!(parsed, expected);
+        }
+    }
+
+    proptest! {
+        #[test]
+        fn tag_86_input(information_to_account_owner_count in 1..6,
+                        information_to_account_owner_text in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]{1, 65}") {
+            let information_to_account_owner = (0..information_to_account_owner_count)
+                .map(|_| information_to_account_owner_text.to_string())
+                .collect::<Vec<String>>()
+                .join("\n");
+
+            let re_tag_like = Regex::new(":.*:").unwrap();
+            prop_assume!(!re_tag_like.is_match(&information_to_account_owner), "Can't have a value that looks like a tag");
+
+            let re_no_whitespace_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$").unwrap();
+            prop_assume!(
+                re_no_whitespace_in_front_or_end.is_match(&information_to_account_owner),
+                "Can't have a value that has whitespace in front of end");
+
+            let field = Field::from_str(&format!(":86:{}", information_to_account_owner)).unwrap();
+            let parsed = parse_86_tag(&field).unwrap();
+            prop_assert_eq!(parsed, information_to_account_owner);
         }
     }
 
