@@ -5,7 +5,7 @@ rust:
   - beta
   - nightly
 
-before_cache: |
+before_script: |
   if [[ "$TRAVIS_RUST_VERSION" == nightly ]]; then
     RUSTFLAGS="--cfg procmacro2_semver_exempt" cargo install cargo-tarpaulin
   fi
