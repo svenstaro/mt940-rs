@@ -15,6 +15,7 @@
 - Strict and well-researched.
 - Super simple API and nice Rusty structs.
 - Small commandline utility that allows for quick and easy conversion of MT940 statements to JSON.
+- Well tested with many automated tests to find weird corner cases.
 
 ## Planned features
 
