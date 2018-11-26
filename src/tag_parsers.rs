@@ -306,8 +306,8 @@ mod tests {
             let re_tag_like = Regex::new(":.*:").unwrap();
             prop_assume!(!re_tag_like.is_match(&input), "Can't have a value that looks like a tag");
 
-            let re_only_whitespace = Regex::new(r"\s+").unwrap();
-            prop_assume!(!re_only_whitespace.is_match(&input), "Can't have a value that's only whitespace");
+            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$").unwrap();
+            prop_assume!(re_no_ws_in_front_or_end.is_match(&input), "Can't have a value that has whitespace in front or end");
 
             let field = Field::from_str(&format!(":20:{}", input)).unwrap();
             let parsed = parse_20_tag(&field).unwrap();
@@ -321,8 +321,8 @@ mod tests {
             let re_tag_like = Regex::new(":.*:").unwrap();
             prop_assume!(!re_tag_like.is_match(&input), "Can't have a value that looks like a tag");
 
-            let re_only_whitespace = Regex::new(r"\s+").unwrap();
-            prop_assume!(!re_only_whitespace.is_match(&input), "Can't have a value that's only whitespace");
+            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$").unwrap();
+            prop_assume!(re_no_ws_in_front_or_end.is_match(&input), "Can't have a value that has whitespace in front or end");
 
             let field = Field::from_str(&format!(":21:{}", input)).unwrap();
             let parsed = parse_21_tag(&field).unwrap();
@@ -336,8 +336,8 @@ mod tests {
             let re_tag_like = Regex::new(":.*:").unwrap();
             prop_assume!(!re_tag_like.is_match(&input), "Can't have a value that looks like a tag");
 
-            let re_only_whitespace = Regex::new(r"\s+").unwrap();
-            prop_assume!(!re_only_whitespace.is_match(&input), "Can't have a value that's only whitespace");
+            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$").unwrap();
+            prop_assume!(re_no_ws_in_front_or_end.is_match(&input), "Can't have a value that has whitespace in front or end");
 
             let field = Field::from_str(&format!(":25:{}", input)).unwrap();
             let parsed = parse_25_tag(&field).unwrap();
@@ -358,8 +358,8 @@ mod tests {
             let re_tag_like = Regex::new(":.*:").unwrap();
             prop_assume!(!re_tag_like.is_match(&input), "Can't have a value that looks like a tag");
 
-            let re_only_whitespace = Regex::new(r"\s+").unwrap();
-            prop_assume!(!re_only_whitespace.is_match(&input), "Can't have a value that's only whitespace");
+            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$").unwrap();
+            prop_assume!(re_no_ws_in_front_or_end.is_match(&input), "Can't have a value that has whitespace in front or end");
 
             let field = Field::from_str(&format!(":28C:{}", input)).unwrap();
             let parsed = parse_28c_tag(&field).unwrap();
@@ -407,10 +407,6 @@ mod tests {
     }
 
     proptest! {
-        #![proptest_config(ProptestConfig {
-            max_global_rejects: 4096, .. ProptestConfig::default()
-        })]
-
         #[test]
         fn tag_61_input(date in (r"[[:digit:]]{2}[01][0-9][0-3][[:digit:]]").prop_filter("We need a valid date", |d| NaiveDate::parse_from_str(&d, "%y%m%d").is_ok()),
                         has_short_date in proptest::bool::weighted(0.5),
@@ -438,10 +434,10 @@ mod tests {
             let re_slash_at_end = Regex::new(r"/$").unwrap();
             prop_assume!(!re_slash_at_end.is_match(&customer_ref), "Can't have a customer ref that ends in a slash");
 
-            let re_only_whitespace = Regex::new(r"\s+").unwrap();
-            prop_assume!(!re_only_whitespace.is_match(&customer_ref), "Can't have a value that's only whitespace");
-            prop_assume!(!re_only_whitespace.is_match(&bank_ref), "Can't have a value that's only whitespace");
-            prop_assume!(!re_only_whitespace.is_match(&supplementary_details), "Can't have a value that looks like a tag");
+            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$").unwrap();
+            prop_assume!(re_no_ws_in_front_or_end.is_match(&customer_ref), "Can't have a value that has whitespace in front or end");
+            prop_assume!(re_no_ws_in_front_or_end.is_match(&bank_ref), "Can't have a value that has whitespace in front or end");
+            prop_assume!(re_no_ws_in_front_or_end.is_match(&supplementary_details), "Can't have a value that has whitespace in front or end");
 
             let short_date = if has_short_date { &date[2..6] } else { "" };
             let amount = format!("{},{}", amount_before_decimal, amount_after_decimal);
@@ -497,10 +493,9 @@ mod tests {
             let re_tag_like = Regex::new(":.*:").unwrap();
             prop_assume!(!re_tag_like.is_match(&information_to_account_owner), "Can't have a value that looks like a tag");
 
-            let re_no_whitespace_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$").unwrap();
-            prop_assume!(
-                re_no_whitespace_in_front_or_end.is_match(&information_to_account_owner),
-                "Can't have a value that has whitespace in front of end");
+            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$").unwrap();
+            prop_assume!(re_no_ws_in_front_or_end.is_match(&information_to_account_owner),
+                "Can't have a value that has whitespace in front or end");
 
             let field = Field::from_str(&format!(":86:{}", information_to_account_owner)).unwrap();
             let parsed = parse_86_tag(&field).unwrap();
