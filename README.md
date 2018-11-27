@@ -16,6 +16,7 @@
 - Super simple API and nice Rusty structs.
 - Small commandline utility that allows for quick and easy conversion of MT940 statements to JSON.
 - Well tested with many automated tests to find weird corner cases.
+- [Pretty fast](#Performance).
 
 ## Planned features
 
@@ -56,6 +57,15 @@ fn main() {
 ## Documentation
 
 Documentation is [here](https://docs.rs/mt940).
+
+## Performance
+
+Time to parse the provided `MT940_FI_Example.sta`:
+
+|             | mt940-rs (this crate) | mt940-js (NodeJS)    | mt-940 (Python)      |
+|-------------|-----------------------|----------------------|----------------------|
+| Time for file  | 0.054ms               | 0.08ms               | 1.15ms               |
+| **Performance** | **600000 lines per sec**  | 400000 lines per sec | 280000 lines per sec |
 
 ## Caveats
 
