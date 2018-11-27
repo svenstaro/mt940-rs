@@ -172,12 +172,12 @@ pub fn parse_61_tag(field: &Field) -> Result<StatementLine, ParseError> {
         value_date: date.unwrap(),
         entry_date: short_date,
         ext_debit_credit_indicator: ext_debit_credit_indicator.unwrap(),
-        funds_code: funds_code,
+        funds_code,
         amount: amount.unwrap(),
         transaction_type_ident_code: transaction_type_ident_code.unwrap(),
         customer_ref: customer_ref.unwrap(),
-        bank_ref: bank_ref,
-        supplementary_details: supplementary_details,
+        bank_ref,
+        supplementary_details,
         information_to_account_owner: None,
     };
     Ok(statement_line)

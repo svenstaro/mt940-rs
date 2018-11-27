@@ -330,21 +330,21 @@ impl Message {
                     forward_available_balance = Some(parse_65_tag(&field)?);
                     current_acceptable_tags = vec!["65", "86"];
                 }
-                tag @ _ => return Err(ParseError::UnknownTagError(tag.to_string())),
+                tag => return Err(ParseError::UnknownTagError(tag.to_string())),
             }
 
             last_tag = field.tag;
         }
 
         let message = Message {
-            transaction_ref_no: transaction_ref_no.ok_or(RequiredTagNotFoundError::new("20"))?,
-            ref_to_related_msg: ref_to_related_msg,
-            account_id: account_id.ok_or(RequiredTagNotFoundError::new("25"))?,
-            statement_no: statement_no.ok_or(RequiredTagNotFoundError::new("28C"))?,
-            sequence_no: sequence_no,
-            opening_balance: opening_balance.ok_or(RequiredTagNotFoundError::new("60"))?,
-            statement_lines: statement_lines,
-            closing_balance: closing_balance.ok_or(RequiredTagNotFoundError::new("62"))?,
+            transaction_ref_no: transaction_ref_no.ok_or_else(|| RequiredTagNotFoundError::new("20"))?,
+            ref_to_related_msg,
+            account_id: account_id.ok_or_else(|| RequiredTagNotFoundError::new("25"))?,
+            statement_no: statement_no.ok_or_else(|| RequiredTagNotFoundError::new("28C"))?,
+            sequence_no,
+            opening_balance: opening_balance.ok_or_else(|| RequiredTagNotFoundError::new("60"))?,
+            statement_lines,
+            closing_balance: closing_balance.ok_or_else(|| RequiredTagNotFoundError::new("62"))?,
             closing_available_balance,
             forward_available_balance,
             information_to_account_owner,

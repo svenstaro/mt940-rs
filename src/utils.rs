@@ -12,7 +12,7 @@ use Rule;
 /// However, they might not always have digits behind the comma.
 pub fn decimal_from_mt940_amount(s: &str) -> Result<Decimal, AmountParseError> {
     // Split at decimal separator.
-    let split_decimal_str: Vec<&str> = s.split(",").collect();
+    let split_decimal_str: Vec<&str> = s.split(',').collect();
     if split_decimal_str.len() == 1 {
         return Err(AmountParseError::NoComma);
     } else if split_decimal_str.len() > 2 {
@@ -21,7 +21,7 @@ pub fn decimal_from_mt940_amount(s: &str) -> Result<Decimal, AmountParseError> {
     let (int_part, frac_part) = (split_decimal_str[0], split_decimal_str[1]);
     let whole_number: i64 = format!("{}{}", int_part, frac_part)
         .parse()
-        .map_err(|x| AmountParseError::IntParseError(x))?;
+        .map_err(AmountParseError::IntParseError)?;
     Ok(Decimal::new(whole_number, frac_part.len() as u32))
 }
 
