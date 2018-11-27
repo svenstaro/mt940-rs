@@ -65,7 +65,7 @@ Time to parse the provided `MT940_FI_Example.sta`:
 |             | mt940-rs (this crate) | mt940-js (NodeJS)    | mt-940 (Python)      |
 |-------------|-----------------------|----------------------|----------------------|
 | Time for file  | 0.054ms               | 0.08ms               | 1.15ms               |
-| **Performance** | **600000 lines per sec**  | 400000 lines per sec | 280000 lines per sec |
+| **Performance** | **600000 lines per sec**  | 400000 lines per sec | 28000 lines per sec |
 
 ## Caveats
 
