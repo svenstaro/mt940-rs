@@ -13,6 +13,12 @@ categories = ["parser-implementations", "command-line-utilities", "command-line-
 travis-ci = { repository = "svenstaro/mt940-rs", branch = "master" }
 maintenance = { status = "actively-developed" }
 
+[profile.release]
+lto = true
+
+[profile.bench]
+lto = true
+
 [dependencies]
 clap = "2"
 chrono = { version = "0.4", features = ["serde"] }
