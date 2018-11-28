@@ -19,3 +19,4 @@ xs 3843113369 3692729752 603968061 3702172072 # shrinks to date = "000101", has_
 xs 2165798421 1237972765 2514450435 2005057380 # shrinks to information_to_account_owner_count = 2, information_to_account_owner_text = ":A"
 xs 531933490 3481554552 1005958333 1266514935 # shrinks to information_to_account_owner_count = 1, information_to_account_owner_text = ":0:"
 xs 254545217 867089216 529054787 3897575461 # shrinks to information_to_account_owner_count = 1, information_to_account_owner_text = "} "
+xs 3968906574 1264770286 771913511 72141496 # shrinks to date = "000101", has_short_date = false, ext_debit_credit_indicator = "C", funds_code = "", amount_before_decimal = "0", amount_after_decimal = "", transaction_type_ident_code_nf = "F", transaction_type_ident_code_enum = "NonStandard(\"\")", customer_ref = "+‘", bank_ref = "}", supplementary_details = "("

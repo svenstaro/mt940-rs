@@ -21,7 +21,6 @@ pub enum ParseError {
     PestParseError(pest::error::Error<Rule>),
     UnexpectedTagError(UnexpectedTagError),
     RequiredTagNotFoundError(RequiredTagNotFoundError),
-    InvalidTransactionIdentCode(String),
     UnknownTagError(String),
 }
 
@@ -31,7 +30,6 @@ impl error::Error for ParseError {
             ParseError::PestParseError(ref err) => Some(err),
             ParseError::UnexpectedTagError(ref err) => Some(err),
             ParseError::RequiredTagNotFoundError(ref err) => Some(err),
-            ParseError::InvalidTransactionIdentCode(ref _err) => None,
             ParseError::UnknownTagError(ref _err) => None,
         }
     }
@@ -43,9 +41,6 @@ impl fmt::Display for ParseError {
             ParseError::PestParseError(ref err) => err.fmt(f),
             ParseError::UnexpectedTagError(ref err) => err.fmt(f),
             ParseError::RequiredTagNotFoundError(ref err) => err.fmt(f),
-            ParseError::InvalidTransactionIdentCode(ref err) => {
-                write!(f, "Invalid Transaction Type Identification Code '{}'", err)
-            }
             ParseError::UnknownTagError(ref err) => write!(f, "Unknown Tag '{}'", err),
         }
     }

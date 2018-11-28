@@ -5,6 +5,7 @@ extern crate serde_json;
 
 use clap::{App, Arg, AppSettings};
 use mt940::parse_mt940;
+use mt940::sanitizers::to_swift_charset;
 use std::fs;
 use std::io::{self, Write};
 use std::path::Path;
@@ -40,8 +41,17 @@ fn main() -> Result<(), Box<std::error::Error>> {
     let matches = App::new(crate_name!())
         .version(crate_version!())
         .author(crate_authors!())
-        .about("Convert mt940 statement to json.")
+        .about("Convert mt940 statement to json. \n\n\
+                It will try to sanitize input by default. For instance, it will \
+                try to fit all found characters into the allowable SWIFT charset \
+                before attempting conversion. You can turn off this behavior by \
+                enabling strict mode.")
         .global_setting(AppSettings::ColoredHelp)
+        .arg(
+            Arg::with_name("strict")
+                .short("s")
+                .help("Enable strict parsing\nWhen this is on, no automatic sanitizing will take place."),
+        )
         .arg(
             Arg::with_name("statement")
                 .value_name("STATEMENT")
@@ -59,9 +69,15 @@ fn main() -> Result<(), Box<std::error::Error>> {
         )
         .get_matches();
 
+    let is_strict = value_t!(matches, "strict", bool).unwrap_or(false);
     let statement_input = value_t_or_exit!(matches, "statement", String);
 
-    let input = fs::read_to_string(statement_input)?;
+    let mut input = fs::read_to_string(statement_input)?;
+
+    // Do some sanitizing if not running in strict mode.
+    if !is_strict {
+        input = to_swift_charset(&input);
+    }
 
     let parsed = parse_mt940(&input).unwrap_or_else(|e| panic!("{}", e));
 

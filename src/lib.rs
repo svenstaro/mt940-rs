@@ -1,6 +1,6 @@
 //! A fast and strict MT940 parser.
 //!
-//! # Example
+//! # Examples
 //! ```
 //! extern crate mt940;
 //! use mt940::parse_mt940;
@@ -25,6 +25,39 @@
 //!     assert_eq!(input_parsed[0].transaction_ref_no, "3996-11-11111111");
 //! }
 //! ```
+//!
+//! ## Sanitizing input
+//! In case your input is non-standard conformant, it will be refused. This is the case, for
+//! instance, if it contains invalid characters which are not specified in the
+//! [SWIFT MT101](http://www.sepaforcorporates.com/swift-for-corporates/quick-guide-swift-mt101-format/)
+//! character set. Since this is the case quite often with international banks, you can use the
+//! provided sanitizer to try to sanitize your input and make it MT940-compliant before trying to
+//! parse it:
+//!
+//! ```
+//! extern crate mt940;
+//! use mt940::parse_mt940;
+//! use mt940::sanitizers::to_swift_charset;
+//!
+//! fn main() {
+//!     let input = "\
+//!         :20:äö===hallo===\r\n\
+//!         :25:DABADKKK/111111-11111111\r\n\
+//!         :28C:00001/001\r\n\
+//!         :60F:C090924EUR54484,04\r\n\
+//!         :61:0909250925DR583,92NMSC1110030403010139//1234\r\n\
+//!         :86:ääääää«»«»«ëáßðæ©®bñéë«óüë«ó»µ©b©äé\r\n\
+//!         :61:0910010930DR62,60NCHGcustomer id//bank id\r\n\
+//!         :86:äääääää¤¤¤¤¤¤¤¤¤€€€€€€€€€€€€€€€³¹²³\r\n\
+//!         :62F:C090930EUR53126,94\r\n\
+//!         :64:C090930EUR53189,31\r\n\
+//!         \r\n";
+//!
+//!     let sanitized_input = to_swift_charset(input);
+//!     let input_parsed = parse_mt940(&sanitized_input).unwrap();
+//!     assert_eq!(input_parsed[0].transaction_ref_no, "ao...hallo...");
+//! }
+//! ```
 
 extern crate pest;
 #[macro_use]
@@ -44,6 +77,7 @@ extern crate serde_json;
 extern crate serde_derive;
 
 extern crate chrono;
+extern crate deunicode;
 extern crate rust_decimal;
 
 #[cfg(test)]
@@ -61,6 +95,7 @@ extern crate rstest;
 extern crate regex;
 
 mod errors;
+pub mod sanitizers;
 mod tag_parsers;
 mod transaction_types;
 mod utils;
@@ -256,7 +291,7 @@ impl Message {
                 .map(|x| x.to_string())
                 .collect();
 
-            // We reject unexpected tag.
+            // We reject unexpected tags.
             if !current_acceptable_tags.contains(&&field.tag.as_str()) {
                 return Err(UnexpectedTagError::new(
                     field.tag,
@@ -337,7 +372,8 @@ impl Message {
         }
 
         let message = Message {
-            transaction_ref_no: transaction_ref_no.ok_or_else(|| RequiredTagNotFoundError::new("20"))?,
+            transaction_ref_no: transaction_ref_no
+                .ok_or_else(|| RequiredTagNotFoundError::new("20"))?,
             ref_to_related_msg,
             account_id: account_id.ok_or_else(|| RequiredTagNotFoundError::new("25"))?,
             statement_no: statement_no.ok_or_else(|| RequiredTagNotFoundError::new("28C"))?,

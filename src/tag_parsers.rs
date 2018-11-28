@@ -150,9 +150,14 @@ pub fn parse_61_tag(field: &Field) -> Result<StatementLine, ParseError> {
                 match TransactionTypeIdentificationCode::from_str(actual_type_ident_code_str) {
                     Ok(t) => transaction_type_ident_code = Some(t),
                     Err(strum::ParseError::VariantNotFound) => {
-                        return Err(ParseError::InvalidTransactionIdentCode(
-                            pair.as_str().to_string(),
-                        ))
+                        // Because these Transaction Type Identification Codes are not _really_
+                        // part of the standard as far as I can see but SWIFT only really suggests
+                        // a few default ones, we'll still parse it as an unknown code.
+                        // However, this shall not make parsing fail!
+                        transaction_type_ident_code =
+                            Some(TransactionTypeIdentificationCode::NonStandard(
+                                actual_type_ident_code_str.to_string(),
+                            ))
                     }
                 };
             }
@@ -296,7 +301,6 @@ mod tests {
     use regex::Regex;
     use rstest::rstest_parametrize;
     use rust_decimal::Decimal;
-    use strum::IntoEnumIterator;
 
     use super::*;
 
@@ -533,12 +537,7 @@ mod tests {
                         funds_code in r"[[:alpha:]]?",
                         amount_before_decimal in r"[[:digit:]]{1, 12}",
                         amount_after_decimal in r"[[:digit:]]{0, 2}",
-                        transaction_type_ident_code_nf in r"[NF]",
-                        transaction_type_ident_code_enum in proptest::sample::select(
-                            TransactionTypeIdentificationCode::iter()
-                            .map(|x| format!("{:?}", x))
-                            .collect::<Vec<String>>()
-                        ),
+                        transaction_type_ident_code in r"[NF][[:alnum:]]{3}",
                         customer_ref in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]{1, 16}",
                         bank_ref in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]{0, 16}",
                         supplementary_details in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]{0, 34}") {
@@ -560,10 +559,7 @@ mod tests {
 
             let short_date = if has_short_date { &date[2..6] } else { "" };
             let amount = format!("{},{}", amount_before_decimal, amount_after_decimal);
-            let transaction_type_ident_code = format!(
-                "{}{}",
-                transaction_type_ident_code_nf,
-                transaction_type_ident_code_enum);
+            let transaction_type_ident_code_no_prefix = &transaction_type_ident_code[1..];
             let customer_bank_ref = format!(
                 "{customer_ref}{separator}{bank_ref}",
                 customer_ref=customer_ref,
@@ -590,7 +586,10 @@ mod tests {
                 ext_debit_credit_indicator: ExtDebitOrCredit::from_str(&ext_debit_credit_indicator).unwrap(),
                 funds_code: if funds_code.is_empty() { None } else { Some(funds_code) },
                 amount: decimal_from_mt940_amount(&amount).unwrap(),
-                transaction_type_ident_code: TransactionTypeIdentificationCode::from_str(&transaction_type_ident_code_enum).unwrap(),
+                transaction_type_ident_code: TransactionTypeIdentificationCode::from_str(
+                    &transaction_type_ident_code_no_prefix).unwrap_or_else(
+                        |_| TransactionTypeIdentificationCode::NonStandard(
+                            transaction_type_ident_code_no_prefix.to_string())),
                 customer_ref,
                 bank_ref: if bank_ref.is_empty() { None } else { Some(bank_ref) },
                 supplementary_details: if supplementary_details.is_empty() { None } else { Some(supplementary_details) },

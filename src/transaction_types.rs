@@ -63,6 +63,7 @@ pub enum TransactionTypeIdentificationCode {
     UWC,
     VDA,
     WAR,
+    NonStandard(String),
 }
 
 impl fmt::Display for TransactionTypeIdentificationCode {
@@ -125,6 +126,7 @@ impl fmt::Display for TransactionTypeIdentificationCode {
             TransactionTypeIdentificationCode::UWC => "Securities Related Item – Underwriting commission",
             TransactionTypeIdentificationCode::VDA => "Value date adjustment (used with an entry made to withdraw an incorrectly dated entry – it will be followed by the correct entry with the relevant code)",
             TransactionTypeIdentificationCode::WAR => "Securities Related Item – Warrant",
+            TransactionTypeIdentificationCode::NonStandard(_) => "Non-standard MT940 Transaction Type Identification Code",
         };
         write!(f, "({:?}, {})", self, description)
     }

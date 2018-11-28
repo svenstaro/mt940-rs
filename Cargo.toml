@@ -1,7 +1,7 @@
 [package]
 name = "mt940"
 description = "A strict MT940 bank statement parser"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Sven-Hendrik Haase <svenstaro@gmail.com>"]
 repository = "https://github.com/svenstaro/mt940-rs"
 license = "MIT"
@@ -22,6 +22,7 @@ lto = true
 [dependencies]
 clap = "2"
 chrono = { version = "0.4", features = ["serde"] }
+deunicode = "0.4"
 rust_decimal = { version = "0.10", features = ["serde"] }
 log = "0.4"
 pest = "2"

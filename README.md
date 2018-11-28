@@ -67,10 +67,10 @@ Time to parse the provided `MT940_FI_Example.sta`:
 | Time for file  | 0.054ms               | 0.08ms               | 1.15ms               |
 | **Performance** | **600000 lines per sec**  | 400000 lines per sec | 28000 lines per sec |
 
-## Caveats
+## Strictness
 
 Some banks bank use weird derivates of MT940 that do not strictly follow the specification.
-In that case, I recommend you do some pre-processing of those statements.
+In that case you should try to do some pre-processing either by yourself or using one of the provided sanitizers.
 
 ## Resources and acknowledgements
 
