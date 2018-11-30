@@ -1,54 +1,70 @@
-use std::error;
-use std::fmt;
-
 use Rule;
 
+#[derive(Debug, Clone, Eq, PartialEq, Fail)]
+pub enum DateParseError {
+    #[fail(display = "Date parsing failed for date: '{}-{}-{}'", year, month, day)]
+    OutOfRange {
+        year: String,
+        month: String,
+        day: String,
+    },
+
+    #[fail(display = "Pest parsing error: {}", _0)]
+    PestParseError(pest::error::Error<Rule>),
+}
+
+impl From<pest::error::Error<Rule>> for DateParseError {
+    fn from(err: pest::error::Error<Rule>) -> DateParseError {
+        DateParseError::PestParseError(err)
+    }
+}
+
 /// Error thrown if a variant for an enum can't be found.
-#[derive(Debug)]
+#[derive(Debug, Clone, Eq, PartialEq, Fail)]
+#[fail(display = "Variant not found: {}", _0)]
 pub struct VariantNotFound(pub String);
 
 /// Error thrown when parsing of a MT940 amount fails.
-#[derive(Debug)]
+#[derive(Debug, Clone, Eq, PartialEq, Fail)]
 pub enum AmountParseError {
-    TooManyCommas,
-    NoComma,
+    #[fail(display = "Too many commas in amount: '{}'", _0)]
+    TooManyCommas(String),
+
+    #[fail(display = "No comma found in amount: '{}'", _0)]
+    NoComma(String),
+
+    #[fail(display = "Couldn't parse as integer: '{}'", _0)]
     IntParseError(std::num::ParseIntError),
 }
 
 /// Error thrown when parsing fails.
-#[derive(Debug)]
+#[derive(Debug, Clone, Eq, PartialEq, Fail)]
 pub enum ParseError {
+    #[fail(display = "Pest parsing error: {}", _0)]
     PestParseError(pest::error::Error<Rule>),
+
+    #[fail(display = "{}", _0)]
     UnexpectedTagError(UnexpectedTagError),
+
+    #[fail(display = "{}", _0)]
+    DateParseError(DateParseError),
+
+    #[fail(display = "{}", _0)]
     RequiredTagNotFoundError(RequiredTagNotFoundError),
+
+    #[fail(display = "Unknown tag: '{}'", _0)]
     UnknownTagError(String),
-}
-
-impl error::Error for ParseError {
-    fn source(&self) -> Option<&(error::Error + 'static)> {
-        match *self {
-            ParseError::PestParseError(ref err) => Some(err),
-            ParseError::UnexpectedTagError(ref err) => Some(err),
-            ParseError::RequiredTagNotFoundError(ref err) => Some(err),
-            ParseError::UnknownTagError(ref _err) => None,
-        }
-    }
-}
-
-impl fmt::Display for ParseError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match *self {
-            ParseError::PestParseError(ref err) => err.fmt(f),
-            ParseError::UnexpectedTagError(ref err) => err.fmt(f),
-            ParseError::RequiredTagNotFoundError(ref err) => err.fmt(f),
-            ParseError::UnknownTagError(ref err) => write!(f, "Unknown Tag '{}'", err),
-        }
-    }
 }
 
 impl From<pest::error::Error<Rule>> for ParseError {
     fn from(err: pest::error::Error<Rule>) -> ParseError {
         ParseError::PestParseError(err)
+    }
+}
+
+impl From<DateParseError> for ParseError {
+    fn from(err: DateParseError) -> ParseError {
+        ParseError::DateParseError(err)
     }
 }
 
@@ -68,7 +84,11 @@ impl From<RequiredTagNotFoundError> for ParseError {
 ///
 /// Some tags must never follow other tags. If that happens for some reason, we can safely assume
 /// that the input data is faulty.
-#[derive(Debug)]
+#[derive(Debug, Clone, Eq, PartialEq, Fail)]
+#[fail(
+    display = "Unexpected tag '{}' found. Expected one of '{}'. The tag before this one was '{:?}.",
+    current_tag, last_tag, expected_tags
+)]
 pub struct UnexpectedTagError {
     current_tag: String,
     last_tag: String,
@@ -77,56 +97,29 @@ pub struct UnexpectedTagError {
 
 impl UnexpectedTagError {
     pub fn new(
-        current_tag: String,
-        last_tag: String,
-        expected_tags: Vec<String>,
+        current_tag: &str,
+        last_tag: &str,
+        expected_tags: &Vec<String>,
     ) -> UnexpectedTagError {
         UnexpectedTagError {
-            current_tag,
-            last_tag,
-            expected_tags,
+            current_tag: current_tag.to_string(),
+            last_tag: last_tag.to_string(),
+            expected_tags: expected_tags.clone(),
         }
     }
 }
 
-impl error::Error for UnexpectedTagError {
-    fn source(&self) -> Option<&(error::Error + 'static)> {
-        None
-    }
-}
-
-impl fmt::Display for UnexpectedTagError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "Unexpected tag '{}' found. Expected one of '{}'. The tag before this one was '{:?}.",
-            self.current_tag, self.last_tag, self.expected_tags
-        )
-    }
-}
-
 /// Error thrown if a required tag was not found.
-#[derive(Debug)]
+#[derive(Debug, Clone, Eq, PartialEq, Fail)]
+#[fail(display = "Required tag '{}' not found.", required_tag)]
 pub struct RequiredTagNotFoundError {
     required_tag: String,
 }
 
 impl RequiredTagNotFoundError {
-    pub fn new(required_tag: &str) -> RequiredTagNotFoundError {
+    pub fn new(tag: &str) -> RequiredTagNotFoundError {
         RequiredTagNotFoundError {
-            required_tag: required_tag.to_string(),
+            required_tag: tag.to_string(),
         }
-    }
-}
-
-impl error::Error for RequiredTagNotFoundError {
-    fn source(&self) -> Option<&(error::Error + 'static)> {
-        None
-    }
-}
-
-impl fmt::Display for RequiredTagNotFoundError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Required tag '{}' not found.", self.required_tag,)
     }
 }

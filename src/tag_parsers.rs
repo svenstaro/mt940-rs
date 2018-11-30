@@ -108,7 +108,7 @@ pub fn parse_61_tag(field: &Field) -> Result<StatementLine, ParseError> {
     let pairs = parsed_field.unwrap().next().unwrap().into_inner();
     for pair in pairs {
         match pair.as_rule() {
-            Rule::date => date = Some(date_from_mt940_date(pair.as_str()).unwrap()),
+            Rule::date => date = Some(date_from_mt940_date(pair.as_str())?),
             Rule::short_date => {
                 let mut month = None;
                 let mut day = None;
@@ -278,7 +278,7 @@ pub fn parse_65_tag(field: &Field) -> Result<AvailableBalance, ParseError> {
             Rule::debit_credit_indicator => {
                 debit_credit_indicator = Some(DebitOrCredit::from_str(pair.as_str()).unwrap());
             }
-            Rule::date => date = Some(date_from_mt940_date(pair.as_str()).unwrap()),
+            Rule::date => date = Some(date_from_mt940_date(pair.as_str())?),
             Rule::iso_currency_code => iso_currency_code = Some(pair.as_str().to_string()),
             Rule::amount => {
                 amount = Some(decimal_from_mt940_amount(pair.as_str()).unwrap());

@@ -1,8 +1,8 @@
-use rust_decimal::Decimal;
 use chrono::prelude::*;
 use pest::Parser;
+use rust_decimal::Decimal;
 
-use errors::AmountParseError;
+use errors::{AmountParseError, DateParseError};
 use MT940Parser;
 use Rule;
 
@@ -14,9 +14,9 @@ pub fn decimal_from_mt940_amount(s: &str) -> Result<Decimal, AmountParseError> {
     // Split at decimal separator.
     let split_decimal_str: Vec<&str> = s.split(',').collect();
     if split_decimal_str.len() == 1 {
-        return Err(AmountParseError::NoComma);
+        return Err(AmountParseError::NoComma(s.to_string()));
     } else if split_decimal_str.len() > 2 {
-        return Err(AmountParseError::TooManyCommas);
+        return Err(AmountParseError::TooManyCommas(s.to_string()));
     }
     let (int_part, frac_part) = (split_decimal_str[0], split_decimal_str[1]);
     let whole_number: i64 = format!("{}{}", int_part, frac_part)
@@ -29,8 +29,11 @@ pub fn decimal_from_mt940_amount(s: &str) -> Result<Decimal, AmountParseError> {
 ///
 /// MT940 has a weird date format in the form of YYMMDD. Since it has a shortened year, the
 /// assumption is made that all statement are in the year 20XX.
-pub fn date_from_mt940_date(s: &str) -> Result<NaiveDate, pest::error::Error<Rule>> {
-    let parsed_date = MT940Parser::parse(Rule::date, &s)?.next().unwrap().into_inner();
+pub fn date_from_mt940_date(s: &str) -> Result<NaiveDate, DateParseError> {
+    let parsed_date = MT940Parser::parse(Rule::date, &s)?
+        .next()
+        .unwrap()
+        .into_inner();
     let mut year = None;
     let mut month = None;
     let mut day = None;
@@ -48,9 +51,14 @@ pub fn date_from_mt940_date(s: &str) -> Result<NaiveDate, pest::error::Error<Rul
             _ => unreachable!(),
         }
     }
-    Ok(NaiveDate::from_ymd(
-        year.unwrap().parse().unwrap(),
+    NaiveDate::from_ymd_opt(
+        year.clone().unwrap().parse().unwrap(),
         month.unwrap().parse().unwrap(),
         day.unwrap().parse().unwrap(),
-    ))
+    )
+    .ok_or_else(|| DateParseError::OutOfRange {
+        year: year.unwrap().to_string(),
+        month: month.unwrap().to_string(),
+        day: day.unwrap().to_string(),
+    })
 }

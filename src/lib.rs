@@ -70,6 +70,9 @@ extern crate strum;
 #[macro_use]
 extern crate strum_macros;
 
+#[macro_use]
+extern crate failure;
+
 extern crate serde;
 extern crate serde_json;
 
@@ -105,7 +108,9 @@ use pest::Parser;
 use rust_decimal::Decimal;
 use std::str::FromStr;
 
-pub use errors::{ParseError, RequiredTagNotFoundError, UnexpectedTagError, VariantNotFound};
+pub use errors::{
+    DateParseError, ParseError, RequiredTagNotFoundError, UnexpectedTagError, VariantNotFound,
+};
 use tag_parsers::{
     parse_20_tag, parse_21_tag, parse_25_tag, parse_28c_tag, parse_60_tag, parse_61_tag,
     parse_62_tag, parse_64_tag, parse_65_tag, parse_86_tag,
@@ -294,9 +299,9 @@ impl Message {
             // We reject unexpected tags.
             if !current_acceptable_tags.contains(&&field.tag.as_str()) {
                 return Err(UnexpectedTagError::new(
-                    field.tag,
-                    last_tag,
-                    current_acceptable_tags_owned,
+                    &field.tag,
+                    &last_tag,
+                    &current_acceptable_tags_owned,
                 ))?;
             }
 
