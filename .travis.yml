@@ -14,16 +14,22 @@ matrix:
   include:
     - os: linux
       env: TARGET=wasm32-unknown-unknown
-      rust:
-        - stable
-        - beta
-        - nightly
+      rust: stable
+    - os: linux
+      env: TARGET=wasm32-unknown-unknown
+      rust: beta
+    - os: linux
+      env: TARGET=wasm32-unknown-unknown
+      rust: nightly
     - os: linux
       env: TARGET=wasm32-unknown-emscripten
-      rust:
-        - stable
-        - beta
-        - nightly
+      rust: stable
+    - os: linux
+      env: TARGET=wasm32-unknown-emscripten
+      rust: beta
+    - os: linux
+      env: TARGET=wasm32-unknown-emscripten
+      rust: nightly
 
 before_script: |
   if [[ -n "$TARGET" ]]; then
