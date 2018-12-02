@@ -10,9 +10,11 @@ matrix:
     - os: linux
     - os: osx
     - os: windows
-    - env:
+    - os: linux
+      env:
         - TARGET=wasm32-unknown-unknown
-    - env:
+    - os: linux
+      env:
         - TARGET=wasm32-unknown-emscripten
 
 before_script: |
