@@ -109,8 +109,10 @@ use rust_decimal::Decimal;
 use std::str::FromStr;
 
 pub use errors::{
-    DateParseError, ParseError, RequiredTagNotFoundError, UnexpectedTagError, VariantNotFound,
+    DateParseError, ParseError, RequiredTagNotFoundError, UnexpectedTagError,
+    VariantNotFound,
 };
+
 use tag_parsers::{
     parse_20_tag, parse_21_tag, parse_25_tag, parse_28c_tag, parse_60_tag, parse_61_tag,
     parse_62_tag, parse_64_tag, parse_65_tag, parse_86_tag,
@@ -296,8 +298,17 @@ impl Message {
                 .map(|x| x.to_string())
                 .collect();
 
+            // We reject unknown tags.
+            // TODO: Make this into an Enum instead of a bunch of strings.
+            let known_tags = vec![
+                "20", "21", "25", "28C", "60M", "60F", "61", "86", "62M", "62F", "64", "65",
+            ];
+            if !known_tags.contains(&field.tag.as_str()) {
+                return Err(ParseError::UnknownTagError(field.tag.to_string()));
+            }
+
             // We reject unexpected tags.
-            if !current_acceptable_tags.contains(&&field.tag.as_str()) {
+            if !current_acceptable_tags.contains(&field.tag.as_str()) {
                 return Err(UnexpectedTagError::new(
                     &field.tag,
                     &last_tag,
@@ -370,7 +381,7 @@ impl Message {
                     forward_available_balance = Some(parse_65_tag(&field)?);
                     current_acceptable_tags = vec!["65", "86"];
                 }
-                tag => return Err(ParseError::UnknownTagError(tag.to_string())),
+                _ => (),
             }
 
             last_tag = field.tag;
@@ -588,7 +599,10 @@ pub fn parse_fields(statement: &str) -> Result<Vec<Field>, pest::error::Error<Ru
 /// assert_eq!(expected, input_parsed);
 /// ```
 pub fn parse_mt940(statement: &str) -> Result<Vec<Message>, ParseError> {
-    let fields = parse_fields(statement).map_err(ParseError::PestParseError)?;
+    let fields = parse_fields(statement)?;
+    if fields.is_empty() {
+        Err(RequiredTagNotFoundError::new("20"))?;
+    }
 
     let mut fields_per_message = vec![];
 

@@ -54,6 +54,12 @@ pub enum ParseError {
 
     #[fail(display = "Unknown tag: '{}'", _0)]
     UnknownTagError(String),
+
+    #[fail(display = "{}", _0)]
+    VariantNotFound(VariantNotFound),
+
+    #[fail(display = "{}", _0)]
+    AmountParseError(AmountParseError),
 }
 
 impl From<pest::error::Error<Rule>> for ParseError {
@@ -77,6 +83,18 @@ impl From<UnexpectedTagError> for ParseError {
 impl From<RequiredTagNotFoundError> for ParseError {
     fn from(err: RequiredTagNotFoundError) -> ParseError {
         ParseError::RequiredTagNotFoundError(err)
+    }
+}
+
+impl From<VariantNotFound> for ParseError {
+    fn from(err: VariantNotFound) -> ParseError {
+        ParseError::VariantNotFound(err)
+    }
+}
+
+impl From<AmountParseError> for ParseError {
+    fn from(err: AmountParseError) -> ParseError {
+        ParseError::AmountParseError(err)
     }
 }
 

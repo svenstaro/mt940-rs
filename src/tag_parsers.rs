@@ -26,7 +26,7 @@ pub fn parse_21_tag(field: &Field) -> Result<String, ParseError> {
         Err(RequiredTagNotFoundError::new("21"))?;
     }
     let parsed_field = MT940Parser::parse(Rule::tag_21_field, &field.value);
-    let ref_to_related_msg = parsed_field.unwrap().as_str().to_string();
+    let ref_to_related_msg = parsed_field?.as_str().to_string();
     Ok(ref_to_related_msg)
 }
 
@@ -71,12 +71,12 @@ pub fn parse_60_tag(field: &Field) -> Result<Balance, ParseError> {
     for pair in pairs {
         match pair.as_rule() {
             Rule::debit_credit_indicator => {
-                debit_credit_indicator = Some(DebitOrCredit::from_str(pair.as_str()).unwrap());
+                debit_credit_indicator = Some(DebitOrCredit::from_str(pair.as_str())?);
             }
-            Rule::date => date = Some(date_from_mt940_date(pair.as_str()).unwrap()),
+            Rule::date => date = Some(date_from_mt940_date(pair.as_str())?),
             Rule::iso_currency_code => iso_currency_code = Some(pair.as_str().to_string()),
             Rule::amount => {
-                amount = Some(decimal_from_mt940_amount(pair.as_str()).unwrap());
+                amount = Some(decimal_from_mt940_amount(pair.as_str())?);
             }
             _ => (),
         };
@@ -105,7 +105,7 @@ pub fn parse_61_tag(field: &Field) -> Result<StatementLine, ParseError> {
     let mut bank_ref = None;
     let mut supplementary_details = None;
     let parsed_field = MT940Parser::parse(Rule::tag_61_field, &field.value);
-    let pairs = parsed_field.unwrap().next().unwrap().into_inner();
+    let pairs = parsed_field?.next().unwrap().into_inner();
     for pair in pairs {
         match pair.as_rule() {
             Rule::date => date = Some(date_from_mt940_date(pair.as_str())?),
@@ -135,13 +135,13 @@ pub fn parse_61_tag(field: &Field) -> Result<StatementLine, ParseError> {
             }
             Rule::ext_debit_credit_indicator => {
                 ext_debit_credit_indicator =
-                    Some(ExtDebitOrCredit::from_str(pair.as_str()).unwrap());
+                    Some(ExtDebitOrCredit::from_str(pair.as_str())?);
             }
             Rule::funds_code => {
                 funds_code = Some(pair.as_str().to_string());
             }
             Rule::amount => {
-                amount = Some(decimal_from_mt940_amount(pair.as_str()).unwrap());
+                amount = Some(decimal_from_mt940_amount(pair.as_str())?);
             }
             Rule::transaction_type_ident_code => {
                 // The actual transaction type ident code begins after the first
@@ -211,12 +211,12 @@ pub fn parse_62_tag(field: &Field) -> Result<Balance, ParseError> {
     for pair in pairs {
         match pair.as_rule() {
             Rule::debit_credit_indicator => {
-                debit_credit_indicator = Some(DebitOrCredit::from_str(pair.as_str()).unwrap());
+                debit_credit_indicator = Some(DebitOrCredit::from_str(pair.as_str())?);
             }
-            Rule::date => date = Some(date_from_mt940_date(pair.as_str()).unwrap()),
+            Rule::date => date = Some(date_from_mt940_date(pair.as_str())?),
             Rule::iso_currency_code => iso_currency_code = Some(pair.as_str().to_string()),
             Rule::amount => {
-                amount = Some(decimal_from_mt940_amount(pair.as_str()).unwrap());
+                amount = Some(decimal_from_mt940_amount(pair.as_str())?);
             }
             _ => (),
         };
@@ -244,12 +244,12 @@ pub fn parse_64_tag(field: &Field) -> Result<AvailableBalance, ParseError> {
     for pair in pairs {
         match pair.as_rule() {
             Rule::debit_credit_indicator => {
-                debit_credit_indicator = Some(DebitOrCredit::from_str(pair.as_str()).unwrap());
+                debit_credit_indicator = Some(DebitOrCredit::from_str(pair.as_str())?);
             }
-            Rule::date => date = Some(date_from_mt940_date(pair.as_str()).unwrap()),
+            Rule::date => date = Some(date_from_mt940_date(pair.as_str())?),
             Rule::iso_currency_code => iso_currency_code = Some(pair.as_str().to_string()),
             Rule::amount => {
-                amount = Some(decimal_from_mt940_amount(pair.as_str()).unwrap());
+                amount = Some(decimal_from_mt940_amount(pair.as_str())?);
             }
             _ => (),
         };
@@ -276,12 +276,12 @@ pub fn parse_65_tag(field: &Field) -> Result<AvailableBalance, ParseError> {
     for pair in pairs {
         match pair.as_rule() {
             Rule::debit_credit_indicator => {
-                debit_credit_indicator = Some(DebitOrCredit::from_str(pair.as_str()).unwrap());
+                debit_credit_indicator = Some(DebitOrCredit::from_str(pair.as_str())?);
             }
             Rule::date => date = Some(date_from_mt940_date(pair.as_str())?),
             Rule::iso_currency_code => iso_currency_code = Some(pair.as_str().to_string()),
             Rule::amount => {
-                amount = Some(decimal_from_mt940_amount(pair.as_str()).unwrap());
+                amount = Some(decimal_from_mt940_amount(pair.as_str())?);
             }
             _ => (),
         };
@@ -307,10 +307,10 @@ mod tests {
     proptest! {
         #[test]
         fn tag_20_input(input in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]{1, 16}") {
-            let re_tag_like = Regex::new(":.*:").unwrap();
+            let re_tag_like = Regex::new(":.*:")?;
             prop_assume!(!re_tag_like.is_match(&input), "Can't have a value that looks like a tag");
 
-            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$").unwrap();
+            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$")?;
             prop_assume!(re_no_ws_in_front_or_end.is_match(&input), "Can't have a value that has whitespace in front or end");
 
             let field = Field::from_str(&format!(":20:{}", input)).unwrap();
@@ -322,10 +322,10 @@ mod tests {
     proptest! {
         #[test]
         fn tag_21_input(input in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]{1, 16}") {
-            let re_tag_like = Regex::new(":.*:").unwrap();
+            let re_tag_like = Regex::new(":.*:")?;
             prop_assume!(!re_tag_like.is_match(&input), "Can't have a value that looks like a tag");
 
-            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$").unwrap();
+            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$")?;
             prop_assume!(re_no_ws_in_front_or_end.is_match(&input), "Can't have a value that has whitespace in front or end");
 
             let field = Field::from_str(&format!(":21:{}", input)).unwrap();
@@ -337,10 +337,10 @@ mod tests {
     proptest! {
         #[test]
         fn tag_25_input(input in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]{1, 35}") {
-            let re_tag_like = Regex::new(":.*:").unwrap();
+            let re_tag_like = Regex::new(":.*:")?;
             prop_assume!(!re_tag_like.is_match(&input), "Can't have a value that looks like a tag");
 
-            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$").unwrap();
+            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$")?;
             prop_assume!(re_no_ws_in_front_or_end.is_match(&input), "Can't have a value that has whitespace in front or end");
 
             let field = Field::from_str(&format!(":25:{}", input)).unwrap();
@@ -359,10 +359,10 @@ mod tests {
                 separator=if sequence_no.is_empty() { "" } else { "/" },
                 sequence_no=sequence_no);
 
-            let re_tag_like = Regex::new(":.*:").unwrap();
+            let re_tag_like = Regex::new(":.*:")?;
             prop_assume!(!re_tag_like.is_match(&input), "Can't have a value that looks like a tag");
 
-            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$").unwrap();
+            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$")?;
             prop_assume!(re_no_ws_in_front_or_end.is_match(&input), "Can't have a value that has whitespace in front or end");
 
             let field = Field::from_str(&format!(":28C:{}", input)).unwrap();
@@ -541,18 +541,18 @@ mod tests {
                         customer_ref in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]{1, 16}",
                         bank_ref in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]{0, 16}",
                         supplementary_details in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]{0, 34}") {
-            let re_tag_like = Regex::new(":.*:").unwrap();
+            let re_tag_like = Regex::new(":.*:")?;
             prop_assume!(!re_tag_like.is_match(&customer_ref), "Can't have a value that looks like a tag");
             prop_assume!(!re_tag_like.is_match(&bank_ref), "Can't have a value that looks like a tag");
             prop_assume!(!re_tag_like.is_match(&supplementary_details), "Can't have a value that looks like a tag");
 
-            let re_bank_ref_separator = Regex::new(r"(//)").unwrap();
+            let re_bank_ref_separator = Regex::new(r"(//)")?;
             prop_assume!(!re_bank_ref_separator.is_match(&customer_ref), "Can't have a value that looks like a separator");
 
-            let re_slash_at_end = Regex::new(r"/$").unwrap();
+            let re_slash_at_end = Regex::new(r"/$")?;
             prop_assume!(!re_slash_at_end.is_match(&customer_ref), "Can't have a customer ref that ends in a slash");
 
-            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$").unwrap();
+            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$")?;
             prop_assume!(re_no_ws_in_front_or_end.is_match(&customer_ref), "Can't have a value that has whitespace in front or end");
             prop_assume!(re_no_ws_in_front_or_end.is_match(&bank_ref), "Can't have a value that has whitespace in front or end");
             prop_assume!(re_no_ws_in_front_or_end.is_match(&supplementary_details), "Can't have a value that has whitespace in front or end");
@@ -608,10 +608,10 @@ mod tests {
                 .collect::<Vec<String>>()
                 .join("\n");
 
-            let re_tag_like = Regex::new(":.*:").unwrap();
+            let re_tag_like = Regex::new(":.*:")?;
             prop_assume!(!re_tag_like.is_match(&information_to_account_owner), "Can't have a value that looks like a tag");
 
-            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$").unwrap();
+            let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$")?;
             prop_assume!(re_no_ws_in_front_or_end.is_match(&information_to_account_owner),
                 "Can't have a value that has whitespace in front or end");
 
