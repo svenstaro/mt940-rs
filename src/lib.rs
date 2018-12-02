@@ -571,6 +571,9 @@ pub fn parse_mt940(statement: &str) -> Result<Vec<Message>, ParseError> {
             current_20_tag_index += 1;
             fields_per_message.push(vec![]);
         }
+        if current_20_tag_index < 0 {
+            return Err(RequiredTagNotFoundError::new("20"))?;
+        }
         fields_per_message[current_20_tag_index as usize].push(field);
     }
 

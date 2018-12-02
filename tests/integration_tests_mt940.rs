@@ -28,6 +28,18 @@ fn parse_mt940_statement_success(statement_path: &str) {
 }
 
 #[test]
+fn fail_no_tag_20() {
+    let input_data = "http://i.4cdn.org/wsg/1543777162262.webm";
+    let parsed = parse_mt940(&input_data);
+    let expected = RequiredTagNotFoundError::new("20");
+    if let Err(ParseError::RequiredTagNotFoundError(e)) = parsed {
+        assert_eq!(e, expected);
+        return;
+    }
+    assert!(false);
+}
+
+#[test]
 fn fail_februrary_30() {
     let input_data = fs::read_to_string("tests/data/mt940/special-cases/february_30.sta").unwrap();
     let parsed = parse_mt940(&input_data);
@@ -40,9 +52,9 @@ fn fail_februrary_30() {
 }
 
 #[test]
-fn fail_incomplete_tag61() {
+fn fail_incomplete_tag_61() {
     let input_data =
-        fs::read_to_string("tests/data/mt940/special-cases/incomplete_tag61.sta").unwrap();
+        fs::read_to_string("tests/data/mt940/special-cases/incomplete_tag_61.sta").unwrap();
     if let Err(e) = parse_mt940(&input_data) {
         if let ParseError::PestParseError(e) = e {
             if let ErrorVariant::ParsingError {

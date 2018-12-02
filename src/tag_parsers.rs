@@ -386,7 +386,9 @@ mod tests {
         case(":60F:C100318EUR380115,", "380115.00"),
         case(":60F:C100318EUR0,12", "0.12"),
         case(":60F:C100318EUR00,12", "0.12"),
-        case(":60F:C100318EUR001,12", "1.12")
+        case(":60F:C100318EUR001,12", "1.12"),
+        case(":60F:C100318EUR0,", "0"),
+        case(":60F:C100318EUR00000,00", "0"),
     )]
     fn tag_60_input_specific(input: &str, expected_decimal: &str) {
         let expected = Balance {
