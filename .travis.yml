@@ -8,8 +8,11 @@ rust:
 matrix:
   include:
     - os: linux
+      env:
     - os: osx
+      env:
     - os: windows
+      env:
     - os: linux
       env:
         - TARGET=wasm32-unknown-unknown
