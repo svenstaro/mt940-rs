@@ -24,10 +24,20 @@ before_script: |
   fi
 
 script:
-  - cargo build --verbose --all
-  - [[ "$TRAVIS_OS_NAME" == "linux" ]] && cargo test --verbose --all
-  - [[ "$TRAVIS_OS_NAME" == "osx" ]] && cargo test --verbose --all
-  - [[ "$TRAVIS_OS_NAME" == "windows" ]] && cargo test --verbose --all
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "wasm32-unknown-unknown" ]]; then
+      cargo build --target wasm32-unknown-unknown --verbose --all
+    elif [[ "$TRAVIS_OS_NAME" == "wasm32-unknown-emscripten" ]]; then
+      cargo build --target wasm32-unknown-emscripten --verbose --all
+    else
+      cargo build --verbose --all
+    fi
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "linux" ||
+          "$TRAVIS_OS_NAME" == "osx" ||
+          "$TRAVIS_OS_NAME" == "windows" ]];then
+      cargo test --verbose --all
+    fi
 
 after_success: |
   if [[ "$TRAVIS_RUST_VERSION" == nightly && "$TRAVIS_OS_NAME" == "linux" ]]; then
