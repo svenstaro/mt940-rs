@@ -53,7 +53,7 @@ fn main() {
 ## CLI usage example
 
     cargo run --bin sta2json tests/data/mt940/full/danskebank/MT940_DK_Example.sta
-    
+
 ## Documentation
 
 Documentation is [here](https://docs.rs/mt940).

@@ -1,4 +1,6 @@
-use Rule;
+use failure::Fail;
+
+use crate::Rule;
 
 #[derive(Debug, Clone, Eq, PartialEq, Fail)]
 pub enum DateParseError {

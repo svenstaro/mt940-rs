@@ -1,9 +1,6 @@
-#[macro_use]
-extern crate clap;
-extern crate mt940;
-extern crate serde_json;
-
-use clap::{App, Arg, AppSettings};
+use clap::{
+    crate_authors, crate_name, crate_version, value_t, value_t_or_exit, App, AppSettings, Arg,
+};
 use mt940::parse_mt940;
 use mt940::sanitizers::to_swift_charset;
 use std::fs;
@@ -41,17 +38,17 @@ fn main() -> Result<(), Box<std::error::Error>> {
     let matches = App::new(crate_name!())
         .version(crate_version!())
         .author(crate_authors!())
-        .about("Convert mt940 statement to json. \n\n\
-                It will try to sanitize input by default. For instance, it will \
-                try to fit all found characters into the allowable SWIFT charset \
-                before attempting conversion. You can turn off this behavior by \
-                enabling strict mode.")
-        .global_setting(AppSettings::ColoredHelp)
-        .arg(
-            Arg::with_name("strict")
-                .short("s")
-                .help("Enable strict parsing\nWhen this is on, no automatic sanitizing will take place."),
+        .about(
+            "Convert mt940 statement to json. \n\n\
+             It will try to sanitize input by default. For instance, it will \
+             try to fit all found characters into the allowable SWIFT charset \
+             before attempting conversion. You can turn off this behavior by \
+             enabling strict mode.",
         )
+        .global_setting(AppSettings::ColoredHelp)
+        .arg(Arg::with_name("strict").short("s").help(
+            "Enable strict parsing\nWhen this is on, no automatic sanitizing will take place.",
+        ))
         .arg(
             Arg::with_name("statement")
                 .value_name("STATEMENT")

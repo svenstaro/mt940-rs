@@ -2,7 +2,6 @@
 //!
 //! # Examples
 //! ```
-//! extern crate mt940;
 //! use mt940::parse_mt940;
 //!
 //! fn main() {
@@ -35,7 +34,6 @@
 //! parse it:
 //!
 //! ```
-//! extern crate mt940;
 //! use mt940::parse_mt940;
 //! use mt940::sanitizers::to_swift_charset;
 //!
@@ -59,44 +57,6 @@
 //! }
 //! ```
 
-extern crate pest;
-#[macro_use]
-extern crate pest_derive;
-
-#[macro_use]
-extern crate log;
-
-extern crate strum;
-#[macro_use]
-extern crate strum_macros;
-
-#[macro_use]
-extern crate failure;
-
-extern crate serde;
-extern crate serde_json;
-
-#[macro_use]
-extern crate serde_derive;
-
-extern crate chrono;
-extern crate deunicode;
-extern crate rust_decimal;
-
-#[cfg(test)]
-#[macro_use]
-extern crate proptest;
-
-#[cfg(test)]
-#[macro_use]
-extern crate pretty_assertions;
-
-#[cfg(test)]
-extern crate rstest;
-
-#[cfg(test)]
-extern crate regex;
-
 mod errors;
 pub mod sanitizers;
 mod tag_parsers;
@@ -104,20 +64,22 @@ mod transaction_types;
 mod utils;
 
 use chrono::prelude::*;
+use log::debug;
 use pest::Parser;
+use pest_derive::Parser;
 use rust_decimal::Decimal;
+use serde_derive::{Deserialize, Serialize};
 use std::str::FromStr;
 
-pub use errors::{
-    DateParseError, ParseError, RequiredTagNotFoundError, UnexpectedTagError,
-    VariantNotFound,
+pub use crate::errors::{
+    DateParseError, ParseError, RequiredTagNotFoundError, UnexpectedTagError, VariantNotFound,
 };
 
-use tag_parsers::{
+use crate::tag_parsers::{
     parse_20_tag, parse_21_tag, parse_25_tag, parse_28c_tag, parse_60_tag, parse_61_tag,
     parse_62_tag, parse_64_tag, parse_65_tag, parse_86_tag,
 };
-pub use transaction_types::TransactionTypeIdentificationCode;
+pub use crate::transaction_types::TransactionTypeIdentificationCode;
 
 /// A pest parser for parsing a MT940 structure and fields.
 #[derive(Parser)]
@@ -513,9 +475,6 @@ pub fn parse_fields(statement: &str) -> Result<Vec<Field>, pest::error::Error<Ru
 ///
 /// # Example
 /// ```
-/// # extern crate mt940;
-/// # extern crate chrono;
-/// # extern crate rust_decimal;
 /// # use chrono::prelude::*;
 /// # use rust_decimal::Decimal;
 /// # use std::str::FromStr;
@@ -625,6 +584,8 @@ pub fn parse_mt940(statement: &str) -> Result<Vec<Message>, ParseError> {
 
 #[cfg(test)]
 mod tests {
+    use pretty_assertions::assert_eq;
+    use proptest::{prop_assert, prop_assert_eq, prop_assume, proptest, proptest_helper};
     use regex::Regex;
 
     use super::*;

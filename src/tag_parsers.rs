@@ -1,13 +1,12 @@
-use std::str::FromStr;
-
 use chrono::prelude::*;
 use pest::Parser;
+use std::str::FromStr;
 
-use errors::RequiredTagNotFoundError;
-use utils::{date_from_mt940_date, decimal_from_mt940_amount};
-use MT940Parser;
-use Rule;
-use {
+use crate::errors::RequiredTagNotFoundError;
+use crate::utils::{date_from_mt940_date, decimal_from_mt940_amount};
+use crate::MT940Parser;
+use crate::Rule;
+use crate::{
     AvailableBalance, Balance, DebitOrCredit, ExtDebitOrCredit, Field, ParseError, StatementLine,
     TransactionTypeIdentificationCode,
 };
@@ -134,8 +133,7 @@ pub fn parse_61_tag(field: &Field) -> Result<StatementLine, ParseError> {
                 ));
             }
             Rule::ext_debit_credit_indicator => {
-                ext_debit_credit_indicator =
-                    Some(ExtDebitOrCredit::from_str(pair.as_str())?);
+                ext_debit_credit_indicator = Some(ExtDebitOrCredit::from_str(pair.as_str())?);
             }
             Rule::funds_code => {
                 funds_code = Some(pair.as_str().to_string());
@@ -298,6 +296,7 @@ pub fn parse_65_tag(field: &Field) -> Result<AvailableBalance, ParseError> {
 #[cfg(test)]
 mod tests {
     use proptest::prelude::*;
+    use proptest::{prop_assert, prop_assert_eq, prop_assume, proptest, proptest_helper};
     use regex::Regex;
     use rstest::rstest_parametrize;
     use rust_decimal::Decimal;

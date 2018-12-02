@@ -1,4 +1,6 @@
 use std::fmt;
+use strum_macros::{EnumIter, EnumString};
+use serde_derive::{Deserialize, Serialize};
 
 /// Enum containing every SEPA-specified transaction type identification code.
 ///

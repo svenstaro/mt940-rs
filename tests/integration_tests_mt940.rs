@@ -1,14 +1,5 @@
-extern crate mt940;
-
-extern crate pest;
-extern crate serde;
-extern crate serde_json;
-
-extern crate rstest;
-
-#[macro_use]
-extern crate pretty_assertions;
 use pest::error::ErrorVariant;
+use pretty_assertions::assert_eq;
 use rstest::rstest_parametrize;
 use std::fs;
 use std::io;

@@ -1,6 +1,5 @@
 #![feature(test)]
 
-extern crate mt940;
 extern crate test;
 
 use mt940::parse_mt940;

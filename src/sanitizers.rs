@@ -4,8 +4,8 @@
 use deunicode::deunicode_char;
 use pest::Parser;
 
-use MT940Parser;
-use Rule;
+use crate::MT940Parser;
+use crate::Rule;
 
 /// Try to make a given input conform to the SWIFT MT101 allowed charset.
 ///
@@ -44,6 +44,7 @@ pub fn to_swift_charset(s: &str) -> String {
 
 #[cfg(test)]
 mod tests {
+    use proptest::{prop_assert, proptest, proptest_helper};
     use rstest::rstest_parametrize;
 
     use super::*;

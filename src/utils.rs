@@ -2,9 +2,9 @@ use chrono::prelude::*;
 use pest::Parser;
 use rust_decimal::Decimal;
 
-use errors::{AmountParseError, DateParseError};
-use MT940Parser;
-use Rule;
+use crate::errors::{AmountParseError, DateParseError};
+use crate::MT940Parser;
+use crate::Rule;
 
 /// Create a `Decimal` from a MT940 amount.
 ///
