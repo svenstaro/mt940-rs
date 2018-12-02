@@ -35,14 +35,19 @@ before_script: |
   if [[ -n "$TARGET" ]]; then
     rustup target add $TARGET
   fi
+  if [[ "$TARGET" == "wasm32-unknown-emscripten" ]]; then
+    cargo install cargo-web
+  fi
   if [[ "$TRAVIS_RUST_VERSION" == nightly && "$TRAVIS_OS_NAME" == "linux" ]]; then
     RUSTFLAGS="--cfg procmacro2_semver_exempt" cargo install cargo-tarpaulin
   fi
 
 script:
   - |
-    if [[ -n "$TARGET" ]]; then
+    if [[ "$TARGET" == "wasm32-unknown-unknown" ]]; then
       cargo build --target $TARGET --verbose --all
+    elif [[ "$TARGET" == "wasm32-unknown-emscripten" ]]; then
+      cargo web build --target $TARGET --verbose --all
     else
       cargo build --verbose --all
     fi
