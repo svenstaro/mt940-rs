@@ -5,20 +5,25 @@ rust:
   - beta
   - nightly
 
+os:
+  - linux
+  - osx
+  - windows
+
+env:
+  - TARGET=wasm32-unknown-unknown
+  - TARGET=wasm32-unknown-emscripten
+
 matrix:
-  include:
-    - os: linux
-      env:
+  exclude:
     - os: osx
-      env:
+      env: TARGET=wasm32-unknown-unknown
+    - os: osx
+      env: TARGET=wasm32-unknown-emscripten
     - os: windows
-      env:
-    - os: linux
-      env:
-        - TARGET=wasm32-unknown-unknown
-    - os: linux
-      env:
-        - TARGET=wasm32-unknown-emscripten
+      env: TARGET=wasm32-unknown-unknown
+    - os: windows
+      env: TARGET=wasm32-unknown-emscripten
 
 before_script: |
   if [[ -n "$TARGET" ]]; then
