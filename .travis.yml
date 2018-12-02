@@ -4,6 +4,8 @@ os:
   - linux
   - osx
   - windows
+  - wasm32-unknown-unknown
+  - wasm32-unknown-emscripten
 
 rust:
   - stable
@@ -11,9 +13,21 @@ rust:
   - nightly
 
 before_script: |
+  if [[ "$TRAVIS_OS_NAME" == "wasm32-unknown-unknown" ]]; then
+    rustup target add wasm32-unknown-unknown
+  fi
+  if [[ "$TRAVIS_OS_NAME" == "wasm32-unknown-emscripten" ]]; then
+    rustup target add wasm32-unknown-emscripten
+  fi
   if [[ "$TRAVIS_RUST_VERSION" == nightly && "$TRAVIS_OS_NAME" == "linux" ]]; then
     RUSTFLAGS="--cfg procmacro2_semver_exempt" cargo install cargo-tarpaulin
   fi
+
+script:
+  - cargo build --verbose --all
+  - [[ "$TRAVIS_OS_NAME" == "linux" ]] && cargo test --verbose --all
+  - [[ "$TRAVIS_OS_NAME" == "osx" ]] && cargo test --verbose --all
+  - [[ "$TRAVIS_OS_NAME" == "windows" ]] && cargo test --verbose --all
 
 after_success: |
   if [[ "$TRAVIS_RUST_VERSION" == nightly && "$TRAVIS_OS_NAME" == "linux" ]]; then
