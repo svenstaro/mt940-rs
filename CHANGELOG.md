@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.1 - 2018-12-3
+
+* Add a new sanitizer function `strip_stuff_between_messages` in order to get rid of non-confortmant stuff between statements.
+  Some banks and tools apparently separate statements with dashes or such. We can't have that!
+* Added a convenience `sanitize` function that you can call if you just want your input sanitized but don't care exactly how.
+* Added tons of tests and some benchmarks.
+* Added official WebAssembly support.
+
 ## 0.3.0 - 2018-11-28
 
 * Add sanitizers in order to robustly prepare data for parsing on a best-attempt basis.
