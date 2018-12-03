@@ -8,6 +8,9 @@ use crate::MT940Parser;
 use crate::Rule;
 
 /// Run all sanitizers on the input in a useful order.
+///
+/// If you don't really care exactly _how_ you're input is sanitized and just want it to work, this
+/// is probably the function to use.
 pub fn sanitize(s: &str) -> String {
     let s1 = to_swift_charset(s);
     let s2 = strip_stuff_between_messages(&s1);

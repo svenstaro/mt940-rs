@@ -1,5 +1,5 @@
 use clap::{
-    crate_authors, crate_name, crate_version, value_t, value_t_or_exit, App, AppSettings, Arg,
+    crate_authors, crate_name, crate_version, value_t_or_exit, App, AppSettings, Arg,
 };
 use mt940::parse_mt940;
 use mt940::sanitizers::sanitize;
