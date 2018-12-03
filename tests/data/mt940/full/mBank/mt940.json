@@ -1,0 +1,69 @@
+[
+  {
+    "transaction_ref_no": "ST170119CYC/1",
+    "ref_to_related_msg": null,
+    "account_id": "PL29114010810000267002001002",
+    "statement_no": "1",
+    "sequence_no": "1",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2017-01-19",
+      "iso_currency_code": "PLN",
+      "amount": "0.40"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2017-01-19",
+        "entry_date": "2017-01-19",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "N",
+        "amount": "0.01",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "MB170119012058",
+        "supplementary_details": "911-TRANSAKCJA IPH",
+        "information_to_account_owner": "911 TRANSAKCJA COLLECT. ID IPH: XX000000000001. Z RACH.: \n56114010810000267002001001. OD: JAN NOWAK  \nUL. NIJAKA 1 M 2 31-234 KRAKOW. TYT.: PRZELEW SRODKOW   . \nTNR: 179171073864111.010001"
+      },
+      {
+        "value_date": "2017-01-19",
+        "entry_date": "2017-01-19",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "N",
+        "amount": "0.01",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "MB170119012085",
+        "supplementary_details": "911-TRANSAKCJA IPH",
+        "information_to_account_owner": "911 TRANSAKCJA COLLECT. ID IPH: XX000000000002. Z RACH.: \n56114010810000267002001001. OD: JAN NOWAK  \nUL. NIJAKA 1 M 2 31-234 KRAKOW. TYT.: PRZELEW SRODKOW   . \nTNR: 179171073864192.000001"
+      },
+      {
+        "value_date": "2017-01-19",
+        "entry_date": "2017-01-19",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "N",
+        "amount": "0.01",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "MB170119012121",
+        "supplementary_details": "911-TRANSAKCJA IPH",
+        "information_to_account_owner": "911 TRANSAKCJA COLLECT. ID IPH: XX000000000003. Z RACH.: \n56114010810000267002001001. OD: JAN NOWAK  \nUL. NIJAKA 1 M 2 31-234 KRAKOW. TYT.: PRZELEW SRODKOW   . \nTNR: 179171073864291.000001"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2017-01-19",
+      "iso_currency_code": "PLN",
+      "amount": "0.43"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2017-01-19",
+      "iso_currency_code": "PLN",
+      "amount": "0.43"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "transaction_ref_no": "ST170201CYC/1",
+    "ref_to_related_msg": null,
+    "account_id": "PL29114010810000267002001002",
+    "statement_no": "3",
+    "sequence_no": "1",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2017-02-01",
+      "iso_currency_code": "PLN",
+      "amount": "0.46"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2017-02-01",
+        "entry_date": "2017-02-01",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "N",
+        "amount": "45.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "MB170201323000",
+        "supplementary_details": "911-TRANSAKCJA IPH",
+        "information_to_account_owner": "911 TRANSAKCJA COLLECT. ID IPH: XX000002052409. Z RACH.: \n00000000000000000000000000. OD: AAAAAA AAAAAA  UL.AAAAAAAAAAA 27 \nM.32 31-000 AAAAAA. TYT.: .FAKTURA VAT NR FVD-0000/02/2017  A \nAAAAA AAAAAA UL. AAAAAAAAAAA 220/22  . TNR: \n179301073837502.000001"
+      },
+      {
+        "value_date": "2017-02-01",
+        "entry_date": "2017-02-01",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "N",
+        "amount": "44.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "MB170201327968",
+        "supplementary_details": "911-TRANSAKCJA IPH",
+        "information_to_account_owner": "911 TRANSAKCJA COLLECT. ID IPH: XX000002052402. Z RACH.: \n00000000000000000000000000. OD: AAAAA AAAAAAAAA  UL.AAAAAAA \nAAAAAAAAAAAAA 22 31-000 AAAAAA. TYT.: AAAAAA AA AAAAAAAA   . \nTNR: 179301073844398.000001"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2017-02-01",
+      "iso_currency_code": "PLN",
+      "amount": "860.17"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2017-02-01",
+      "iso_currency_code": "PLN",
+      "amount": "860.17"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  }
+]

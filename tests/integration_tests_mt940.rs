@@ -8,23 +8,68 @@ use std::path::PathBuf;
 use mt940::{
     parse_mt940, DateParseError, Message, ParseError, RequiredTagNotFoundError, UnexpectedTagError,
 };
+use mt940::sanitizers::sanitize;
 
+/// Parse a bunch of MT940 statements that should just work.
 #[rstest_parametrize(
     statement_path,
     case("danskebank/MT940_DK_Example.sta"),
     case("danskebank/MT940_FI_Example.sta"),
     case("danskebank/MT940_NO_Example.sta"),
-    case("danskebank/MT940_SE_Example.sta")
+    case("danskebank/MT940_SE_Example.sta"),
+    case("cmxl/mt940_1.sta"),
 )]
 fn parse_mt940_statement_success(statement_path: &str) {
     let full_path = PathBuf::from(format!("tests/data/mt940/full/{}", statement_path));
     let input_data = fs::read_to_string(&full_path).unwrap();
-    let input_messages = parse_mt940(&input_data).unwrap();
+    let parsed_messaged = parse_mt940(&input_data).unwrap();
 
     let expected_data = fs::read_to_string(full_path.with_extension("json")).unwrap();
     let expected_messages: Vec<Message> = serde_json::from_str(&expected_data).unwrap();
 
-    assert_eq!(expected_messages, input_messages);
+    assert_eq!(expected_messages, parsed_messaged);
+}
+
+/// Parse a bunch of MT940 statements that only work after sanitation.
+#[rstest_parametrize(
+    statement_path,
+    case("betterplace/sepa_mt9401.sta"),
+    case("betterplace/sepa_snippet.sta"),
+    case("betterplace/with_binary_character.sta"),
+    case("cmxl/mt940_2.sta"),
+    case("jejik/abnamro.sta"),
+    case("jejik/ing.sta"),
+    case("jejik/knab.sta"),
+    case("jejik/postfinance.sta"),
+    case("jejik/rabobank-iban.sta"),
+    case("jejik/sns.sta"),
+    case("mBank/mt940.sta"),
+    case("mBank/with_newline_in_tnr.sta"),
+    case("sparkasse/buxtehude.sta"),
+)]
+fn parse_mt940_statement_success_with_sanitation(statement_path: &str) {
+    let full_path = PathBuf::from(format!("tests/data/mt940/full/{}", statement_path));
+    let input_data = fs::read_to_string(&full_path).unwrap();
+    let parsed_messages = parse_mt940(&sanitize(&input_data)).unwrap();
+
+    let expected_data = fs::read_to_string(full_path.with_extension("json")).unwrap();
+    let expected_messages: Vec<Message> = serde_json::from_str(&expected_data).unwrap();
+
+    assert_eq!(expected_messages, parsed_messages);
+}
+
+/// Parse a bunch of invalid statements that should fail even with sanitation.
+#[rstest_parametrize(
+    statement_path,
+    case("betterplace/sepa_snippet_broken.sta"),
+    case("jejik/knab_broken.sta"),
+)]
+fn parse_mt940_statement_fail(statement_path: &str) {
+    let full_path = PathBuf::from(format!("tests/data/mt940/full/{}", statement_path));
+    let input_data = fs::read_to_string(&full_path).unwrap();
+    let parsed_messages = parse_mt940(&sanitize(&input_data));
+
+    assert!(parsed_messages.is_err());
 }
 
 #[test]

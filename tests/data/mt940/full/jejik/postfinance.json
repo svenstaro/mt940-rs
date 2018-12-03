@@ -1,0 +1,102 @@
+[
+  {
+    "transaction_ref_no": "2014040708285927",
+    "ref_to_related_msg": null,
+    "account_id": "123456789",
+    "statement_no": "999",
+    "sequence_no": "1",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2013-11-30",
+      "iso_currency_code": "CHF",
+      "amount": "0"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2013-12-09",
+        "entry_date": "2013-12-09",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": null,
+        "amount": "79.7",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "01916",
+        "bank_ref": "NONREF",
+        "supplementary_details": "20131209007602198765432000000012",
+        "information_to_account_owner": "GIRO AUS ONLINE-SIC 80532 AUFTRAGGEBER: JANE DOE EXAMPLESTRASSE\n 10 1234 XXXX 131209CH98765432 MITTEILUNGEN: RECHNUNG XXXXXXXXXXXX"
+      },
+      {
+        "value_date": "2013-12-09",
+        "entry_date": "2013-12-09",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": null,
+        "amount": "149.5",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "01916",
+        "bank_ref": "NONREF",
+        "supplementary_details": "20131209007602187654321000000012",
+        "information_to_account_owner": "GIRO AUS ONLINE-SIC 81379 AUFTRAGGEBER: JOHN DOE EXAMPLESTRASSE\n 12 1234 XXXXXXXXXX 131209CH87654321"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Credit",
+      "date": "2014-04-07",
+      "iso_currency_code": "CHF",
+      "amount": "229.2"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "2014040708285928",
+    "ref_to_related_msg": null,
+    "account_id": "123456789",
+    "statement_no": "999",
+    "sequence_no": "2",
+    "opening_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Credit",
+      "date": "2014-04-07",
+      "iso_currency_code": "CHF",
+      "amount": "229.2"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2013-12-16",
+        "entry_date": "2013-12-16",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "79.9",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "01916",
+        "bank_ref": "NONREF",
+        "supplementary_details": "20131216007602112345678000000012",
+        "information_to_account_owner": "GIRO AUS ONLINE-SIC 80701 AUFTRAGGEBER: XXXXXXXXX XXX XXXXXXXXSTR\nASSE 111 1234 XXXXXXXXXXXX 131216CH12345678 MITTEILUNGEN: 1 SONNE\nNGLAESER"
+      },
+      {
+        "value_date": "2013-12-18",
+        "entry_date": "2013-12-18",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": null,
+        "amount": "10.1",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "01651",
+        "bank_ref": "NONREF",
+        "supplementary_details": "20131216816204000100125000000012",
+        "information_to_account_owner": "EINZAHLUNGSSCHEIN"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2014-04-07",
+      "iso_currency_code": "CHF",
+      "amount": "159.6"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  }
+]

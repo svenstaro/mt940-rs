@@ -1,0 +1,1942 @@
+[
+  {
+    "transaction_ref_no": "T089413946000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194774600888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "1234718.36"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "300",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "TFNr 40005 MSGID",
+        "bank_ref": "0724710345313905",
+        "supplementary_details": null,
+        "information_to_account_owner": "159?00RETOURE?100399?20EREF+TFNR 40005 00005?21MTLG:Grund nicht s\npezifizie?22rt Reject aus SEPA-Ueberwei?23sungsauftrag?34914"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "335.33",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "TFNr 44003 MSGID",
+        "bank_ref": "0724710351061491",
+        "supplementary_details": null,
+        "information_to_account_owner": "159?00RETOURE?100399?20EREF+TFNR 44003 00001?21MTLG:Grund nicht s\npezifizie?22rt Reject aus SEPA-Ueberwei?23sungsauftrag?34914"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "15000",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "TFNr 40005 MSGID",
+        "bank_ref": "0724710345313900",
+        "supplementary_details": null,
+        "information_to_account_owner": "159?00RETOURE?100399?20EREF+TFNR 40005 00002?21MTLG:Grund nicht s\npezifizie?22rt Reject aus SEPA-Ueberwei?23sungsauftrag?34914"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "66295.08",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "079?00SAMMLER?109800?200904059001"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "915311.55",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "TFNr 44003 MSGID",
+        "bank_ref": "R724710351061495",
+        "supplementary_details": null,
+        "information_to_account_owner": "159?00RETOURE?100399?20EREF+TFNR 44003 00002?21MTLG:Konto gesperr\nt Rueckue?22berweisung aus SEPA-Ueberwe?23isungsauftrag?34903"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "ReverseDebit",
+        "funds_code": "R",
+        "amount": "204.88",
+        "transaction_type_ident_code": "RTI",
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "079?00SAMMLER/STORNO?109800?200904059003"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "999946.95",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "079?00SAMMLER?109800?200904059002"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "1237628.23"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "1237628.23"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089413956000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194777100888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "970499.9"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "15000.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710290621954",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+EndToEndIdTFNR20004000?2101?22SVWZ\n+TO 13 TFNr 20004 Einga?23ngskanal Mint .............?24........ \n..................?25...  ......................?26..............\n.............?27..........?28MTLG:SEPA-Ueberweisungseing?29ang Au\nftraggeber: Richter R?30PBNKDEFF100?31DE42100100100043921105?32Ri\nchter Renate 70 Zeichen B?33eginn Fuellzeichen xxxxxxxx?60enat?70"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "500250",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "BD7CFA74485E7E69",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20KREF+TFNr 01005 PayId CTSc-?2101 EBB?2\n2MTLG:SEPA-Ueberweisungsauft?23rag Datei mit 0000005 Zahlu?24ngen"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "1455749.85"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "1455749.85"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089413966000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194778300888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "1709296.34"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "50.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710290658244",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+EndToEndIdTFNR52001000?2101?22SVWZ\n+Keine Buchung zu: TO13?23 TF52001 MINT?30PBNKDEFF100?31DE4210010\n0100043921105?32Richter Renate 70 Zeichen B?33eginn Fuellzeichen \nxxxxxxxx?70Dora Damm 70 Zeichen Beginn?71 Fuellzeichen xxxxxxxxxx\nxxx"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "125.88",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710290635078",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20SVWZ+TO13 TF20018 MINT?30NIKACH22XXX?31\nCH8500779014054431109?32Cornelia Prochownik 70 Zeic?33hen Beginn \nFuellzeichen xxx?70Dora Damm 70 Zeichen Beginn?71 Fuellzeichen xx\nxxxxxxxxxxx"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "125004.88",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710290626371",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20SVWZ+TO13 TF20008 MINT?21MTLG:Ggf.Melde\nvorschriften ?22beachten?30UBSWCHZH80A?31CH6500279279C31180700?32\nRichter Renate 70 Zeichen B?33eginn Fuellzeichen xxxxxxxx?70Dora \nDamm 70 Zeichen Beginn?71 Fuellzeichen xxxxxxxxxxxxx"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "326609.66",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "DE85920B84F8E98D",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20KREF+TFNr 01007 PayId CTSc-?2101 EBB?2\n2MTLG:SEPA-Ueberweisungsauft?23rag Datei mit 0000006 Zahlu?24ngen"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "326609.66",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "D1C08A4EB4664146",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20KREF+TFNr 01024 PayId CTSc-?2101 EBB?2\n2MTLG:SEPA-Ueberweisungsauft?23rag Datei mit 0000006 Zahlu?24ngen"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "2237334.85"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "2237334.85"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089413976000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194779500888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "3192675.04"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "250000",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710290628244",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20SVWZ+TO13 TF20010 MINT 2001?210 2007-08\n.30?30PBNKDEFF250?31DE40250100300325207300?32Daniel Severidt 70 Z\neichen?33Beginn Fuellzeichen xxxxxxx?70Eberhard Emil 70 Zeichen B\ne?71ginn Fuellzeichen xxxxxxxxx"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "300000",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710290631813",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20SVWZ+TO13 TF20014 MINT?30PBNKDEFF100?31\nDE40100100100000214105?32Cornelia Prochownik 70 Zeic?33hen Beginn\n Fuellzeichen xxx?70Eberhard Emil 70 Zeichen Be?71ginn Fuellzeich\nen xxxxxxxxx"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "500000",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710290630146",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20SVWZ+TO13 TF20011 MINT?30PBNKDEFF250?31\nDE39250100300172064300?32Dirk Leunig 70 Zeichen Begi?33nn Fuellze\nichen xxxxxxxxxxx?70Eberhard Emil 70 Zeichen Be?71ginn Fuellzeich\nen xxxxxxxxx"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "4242675.04"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "4242675.04"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089413986000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194780100888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "2368827.87"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "204.88",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "079?00SAMMLER?109800?200904059001"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "ReverseDebit",
+        "funds_code": "R",
+        "amount": "204.88",
+        "transaction_type_ident_code": "RTI",
+        "customer_ref": "MSGIDCTSc03MintT",
+        "bank_ref": "R724710290656678",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW/STORNO?100399"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "50990.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710352954937",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+TFNR 21005 EndToEndId ?2100001?22\nKREF+TFNR 21005 Instruction?23 Id 00001?24SVWZ+Verwend CTSc-01 eB\nB TF?25Nr 21005?30DRESDEFF508?31DE76508800500194780101?32Empfaeng\ner Florian Frech UK?33 01"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "175454.22",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "8AE3169901918BD3",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20KREF+TFNr 01009 MSGID CTSc-?2101 EBB?2\n2MTLG:SEPA-Ueberweisungsauft?23rag Datei mit 0000005 Zahlu?24ngen"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "500250",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "TFNr 01006 PayId",
+        "bank_ref": "E87048E11B394C1E",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20MTLG:SEPA-Ueberweisungsauft?21rag Date\ni mit 0000005 Zahlu?22ngen"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "3095522.14"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "3095522.14"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089413996000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194780101888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "152970.15"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "50990.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710352954937",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+TFNR 21005 EndToEndId ?2100001?22S\nVWZ+Verwend CTSc-01 eBB TF?23Nr 21005?30DRESDEFF508?31DE065088005\n00194780100?32Florian Frech?70Empfaenger Florian Frech UK?71 01"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "203960.2"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "203960.2"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414006000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194781300888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "40432.2"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "19990.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710333377198",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+EndToEndId TFNR 22 001?21 00001?22\nSVWZ+Verwend CTSc-01 PPP TF?23Nr 22 001?24MTLG:SEPA-Ueberweisungs\neing?25ang Auftraggeber: JOSEF?30DRESDEFF508?31DE9550880050019478\n4900?32JOSEF?33        JAEGER?70Empfaenger Gustav Gans"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "57.34",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710352996674",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+NONREF?21KREF+TFNR 01011 Instruct\nion?22 Id  00001?23SVWZ+Unstrukturierter Verwe?24ndungszweck mit \n140 Stellen?25 fu/r SEPA COR Buchungssche?26ma /A-CT-DTE-S01 und \nA-CT-N?27UD-/S01 CTSc-01 EBB TFNr 01?28011/ 0001?30SOGEFRPPXXX?31\nFR1420041010050500013M02606?32Empfaenger 1 mit 70 Zeichen?33 Empf\naenger 1 mit 70 Zeiche"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "5002.17",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "TFNr 01011 MSGID",
+        "bank_ref": "0724710353006393",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+NONREF?21SVWZ+Unstrukturierter Ve\nrwe?22ndungszweck mit 140 Stellen?23 fu/r SEPA COR Buchungssche?2\n4ma /A-CT-DTE-S01 und A-CT-N?25UD-/S01 CTSc-01 EBB TFNr 01?26011/\n 0006?30SOGEFRPPXXX?31FR1420041010050500013M02606?32Empfaenger 6 \nmit 70 Zeichen?33 Empfaenger 6 mit 70 Zeiche"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "5002.17",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710352998444",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+NONREF?21KREF+TFNR 01011 Instruct\nion?22 Id  00002?23SVWZ+Unstrukturierter Verwe?24ndungszweck mit \n140 Stellen?25 fu/r SEPA COR Buchungssche?26ma /A-CT-DTE-S01 und \nA-CT-N?27UD-/S01 CTSc-01 EBB TFNr 01?28011/ 0002?30SOGEFRPPXXX?31\nFR1420041010050500013M02606?32Empfaenger 2 mit 70 Zeichen?33 Empf\naenger 2 mit 70 Zeiche"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "30503.83"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414006000002",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194781300888",
+    "statement_no": "00004",
+    "sequence_no": "00002",
+    "opening_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "30503.83"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "5002.17",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710353002818",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+NONREF?21KREF+TFNR 01011 Instruct\nion?22 Id  00004?23SVWZ+Unstrukturierter Verwe?24ndungszweck mit \n140 Stellen?25 fu/r SEPA COR Buchungssche?26ma /A-CT-DTE-S01 und \nA-CT-N?27UD-/S01 CTSc-01 EBB TFNr 01?28011/ 0004?30SOGEFRPPXXX?31\nFR1420041010050500013M02606?32Empfaenger 4 mit 70 Zeichen?33 Empf\naenger 4 mit 70 Zeiche"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "5002.17",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710353000284",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+NONREF?21KREF+TFNR 01011 Instruct\nion?22 Id  00003?23SVWZ+Unstrukturierter Verwe?24ndungszweck mit \n140 Stellen?25 fu/r SEPA COR Buchungssche?26ma /A-CT-DTE-S01 und \nA-CT-N?27UD-/S01 CTSc-01 EBB TFNr 01?28011/ 0003?30SOGEFRPPXXX?31\nFR1420041010050500013M02606?32Empfaenger 3 mit 70 Zeichen?33 Empf\naenger 3 mit 70 Zeiche"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "5002.17",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710353004695",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+NONREF?21KREF+TFNR 01011 Instruct\nion?22 Id  00005?23SVWZ+Unstrukturierter Verwe?24ndungszweck mit \n140 Stellen?25 fu/r SEPA COR Buchungssche?26ma /A-CT-DTE-S01 und \nA-CT-N?27UD-/S01 CTSc-01 EBB TFNr 01?28011/ 0005?30SOGEFRPPXXX?31\nFR1420041010050500013M02606?32Empfaenger 5 mit 70 Zeichen?33 Empf\naenger 5 mit 70 Zeiche"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "55344.11",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710353008994",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+NONREF?21KREF+TFNR 01011 Instruct\nion?22 Id  00007?23SVWZ+Unstrukturierter Verwe?24ndungszweck mit \n140 Stellen?25 fu/r SEPA COR Buchungssche?26ma /A-CT-DTE-S01 und \nA-CT-N?27UD-/S01 CTSc-01 EBB TFNr 01?28011/ 0007?29MTLG:Ggf.Melde\nvorschriften ?30SOGEFRPPXXX?31FR1420041010050500013M02606?32Empfa\nenger 7 mit 70 Zeichen?33 Empfaenger 7 mit 70 Zeiche?60beachten"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "100854.45"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "100854.45"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414016000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194782500888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "1552497.38"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "50",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "TFNr 40016 MSGID",
+        "bank_ref": "0724710324649377",
+        "supplementary_details": null,
+        "information_to_account_owner": "159?00RETOURE?100399?20EREF+TFNR 40016 00001?21MTLG:Grund nicht s\npezifizie?22rt Reject aus SEPA-Ueberwei?23sungsauftrag?34914"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "50.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "MCCT070927000002",
+        "bank_ref": "0724710345347489",
+        "supplementary_details": null,
+        "information_to_account_owner": "159?00RETOURE?100399?20EREF+TFNR 40017 00001?21MTLG:Grund nicht s\npezifizie?22rt Reject aus SEPA-Ueberwei?23sungsauftrag?34914"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "50.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "MCCT070927000004",
+        "bank_ref": "0724710351065632",
+        "supplementary_details": null,
+        "information_to_account_owner": "159?00RETOURE?100399?20EREF+TFNR 40018 00001?21MTLG:Grund nicht s\npezifizie?22rt Reject aus SEPA-Ueberwei?23sungsauftrag?34914"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "46500.07",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710333347237",
+        "supplementary_details": null,
+        "information_to_account_owner": "159?00RETOURE?100399?20EREF+EndToEndId TFNR 06 004?21 00002?22KRE\nF+EndToEndId TFNR 06 004?23 00002?24MTLG:Grund nicht spezifizie?2\n5rt Reject aus SEPA-Ueberwei?26sungsauftrag?34914"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "154551.93",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710333347241",
+        "supplementary_details": null,
+        "information_to_account_owner": "159?00RETOURE?100399?20EREF+EndToEndId TFNR 06 004?21 00004?22KRE\nF+EndToEndId TFNR 06 004?23 00004?24MTLG:Grund nicht spezifizie?2\n5rt Reject aus SEPA-Ueberwei?26sungsauftrag?34914"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "2550",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "31408CF87AD5901E",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20KREF+TFNr 40016 PayId CTSc-?2102 PPP?2\n2MTLG:SEPA-Ueberweisungsauft?23rag Datei mit 0000002 Zahlu?24ngen"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "2550.12",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "MCCT07090401",
+        "bank_ref": "4F112D73FF96F4FB",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20MTLG:SEPA-Ueberweisungsauft?21rag Date\ni mit 0000002 Zahlu?22ngen"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "2550.12",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "MCCT07090402",
+        "bank_ref": "EC4BA14CEA34BFF3",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20MTLG:SEPA-Ueberweisungsauft?21rag Date\ni mit 0000002 Zahlu?22ngen"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "1358945.52"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414016000002",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194782500888",
+    "statement_no": "00004",
+    "sequence_no": "00002",
+    "opening_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "1358945.52"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "65500.15",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "92D891C454BC30B5",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00ONLINE-UEBW.?100399?20MTLG:SBI-SEPA-SAMMELUEB.Anz?21:4 Refe\nrenz: 1930467114 Erf?22assung mit 004 Zahlungen"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "402104",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "57B4197CC644DE8F",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00ONLINE-UEBW.?100399?20MTLG:SBI-SEPA-SAMMELUEB.Anz?21:4 Refe\nrenz: 1930467115 Erf?22assung mit 004 Zahlungen"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "476921.44",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "06F8672B28B7A92F",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20KREF+TFNr 41003 PayId CTSc-?2101 EBB?2\n2MTLG:SEPA-Ueberweisungsauft?23rag Datei mit 0000004 Zahlu?24ngen"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "2303471.11"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "2303471.11"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414026000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194783700888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "3829477.87"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "335.33",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "TFNr 44005 MSGID",
+        "bank_ref": "0724710351059240",
+        "supplementary_details": null,
+        "information_to_account_owner": "159?00RETOURE?100399?20EREF+TFNR 44005 00001?21MTLG:Grund nicht s\npezifizie?22rt Reject aus SEPA-Ueberwei?23sungsauftrag?34914"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "915311.55",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "TFNr 44005 MSGID",
+        "bank_ref": "R724710351059243",
+        "supplementary_details": null,
+        "information_to_account_owner": "159?00RETOURE?100399?20EREF+TFNR 44005 00002?21MTLG:Konto gesperr\nt Rueckue?22berweisung aus SEPA-Ueberwe?23isungsauftrag?34903"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "157.34",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710360914647",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+TFNR 01041 00001?21KREF+TFNR 0104\n1  Instructio?22n Id 00001?23SVWZ+Strukturierter Verwend?24ungszw\neck EBB 01041 001 DE?30SOGEFRPPXXX?31FR1420041010050500013M02606?\n32Empfaenger 1 mit 70 Zeichen?33 Empfaenger 1 mit 70 Zeiche"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "6002.17",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710360912501",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+TFNR 01041 00002?21KREF+TFNR 0104\n1  Instructio?22n Id 00002?23SVWZ+Strukturierter Verwend?24ungszw\neck EBB 01041 002 DE?30SOGEFRPPXXX?31FR1420041010050500013M02606?\n32Empfaenger 2 mit 70 Zeichen?33 Empfaenger 2 mit 70 Zeiche"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "6002.17",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710360923556",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+TFNR 01041 00005?21KREF+TFNR 0104\n1  Instructio?22n Id 00005?23SVWZ+Strukturierter Verwend?24ungszw\neck EBB 01041 005 DE?30SOGEFRPPXXX?31FR1420041010050500013M02606?\n32Empfaenger 5 mit 70 Zeichen?33 Empfaenger 5 mit 70 Zeiche"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "6002.17",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710360910575",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+TFNR 01041 00006?21KREF+TFNR 0104\n1  Instructio?22n Id 00006?23SVWZ+Strukturierter Verwend?24ungszw\neck EBB 01041 006 DE?30SOGEFRPPXXX?31FR1420041010050500013M02606?\n32Empfaenger 6 mit 70 Zeichen?33 Empfaenger 6 mit 70 Zeiche"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "2931994.84"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414026000002",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194783700888",
+    "statement_no": "00004",
+    "sequence_no": "00002",
+    "opening_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "2931994.84"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "6002.17",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710360918027",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+TFNR 01041 00004?21KREF+TFNR 0104\n1  Instructio?22n Id 00004?23SVWZ+Strukturierter Verwend?24ungszw\neck EBB 01041 004 DE?30SOGEFRPPXXX?31FR1420041010050500013M02606?\n32Empfaenger 4 mit 70 Zeichen?33 Empfaenger 4 mit 70 Zeiche"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "6002.17",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710360916341",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+TFNR 01041 00003?21KREF+TFNR 0104\n1  Instructio?22n Id 00003?23SVWZ+Strukturierter Verwend?24ungszw\neck EBB 01041 003 DE?30SOGEFRPPXXX?31FR1420041010050500013M02606?\n32Empfaenger 3 mit 70 Zeichen?33 Empfaenger 3 mit 70 Zeiche"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "155344.11",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710360908674",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+TFNR 01041 00007?21KREF+TFNR 0104\n1  Instructio?22n Id 00007?23SVWZ+Strukturierter Verwend?24ungszw\neck EBB 01041 007 DE?25MTLG:Ggf.Meldevorschriften ?26beachten?30S\nOGEFRPPXXX?31FR1420041010050500013M02606?32Empfaenger 7 mit 70 Ze\nichen?33 Empfaenger 7 mit 70 Zeiche"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "415603.93",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "649D24F7C6EDAC53",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00ONLINE-UEBW.?100399?20MTLG:SBI-SEPA-SAMMELUEB.Anz?21:3 Refe\nrenz: 1930467116 Erf?22assung mit 003 Zahlungen"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "589103.86",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "AC59892B266252EC",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20KREF+TFNr 05003 MSGID CTSc-?2101  BC P\nPP?22MTLG:SEPA-Ueberweisungsauft?23rag Datei mit 0000003 Zahlu?24\nngen"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "915646.88",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "CDB988231C851A5B",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20KREF+TFNr 44005 MSGID CTSc-?2102 EBB?2\n2MTLG:SEPA-Ueberweisungsauft?23rag Datei mit 0000002 Zahlu?24ngen"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "5019697.96"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "5019697.96"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414036000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194784900888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "5777585.57"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "16500.07",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "MSGID CTSc-01  B",
+        "bank_ref": "0724710324666001",
+        "supplementary_details": null,
+        "information_to_account_owner": "159?00RETOURE?100399?20EREF+EndToEndId TFNR 05 006?21 00002?22MTL\nG:Grund nicht spezifizie?23rt Reject aus SEPA-Ueberwei?24sungsauf\ntrag?34914"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "154551.93",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "MSGID CTSc-01  B",
+        "bank_ref": "0724710324666006",
+        "supplementary_details": null,
+        "information_to_account_owner": "159?00RETOURE?100399?20EREF+EndToEndId TFNR 05 006?21 00004?22MTL\nG:Grund nicht spezifizie?23rt Reject aus SEPA-Ueberwei?24sungsauf\ntrag?34914"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "13990.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710333354911",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00ONLINE-UEBW.?100399?20EREF+EndToEndId TFNR 21 003?21 00001?\n22KREF+EndToEndId TFNR 21 003?23 00001?24SVWZ+Verwend CTSc-01 PPP\n TF?25Nr 21 003?26MTLG:SBI-SEPA-UEB.DE6850880?2705001 Referenz: 1\n930467122?30DRESDEFF508?31DE68508800500194784901?32Empfaenger Jos\nef Jaeger UK?3301"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "19990.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710333377198",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00ONLINE-UEBW.?100399?20EREF+EndToEndId TFNR 22 001?21 00001?\n22KREF+EndToEndId TFNR 22 001?23 00001?24SVWZ+Verwend CTSc-01 PPP\n TF?25Nr 22 001?26MTLG:SBI-SEPA-UEB.DE0450880?2705001 Referenz: 1\n930467123?30DRESDEFF508?31DE04508800500194781300?32Empfaenger Gus\ntav Gans"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "50990.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710324651156",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+TFNR 22003 EndToEndId ?2100001?22\nKREF+TFNR 22003 Instruction?23 Id 00001?24SVWZ+Verw CTSc-01 BC-PP\nP TF?25Nr 22003?30DRESDEFF508?31DE96508800500194774600?32Empfaeng\ner Anton Ackermann"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "326609.66",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "TFNr 01008 MEBB",
+        "bank_ref": "9A4616CC6128D651",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20MTLG:SEPA-Ueberweisungsauft?21rag Date\ni mit 0000006 Zahlu?22ngen"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "6018113.38"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414036000002",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194784900888",
+    "statement_no": "00004",
+    "sequence_no": "00002",
+    "opening_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "6018113.38"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "342104",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "A26B6D6B5E821EA9",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20KREF+PayId CTSc-01  BC PPP ?21TFNr 05 \n006?22MTLG:SEPA-Ueberweisungsauft?23rag Datei mit 0000004 Zahlu?2\n4ngen"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "962104",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "493189D221858097",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20KREF+TFNr 05009 MSGID CTSc-?2101 BC-PP\nP?22MTLG:SEPA-Ueberweisungsauft?23rag Datei mit 0000004 Zahlu?24n\ngen"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "1522104",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "75C62EC25E19D187",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00ONLINE-UEBW.?100399?20MTLG:SBI-SEPA-SAMMELUEB.Anz?21:4 Refe\nrenz: 1930467118 Erf?22assung mit 004 Zahlungen"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "8844425.38"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "8844425.38"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414046000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194784901888",
+    "statement_no": "00003",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "13990.05"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "13990.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710333354911",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+EndToEndId TFNR 21 003?21 00001?22\nSVWZ+Verwend CTSc-01 PPP TF?23Nr 21 003?30DRESDEFF508?31DE9550880\n0500194784900?32JOSEF?33        JAEGER?70Empfaenger Josef Jaeger \nUK?7101"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "27980.1"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "27980.1"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414056000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194785000888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "3612519.02"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "57.34",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710352971787",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+TFNR 01015 00001?21KREF+TFNR 0101\n5  Instructio?22n Id 00001?23SVWZ+Strukturierter Verwend?24ungszw\neck EBB 01015 001 DE?30SOGEFRPPXXX?31FR1420041010050500013M02606?\n32Empfaenger 1 mit 70 Zeichen?33 Empfaenger 1 mit 70 Zeiche"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "5002.17",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710352975390",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+TFNR 01015 00003?21KREF+TFNR 0101\n5  Instructio?22n Id 00003?23SVWZ+Strukturierter Verwend?24ungszw\neck EBB 01015 003 DE?30SOGEFRPPXXX?31FR1420041010050500013M02606?\n32Empfaenger 3 mit 70 Zeichen?33 Empfaenger 3 mit 70 Zeiche"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "5002.17",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710352980804",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+TFNR 01015 00006?21KREF+TFNR 0101\n5  Instructio?22n Id 00006?23SVWZ+Strukturierter Verwend?24ungszw\neck EBB 01015 006 DE?30SOGEFRPPXXX?31FR1420041010050500013M02606?\n32Empfaenger 6 mit 70 Zeichen?33 Empfaenger 6 mit 70 Zeiche"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "5002.17",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710352979070",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+TFNR 01015 00005?21KREF+TFNR 0101\n5  Instructio?22n Id 00005?23SVWZ+Strukturierter Verwend?24ungszw\neck EBB 01015 005 DE?30SOGEFRPPXXX?31FR1420041010050500013M02606?\n32Empfaenger 5 mit 70 Zeichen?33 Empfaenger 5 mit 70 Zeiche"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "5002.17",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710352973502",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+TFNR 01015 00002?21KREF+TFNR 0101\n5  Instructio?22n Id 00002?23SVWZ+Strukturierter Verwend?24ungszw\neck EBB 01015 002 DE?30SOGEFRPPXXX?31FR1420041010050500013M02606?\n32Empfaenger 2 mit 70 Zeichen?33 Empfaenger 2 mit 70 Zeiche"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "3632585.04"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414056000002",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194785000888",
+    "statement_no": "00004",
+    "sequence_no": "00002",
+    "opening_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "3632585.04"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "5002.17",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710352977271",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+TFNR 01015 00004?21KREF+TFNR 0101\n5  Instructio?22n Id 00004?23SVWZ+Strukturierter Verwend?24ungszw\neck EBB 01015 004 DE?30SOGEFRPPXXX?31FR1420041010050500013M02606?\n32Empfaenger 4 mit 70 Zeichen?33 Empfaenger 4 mit 70 Zeiche"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "19990.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710333360224",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00ONLINE-UEBW.?100399?20EREF+EndToEndId TFNR 22 002?21 00001?\n22KREF+EndToEndId TFNR 22 002?23 00001?24SVWZ+Verwend CTSc-01 PPP\n TF?25Nr 22 002?26MTLG:SBI-SEPA-UEB.DE1250880?2705001 Referenz: 1\n930467119?30DRESDEFF508?31DE12508800500194786200?32Empfaenger Lud\nwig Loewe"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "50990.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710352952868",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+TFNR 21007 EndToEndId ?2100001?22\nKREF+TFNR 21007 Instruction?23 Id 00001?24SVWZ+Verwend CTSc-01 eB\nB TF?25Nr 21007?30DRESDEFF508?31DE84508800500194785001?32Empfange\nr Karl Kaufmann UK?3301"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "50990.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710333343453",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00ONLINE-UEBW.?100399?20EREF+EndToEndId TFNR 22 004?21 00001?\n22KREF+EndToEndId TFNR 22 004?23 00001?24SVWZ+Verw CTSc-01 BC-PPP\n TF?25Nr 22 004?26MTLG:SBI-SEPA-UEB.DE1050880?2705001 Referenz: 1\n930467120?30DRESDEFF508?31DE10508800500194787400?32Empfaenger Mar\nta Metzger"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "55344.11",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710352982472",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00SEPA-UEBERW?100399?20EREF+TFNR 01015 00007?21KREF+TFNR 0101\n5  Instructio?22n Id 00007?23SVWZ+Strukturierter Verwend?24ungszw\neck EBB 01015 007 DE?25MTLG:Ggf.Meldevorschriften ?26beachten?30S\nOGEFRPPXXX?31FR1420041010050500013M02606?32Empfaenger 7 mit 70 Ze\nichen?33 Empfaenger 7 mit 70 Zeiche"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "3814901.47"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414056000003",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194785000888",
+    "statement_no": "00004",
+    "sequence_no": "00003",
+    "opening_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "3814901.47"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "342104",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "D4AF9E363A92E76F",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20KREF+TFNr 05005 PayId CTSc-?2101  BC P\nPP?22MTLG:SEPA-Ueberweisungsauft?23rag Datei mit 0000004 Zahlu?24\nngen"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "956588.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "0724710333366624",
+        "supplementary_details": null,
+        "information_to_account_owner": "116?00ONLINE-UEBW.?100399?20EREF+EndToEndId TFNR 06 003?21 00001?\n22KREF+EndToEndId TFNR 06 003?23 00001?24SVWZ+Unstrukturiert Verw\nend?25ungs/zweck mit 140 Stellen?26fur /SEPA ZKA Buchungsschem?27\na A-/CT-PTS-S01 A-CT-ENTNRZ?28-S01/ CTSc-01 BC PPP TFNr 0?296 003\n/0001?30SOGEFRPPXXX?31FR1420041010050500013M02606?32Empfaenger 1?\n60MTLG:SBI-SEPA-UEB.FR1420041?6101005 Referenz: 1930467117G?62gf."
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "5113593.52"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "5113593.52"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414066000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194785001888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "152970.15"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "50990.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710352952868",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+TFNR 21007 EndToEndId ?2100001?22S\nVWZ+Verwend CTSc-01 eBB TF?23Nr 21007?30DRESDEFF508?31DE145088005\n00194785000?32Karl Kaufmann?70Empfanger Karl Kaufmann UK?7101"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "203960.2"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "203960.2"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414076000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194786200888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "145964.58"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "16500.07",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710324661086",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+TFNR 0500500002?21SVWZ+Strukturier\nter Verwend?22ungszweck 50050002 DE?30DRESDEFF508?31DE14508800500\n194785000?32Karl Kaufmann?70Empfaenger bei DRESDE"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "19990.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710333360224",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+EndToEndId TFNR 22 002?21 00001?22\nSVWZ+Verwend CTSc-01 PPP TF?23Nr 22 002?30DRESDEFF508?31DE1450880\n0500194785000?32KARL?33        KAUFMANN?70Empfaenger Ludwig Loewe"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "56500.07",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710324647446",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+TFNR 0300300002?21SVWZ+Strukturier\nter Verwend?22ungszweck 30030002 DE?30DRESDEFF508?31DE03508800500\n194791600?32Quentin Quast?70Empfaenger bei DRESDE mit 7?710 Zeich\nen Empfaenger bei DR"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "238954.77"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "238954.77"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414086000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194787400888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "766656.49"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-07",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "50990.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710333343453",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+EndToEndId TFNR 22 004?21 00001?22\nSVWZ+Verw CTSc-01 BC-PPP TF?23Nr 22 004?30DRESDEFF508?31DE1450880\n0500194785000?32KARL?33        KAUFMANN?70Empfaenger Marta Metzge\nr"
+      },
+      {
+        "value_date": "2007-09-07",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "154551.93",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710324647450",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+TFNR 0300300004?21SVWZ+Strukturier\nter Verwend?22ungszweck 30030004 DE?30DRESDEFF508?31DE03508800500\n194791600?32Quentin Quast?70Empfaenger bei DRESDE mit 7?710 Zeich\nen Empfaenger bei DR"
+      },
+      {
+        "value_date": "2007-09-07",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "154551.93",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710324661090",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+TFNR 0500500004?21SVWZ+Strukturier\nter Verwend?22ungszweck 50050004 DE?30DRESDEFF508?31DE14508800500\n194785000?32Karl Kaufmann?70Empfaenger bei DRESDE"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "1500",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "536D80EFEC56ACF8",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20KREF+TFNr 01022 MSGID CTSc-?2101 EBB?2\n2MTLG:SEPA-Ueberweisungsauft?23rag Datei mit 0000001 Zahlu?24ngen"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "1125250.4"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "559614.51"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414096000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194791600888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "1970431.87"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "300",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "TFNr 40001 MSGID",
+        "bank_ref": "0724710345316116",
+        "supplementary_details": null,
+        "information_to_account_owner": "159?00RETOURE?100399?20EREF+TFNR 40001 00005?21MTLG:Grund nicht s\npezifizie?22rt Reject aus SEPA-Ueberwei?23sungsauftrag?34914"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "335.33",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "TFNr 44001 MSGID",
+        "bank_ref": "0724710351063401",
+        "supplementary_details": null,
+        "information_to_account_owner": "159?00RETOURE?100399?20EREF+TFNR 44001 00001?21MTLG:Grund nicht s\npezifizie?22rt Reject aus SEPA-Ueberwei?23sungsauftrag?34914"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "15000",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "TFNr 40001 MSGID",
+        "bank_ref": "0724710345316110",
+        "supplementary_details": null,
+        "information_to_account_owner": "159?00RETOURE?100399?20EREF+TFNR 40001 00002?21MTLG:Grund nicht s\npezifizie?22rt Reject aus SEPA-Ueberwei?23sungsauftrag?34914"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "15000.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710290659857",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+EndToEndIdTFNR20001000?2101?22SVWZ\n+TO 13 TFNr 20001 Einga?23ngskanal Mint Unstrukturier?24ter Verwe\nndungszweck 140 Ze?25ichen Beginn Fuellzeichen x?26xxxxxxxxxxxxxx\nxxxxxxxxxxxxx?27xxxxxxxxxx?30PBNKDEFF100?31DE42100100100043921105\n?32Richter Renate 70 Zeichen B?33eginn Fuellzeichen xxxxxxxx?70Qu\nentin Quast 70 Zeichen Be?71ginn Fuellzeichen xxxxxxxxx"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "125004.88",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710290624796",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20SVWZ+TO13 TF20005 MINT?30PBNKDEFF100?31\nDE42100100100043921105?32Richter Renate 70 Zeichen B?33eginn Fuel\nlzeichen xxxxxxxx?70Quentin Quast 70 Zeichen Be?71ginn Fuellzeich\nen xxxxxxxxx"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "915311.55",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "TFNr 44001 MSGID",
+        "bank_ref": "R724710351063405",
+        "supplementary_details": null,
+        "information_to_account_owner": "159?00RETOURE?100399?20EREF+TFNR 44001 00002?21MTLG:IBAN unguelti\ng Rueckue?22berweisung aus SEPA-Ueberwe?23isungsauftrag?34901"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "3572569.03",
+        "transaction_type_ident_code": "MSC",
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "079?00SAMMLER?109800?200904059001"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "4472049.09"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "4472049.09"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414106000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194791601888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "324910.25"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "1910.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710333345079",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+TFNR 21001 EndToEndId ?2100001?22S\nVWZ+Verwend CTSc-01 FFP TF?23Nr 21 001?30DRESDEFF508?31DE03508800\n500194791600?32QUENTIN?33        QUAST?70Empfaenger Quentin Quast\n UK?71 01"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "50990.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710352956584",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+TFNR 21004 EndToEndId ?2100001?22S\nVWZ+Verwend CTSc-01 eBB TF?23Nr 21004?30DRESDEFF508?31DE035088005\n00194791600?32Quentin Quast?70Empfaenger Quentin Quast UK?71 01"
+      },
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "125300.1",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "F2CA963F5C750549",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20KREF+TFNr 03005 MSGID CTSc-?2101 FFP?2\n2MTLG:SEPA-Ueberweisungsauft?23rag Datei mit 0000001 Zahlu?24ngen"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "397310.25"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "397310.25"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414116000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194798900888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "450"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "150",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "FFCD94B7601B6E06",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20KREF+TFNr 01031 PayId CTSc-?2101 EBB?2\n2MTLG:SEPA-Ueberweisungsauft?23rag Datei mit 0000001 Zahlu?24ngen"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "600"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "600"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414126000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194799000888",
+    "statement_no": "00004",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-03",
+      "iso_currency_code": "EUR",
+      "amount": "450"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "150",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "KREF+",
+        "bank_ref": "DED4A9D0CA11033B",
+        "supplementary_details": null,
+        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20KREF+TFNr 01032 PayId CTSc-?2101 EBB?2\n2MTLG:SEPA-Ueberweisungsauft?23rag Datei mit 0000001 Zahlu?24ngen"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "600"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Debit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "600"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "T089414136000001",
+    "ref_to_related_msg": null,
+    "account_id": "50880050/0194804000888",
+    "statement_no": "00001",
+    "sequence_no": "00001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2007-08-22",
+      "iso_currency_code": "EUR",
+      "amount": "0"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2007-09-04",
+        "entry_date": "2007-09-04",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "50.05",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "0724710290648274",
+        "supplementary_details": null,
+        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+EndToEndIdTFNR50005000?2101?22SVWZ\n+TO 25 TFNr 50005 Einga?23ngskanal Mint Unstrukturier?24ter Verwe\nndungszweck 140 Ze?25ichen Beginn Fuellzeichen x?26xxxxxxxxxxxxxx\nxxxxxxxxxxxxx?27xxxxxxxxxx?30DRESDEFF508?31DE51508800500190038900\n?32Richter Renate 70 Zeichen B?33eginn Fuellzeichen xxxxxxxx?70Ge\nrhard Geloscht 70 Zeichen?71 Beginn Fuellzeichen xxxxxx"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "50.05"
+    },
+    "closing_available_balance": {
+      "debit_credit_indicator": "Credit",
+      "date": "2007-09-04",
+      "iso_currency_code": "EUR",
+      "amount": "50.05"
+    },
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  }
+]

@@ -34,7 +34,6 @@ t Rueckue?22berweisung aus SEPA-Ueberwe?23isungsauftrag?34903
 .............?27..........?28MTLG:SEPA-Ueberweisungseing?29ang Au
 ftraggeber: Richter R?30PBNKDEFF100?31DE42100100100043921105?32Ri
 chter Renate 70 Zeichen B?33eginn Fuellzeichen xxxxxxxx?60enat?70
-Christian Callas 70 Zeichen?71 xxxxxxxxxxxxxxxxxxxxxxxxxx
 :61:0709040904DR500250,NTRFKREF+//BD7CFA74485E7E69
 :86:191?00SEPA-UEBERW?100399?20KREF+TFNr 01005 PayId CTSc-?2101 EBB?2
 2MTLG:SEPA-Ueberweisungsauft?23rag Datei mit 0000005 Zahlu?24ngen
@@ -448,7 +447,6 @@ end?25ungs/zweck mit 140 Stellen?26fur /SEPA ZKA Buchungsschem?27
 a A-/CT-PTS-S01 A-CT-ENTNRZ?28-S01/ CTSc-01 BC PPP TFNr 0?296 003
 /0001?30SOGEFRPPXXX?31FR1420041010050500013M02606?32Empfaenger 1?
 60MTLG:SBI-SEPA-UEB.FR1420041?6101005 Referenz: 1930467117G?62gf.
-Meldevorschriften beacht?63en
 :62F:D070904EUR5113593,52
 :64:D070904EUR5113593,52
 -

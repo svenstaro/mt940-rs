@@ -1,0 +1,194 @@
+[
+  {
+    "transaction_ref_no": "ABN AMRO BANK NV",
+    "ref_to_related_msg": null,
+    "account_id": "517852257",
+    "statement_no": "19321",
+    "sequence_no": "1",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2011-05-22",
+      "iso_currency_code": "EUR",
+      "amount": "3236.28"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2011-05-24",
+        "entry_date": "2011-05-24",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "9",
+        "transaction_type_ident_code": {
+          "NonStandard": "192"
+        },
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "GIRO   428428 KPN - DIGITENNE    BETALINGSKENM.  000000042188659\n5314606715                       BETREFT FACTUUR D.D. 20-05-2011\nINCL. 1,44 BTW"
+      },
+      {
+        "value_date": "2011-05-21",
+        "entry_date": "2011-05-23",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "11.59",
+        "transaction_type_ident_code": {
+          "NonStandard": "426"
+        },
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "BEA   NR:XXX1234   21.05.11/12.54 DIRCKIII FIL2500 KATWIJK,PAS999"
+      },
+      {
+        "value_date": "2011-05-23",
+        "entry_date": "2011-05-23",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "11.63",
+        "transaction_type_ident_code": {
+          "NonStandard": "426"
+        },
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "BEA   NR:XXX1234   23.05.11/09.08 DIGROS FIL1015 KATWIJK Z,PAS999"
+      },
+      {
+        "value_date": "2011-05-22",
+        "entry_date": "2011-05-23",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "11.8",
+        "transaction_type_ident_code": {
+          "NonStandard": "426"
+        },
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "BEA   NR:XXX1234   22.05.11/14.25 MC DONALDS A44 LEIDEN,PAS999"
+      },
+      {
+        "value_date": "2011-05-21",
+        "entry_date": "2011-05-23",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "13.45",
+        "transaction_type_ident_code": {
+          "NonStandard": "426"
+        },
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "BEA   NR:XXX1234   21.05.11/12.09 PRINCE FIL. 55 KATWIJK Z,PAS999"
+      },
+      {
+        "value_date": "2011-05-21",
+        "entry_date": "2011-05-23",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "15.49",
+        "transaction_type_ident_code": {
+          "NonStandard": "426"
+        },
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "BEA   NR:XXX1234   21.05.11/12.55 DIRX FIL6017 KATWIJK ZH ,PAS999"
+      },
+      {
+        "value_date": "2011-05-21",
+        "entry_date": "2011-05-23",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "107",
+        "transaction_type_ident_code": {
+          "NonStandard": "426"
+        },
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "BEA   NR:XXX1234   21.05.11/12.04 HANS ANDERS OPT./056 KAT,PAS999"
+      },
+      {
+        "value_date": "2011-05-22",
+        "entry_date": "2011-05-23",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "141.48",
+        "transaction_type_ident_code": {
+          "NonStandard": "426"
+        },
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "BEA   NR:XXX1234   22.05.11/13.45 MYCOM DEN HAAG  S-GRAVEN,PAS999"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2011-05-23",
+      "iso_currency_code": "EUR",
+      "amount": "876.84"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "ABN AMRO BANK NV",
+    "ref_to_related_msg": null,
+    "account_id": "517852257",
+    "statement_no": "19322",
+    "sequence_no": "1",
+    "opening_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Credit",
+      "date": "2011-05-23",
+      "iso_currency_code": "EUR",
+      "amount": "2876.84"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2011-05-24",
+        "entry_date": "2011-05-24",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "9.49",
+        "transaction_type_ident_code": {
+          "NonStandard": "426"
+        },
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "BEA   NR:XXX1234   24.05.11/09.18 PETS PLACE KATWIJK KATWI,PAS999"
+      },
+      {
+        "value_date": "2011-05-24",
+        "entry_date": "2011-05-24",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "15",
+        "transaction_type_ident_code": {
+          "NonStandard": "426"
+        },
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "52.89.39.882                    MYCOM DEN HAAG"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": true,
+      "debit_credit_indicator": "Credit",
+      "date": "2011-05-24",
+      "iso_currency_code": "EUR",
+      "amount": "1849.75"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  }
+]

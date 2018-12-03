@@ -1,0 +1,90 @@
+[
+  {
+    "transaction_ref_no": "B4E08MS9D00A0009",
+    "ref_to_related_msg": null,
+    "account_id": "123456789",
+    "statement_no": "998",
+    "sequence_no": "1",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2014-05-07",
+      "iso_currency_code": "EUR",
+      "amount": "0"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2014-05-07",
+        "entry_date": "2014-05-07",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": null,
+        "amount": "500",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "B4E07XM00J000023",
+        "supplementary_details": null,
+        "information_to_account_owner": "HIER EEN MOOIE OMSCHRIJVING IN HOOFDLETTERS\nWANT DAT IS ZOALS DE NEDERLANDSE BANKEN COMMUNICEREN"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2014-05-08",
+      "iso_currency_code": "EUR",
+      "amount": "500"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "B4G30MS9D00A003D",
+    "ref_to_related_msg": null,
+    "account_id": "123456789",
+    "statement_no": "999",
+    "sequence_no": "1",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2014-07-29",
+      "iso_currency_code": "EUR",
+      "amount": "3058.98"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2014-07-29",
+        "entry_date": "2014-07-29",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "7260",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "B4G29PGCVO7Q06US",
+        "supplementary_details": null,
+        "information_to_account_owner": "FACTUUR 201403110, 201403113\nREK: NL65INGB0123456789/NAAM: PICQER"
+      },
+      {
+        "value_date": "2014-07-29",
+        "entry_date": "2014-07-29",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": null,
+        "amount": "500",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "29-07-2014 10:05",
+        "bank_ref": "B4G29PGDCK1QFV3E",
+        "supplementary_details": null,
+        "information_to_account_owner": "12160475 0050001631430920 ORDERID: 264267 MEDIA MARKT ONLINE NE\nREK: NL84INGB0234561789/NAAM: MMS ONLINE NEDERLAND B.V."
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2014-07-30",
+      "iso_currency_code": "EUR",
+      "amount": "798.98"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  }
+]

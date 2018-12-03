@@ -1,0 +1,81 @@
+[
+  {
+    "transaction_ref_no": "0000000000",
+    "ref_to_related_msg": null,
+    "account_id": "0123456789",
+    "statement_no": "160",
+    "sequence_no": "1",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2012-06-08",
+      "iso_currency_code": "EUR",
+      "amount": "1234.56"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2012-06-07",
+        "entry_date": "2012-06-08",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "20.00",
+        "transaction_type_ident_code": {
+          "NonStandard": "IOB"
+        },
+        "customer_ref": "0987654321",
+        "bank_ref": null,
+        "supplementary_details": "marechal s",
+        "information_to_account_owner": "0987654321 marechal s\n                                                                 \ndit is een test"
+      },
+      {
+        "value_date": "2012-06-08",
+        "entry_date": "2012-06-08",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "5.00",
+        "transaction_type_ident_code": {
+          "NonStandard": "IOB"
+        },
+        "customer_ref": "0987654321",
+        "bank_ref": null,
+        "supplementary_details": "marechal s",
+        "information_to_account_owner": "0987654321 marechal s\n                                                                 \ndit is test 2"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2012-06-08",
+      "iso_currency_code": "EUR",
+      "amount": "1209.56"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "0000000000",
+    "ref_to_related_msg": null,
+    "account_id": "0123456789",
+    "statement_no": "161",
+    "sequence_no": "1",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2012-06-09",
+      "iso_currency_code": "EUR",
+      "amount": "1209.56"
+    },
+    "statement_lines": [],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2012-06-09",
+      "iso_currency_code": "EUR",
+      "amount": "1209.56"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  }
+]

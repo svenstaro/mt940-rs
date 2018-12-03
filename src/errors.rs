@@ -106,8 +106,8 @@ impl From<AmountParseError> for ParseError {
 /// that the input data is faulty.
 #[derive(Debug, Clone, Eq, PartialEq, Fail)]
 #[fail(
-    display = "Unexpected tag '{}' found. Expected one of '{}'. The tag before this one was '{:?}.",
-    current_tag, last_tag, expected_tags
+    display = "Unexpected tag '{}' found. Expected one of '{:?}'. The tag before this one was '{}'.",
+    current_tag, expected_tags, last_tag
 )]
 pub struct UnexpectedTagError {
     current_tag: String,

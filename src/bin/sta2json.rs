@@ -2,7 +2,7 @@ use clap::{
     crate_authors, crate_name, crate_version, value_t, value_t_or_exit, App, AppSettings, Arg,
 };
 use mt940::parse_mt940;
-use mt940::sanitizers::to_swift_charset;
+use mt940::sanitizers::sanitize;
 use std::fs;
 use std::io::{self, Write};
 use std::path::Path;
@@ -46,9 +46,12 @@ fn main() -> Result<(), Box<std::error::Error>> {
              enabling strict mode.",
         )
         .global_setting(AppSettings::ColoredHelp)
-        .arg(Arg::with_name("strict").short("s").help(
-            "Enable strict parsing\nWhen this is on, no automatic sanitizing will take place.",
-        ))
+        .arg(
+            Arg::with_name("strict")
+                .short("s")
+                .long("strict")
+                .help("Enable strict parsing. When this is on, input won't be sanitized."),
+         )
         .arg(
             Arg::with_name("statement")
                 .value_name("STATEMENT")
@@ -66,14 +69,14 @@ fn main() -> Result<(), Box<std::error::Error>> {
         )
         .get_matches();
 
-    let is_strict = value_t!(matches, "strict", bool).unwrap_or(false);
+    let is_strict = matches.is_present("strict");
     let statement_input = value_t_or_exit!(matches, "statement", String);
 
     let mut input = fs::read_to_string(statement_input)?;
 
     // Do some sanitizing if not running in strict mode.
     if !is_strict {
-        input = to_swift_charset(&input);
+        input = sanitize(&input);
     }
 
     let parsed = parse_mt940(&input).unwrap_or_else(|e| panic!("{}", e));

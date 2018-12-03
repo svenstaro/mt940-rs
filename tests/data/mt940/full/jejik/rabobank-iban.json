@@ -1,0 +1,110 @@
+[
+  {
+    "transaction_ref_no": "940S130101",
+    "ref_to_related_msg": null,
+    "account_id": "NL71RABO0123456789",
+    "statement_no": "0",
+    "sequence_no": null,
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2013-01-01",
+      "iso_currency_code": "EUR",
+      "amount": "1000.00"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2013-01-01",
+        "entry_date": null,
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "25.00",
+        "transaction_type_ident_code": {
+          "NonStandard": "102"
+        },
+        "customer_ref": "EREF            ",
+        "bank_ref": null,
+        "supplementary_details": "NL70ABNA0987654321",
+        "information_to_account_owner": "/EREF/01-01-2013 12:00 0030000987654321/BENM//NAME/CONTRA ACCOUN\nT HOLDER/REMI//ISDT/2013-07-11"
+      },
+      {
+        "value_date": "2013-01-02",
+        "entry_date": null,
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "10.00",
+        "transaction_type_ident_code": {
+          "NonStandard": "154"
+        },
+        "customer_ref": "NONREF          ",
+        "bank_ref": null,
+        "supplementary_details": "P001234567",
+        "information_to_account_owner": "/BENM//NAME/JOHN DOE/REMI/Reference 201301234/ISDT/2013-01-02"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2013-01-08",
+      "iso_currency_code": "EUR",
+      "amount": "965.00"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "940S130101",
+    "ref_to_related_msg": null,
+    "account_id": "NL71RABO0123456789",
+    "statement_no": "0",
+    "sequence_no": null,
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2013-01-08",
+      "iso_currency_code": "EUR",
+      "amount": "965.00"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2013-01-08",
+        "entry_date": null,
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "25.00",
+        "transaction_type_ident_code": {
+          "NonStandard": "102"
+        },
+        "customer_ref": "EREF            ",
+        "bank_ref": null,
+        "supplementary_details": "NL70ABNA0987654321",
+        "information_to_account_owner": "/EREF/08-01-2013 12:00 0030000987654321/BENM//NAME/CONTRA ACCOUN\nT HOLDER/REMI//ISDT/2013-07-11"
+      },
+      {
+        "value_date": "2013-01-09",
+        "entry_date": null,
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "10.00",
+        "transaction_type_ident_code": {
+          "NonStandard": "154"
+        },
+        "customer_ref": "NONREF          ",
+        "bank_ref": null,
+        "supplementary_details": "P001234567",
+        "information_to_account_owner": "/BENM//NAME/JOHN DOE/REMI/Reference 201301234/ISDT/2013-01-09"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2013-01-15",
+      "iso_currency_code": "EUR",
+      "amount": "930.00"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  }
+]

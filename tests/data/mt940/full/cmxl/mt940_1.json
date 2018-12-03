@@ -1,0 +1,52 @@
+[
+  {
+    "transaction_ref_no": "1234567",
+    "ref_to_related_msg": "9876543210",
+    "account_id": "10020030/1234567",
+    "statement_no": "5",
+    "sequence_no": "1",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2002-11-01",
+      "iso_currency_code": "EUR",
+      "amount": "2187.95"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2002-11-01",
+        "entry_date": "2002-11-02",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "800",
+        "transaction_type_ident_code": "STO",
+        "customer_ref": "NONREF",
+        "bank_ref": "55555",
+        "supplementary_details": null,
+        "information_to_account_owner": "008?00DAUERAUFTRAG?100599?20Miete November?3010020030?31234567?32MUELLER?34339"
+      },
+      {
+        "value_date": "2002-11-02",
+        "entry_date": "2002-11-02",
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": "R",
+        "amount": "3000",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": "55555",
+        "supplementary_details": null,
+        "information_to_account_owner": "051?00UEBERWEISUNG?100599?20Gehalt Oktob\ner\n?21Firma\nMustermann\nGmbH?3050060400?31084756\n4700?32MUELLER?34339"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2002-11-30",
+      "iso_currency_code": "EUR",
+      "amount": "4387.95"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  }
+]

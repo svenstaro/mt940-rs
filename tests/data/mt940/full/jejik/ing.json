@@ -1,0 +1,112 @@
+[
+  {
+    "transaction_ref_no": "MPBZ",
+    "ref_to_related_msg": null,
+    "account_id": "0001234567",
+    "statement_no": "000",
+    "sequence_no": null,
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-07-22",
+      "iso_currency_code": "EUR",
+      "amount": "0.00"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2010-07-22",
+        "entry_date": null,
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "25.03",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "RC AFREKENING BETALINGSVERKEER\nBETREFT REKENING 4715589 PERIODE: 01-10-2010 / 31-12-2010\nING Bank N.V. tarifering ING"
+      },
+      {
+        "value_date": "2010-07-22",
+        "entry_date": null,
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "3.03",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "0111111111 GPSEOUL SPOEDBETALING.MPBZS1016000047 GPSEOUL"
+      },
+      {
+        "value_date": "2010-07-22",
+        "entry_date": null,
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "1.11",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "TMG TANGO",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "0111111111 ING iDEAL KN: TMG TANGO TRANSACTIENR 0050000534527978 10.06.2010 15:32 TMG TANGO ING Bank inzake GPKyoto"
+      },
+      {
+        "value_date": "2010-07-22",
+        "entry_date": null,
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "20.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "ABN AMRO BANK.AMSTERDAM 22.07.2010 09:57 002.5595781"
+      },
+      {
+        "value_date": "2010-07-22",
+        "entry_date": null,
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "1.10",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "0111111111 GPPeking 170000001AC"
+      },
+      {
+        "value_date": "2010-07-22",
+        "entry_date": null,
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": null,
+        "amount": "3.68",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "0123456789 EJ46GREENP100610T1456 CLIEOP TMG GPHONGKONG AMSTERDAM"
+      },
+      {
+        "value_date": "2010-07-23",
+        "entry_date": null,
+        "ext_debit_credit_indicator": "Credit",
+        "funds_code": null,
+        "amount": "1.00",
+        "transaction_type_ident_code": "TRF",
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "0111111111 Hr S Marechal\nROSMALEN Hr S Marechal ROSMALEN\nBetaling transactiedatum: 22-07-2010"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2010-07-23",
+      "iso_currency_code": "EUR",
+      "amount": "3.47"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": "D000004C000002D25,24C28,71\n-XXX"
+  }
+]
