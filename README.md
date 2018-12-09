@@ -26,7 +26,6 @@
 ## Library usage example
 
 ```rust
-extern crate mt940;
 use mt940::parse_mt940;
 
 fn main() {
