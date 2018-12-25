@@ -23,7 +23,7 @@ lto = true
 [dependencies]
 clap = "2"
 chrono = { version = "0.4", features = ["serde"] }
-deunicode = "0.4"
+deunicode = "1.0"
 rust_decimal = { version = "0.10", features = ["serde"] }
 failure = "0.1"
 log = "0.4"
@@ -32,8 +32,8 @@ pest_derive = "2"
 serde = "1"
 serde_derive = "1"
 serde_json = "1"
-strum = "0.12"
-strum_macros = "0.12"
+strum = "0.13"
+strum_macros = "0.13"
 
 [build-dependencies]
 skeptic = "0.13"
