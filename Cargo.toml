@@ -23,7 +23,7 @@ lto = true
 [dependencies]
 clap = "2"
 chrono = { version = "0.4", features = ["serde"] }
-deunicode = "0.4"
+deunicode = "1.0"
 rust_decimal = { version = "0.10", features = ["serde"] }
 failure = "0.1"
 log = "0.4"
