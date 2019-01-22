@@ -11,8 +11,6 @@ os:
   - windows
 
 matrix:
-  allow_failures:
-    - rust: nightly
   include:
     - os: linux
       env: TARGET=wasm32-unknown-unknown
