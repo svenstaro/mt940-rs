@@ -10,13 +10,31 @@ os:
   - osx
   - windows
 
-env:
-  - TARGET=default
-  - TARGET=wasm32-unknown-unknown
-  - TARGET=wasm32-unknown-emscripten
+matrix:
+  allow_failures:
+    - rust: nightly
+  include:
+    - os: linux
+      env: TARGET=wasm32-unknown-unknown
+      rust: stable
+    - os: linux
+      env: TARGET=wasm32-unknown-unknown
+      rust: beta
+    - os: linux
+      env: TARGET=wasm32-unknown-unknown
+      rust: nightly
+    - os: linux
+      env: TARGET=wasm32-unknown-emscripten
+      rust: stable
+    - os: linux
+      env: TARGET=wasm32-unknown-emscripten
+      rust: beta
+    - os: linux
+      env: TARGET=wasm32-unknown-emscripten
+      rust: nightly
 
 before_script: |
-  if [[ "$TARGET" != "default" ]]; then
+  if [[ -n "$TARGET" ]]; then
     rustup target add $TARGET
   fi
   if [[ "$TARGET" == "wasm32-unknown-emscripten" ]]; then
@@ -39,7 +57,7 @@ script:
       cargo build --verbose --all
     fi
   - |
-    if [[ "$TARGET" == "default" ]]; then
+    if [[ -z "$TARGET" ]]; then
       cargo test --verbose --all
     fi
 
