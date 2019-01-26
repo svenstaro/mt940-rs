@@ -603,6 +603,7 @@ mod tests {
                      new line\r\n\
                      like this\r\n\
                      :012:and then more stuff\r\n\
+                     :86:BEA   NR:CT982346 30.09.18/09.03 CCV*STORE  ,PAS123\r\n\
                      \r\n";
 
         let expected = vec![
@@ -610,6 +611,7 @@ mod tests {
             Field::new("456", "something else"),
             Field::new("789", "even with\nnew line\nlike this"),
             Field::new("012", "and then more stuff"),
+            Field::new("86", "BEA   NR:CT982346 30.09.18/09.03 CCV*STORE  ,PAS123"),
         ];
 
         let input_parsed = parse_fields(input).unwrap();
@@ -618,7 +620,7 @@ mod tests {
 
     proptest! {
         #[test]
-        fn dont_crash(tag in "[[:alnum:]]+", value in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]+") {
+        fn dont_crash(tag in "[[:alnum:]]+", value in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\}* ]+") {
             let re_tag_like = Regex::new(":.*:").unwrap();
             prop_assume!(!re_tag_like.is_match(&value), "Can't have a value that looks like a tag");
 

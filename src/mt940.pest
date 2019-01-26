@@ -1,7 +1,7 @@
 tag_no = { ASCII_ALPHANUMERIC+ }
 tag = { ":" ~ tag_no ~ ":" }
 // From: http://www.sepaforcorporates.com/swift-for-corporates/quick-guide-swift-mt101-format/
-swift_char = _{ ASCII_ALPHANUMERIC | "/" | "-" | "?" | ":" | "(" | ")" | "." | "," | "‘" | "+" | "{" | "}" | " " | NEWLINE }
+swift_char = _{ ASCII_ALPHANUMERIC | "/" | "-" | "?" | ":" | "(" | ")" | "." | "," | "‘" | "+" | "{" | "}" | "*" | " " | NEWLINE }
 swift_chars = { SOI ~ swift_char+ ~ EOI }
 amount_char = _{ ASCII_DIGIT | "," }
 field_value = { (!tag ~ swift_char)+ }
