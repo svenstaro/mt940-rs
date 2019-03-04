@@ -588,7 +588,7 @@ pub fn parse_mt940(statement: &str) -> Result<Vec<Message>, ParseError> {
 #[cfg(test)]
 mod tests {
     use pretty_assertions::assert_eq;
-    use proptest::{prop_assert, prop_assert_eq, prop_assume, proptest, proptest_helper};
+    use proptest::{prop_assert_eq, prop_assume, proptest};
     use regex::Regex;
 
     use super::*;

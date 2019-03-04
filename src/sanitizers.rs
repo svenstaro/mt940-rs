@@ -137,7 +137,7 @@ pub fn strip_stuff_between_messages(s: &str) -> String {
 #[cfg(test)]
 mod tests {
     use pretty_assertions::assert_eq;
-    use proptest::{prop_assert, proptest, proptest_helper};
+    use proptest::{prop_assert, proptest};
     use rstest::rstest_parametrize;
 
     use super::*;

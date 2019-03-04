@@ -296,7 +296,7 @@ pub fn parse_65_tag(field: &Field) -> Result<AvailableBalance, ParseError> {
 #[cfg(test)]
 mod tests {
     use proptest::prelude::*;
-    use proptest::{prop_assert, prop_assert_eq, prop_assume, proptest, proptest_helper};
+    use proptest::{prop_assert_eq, prop_assume, proptest};
     use regex::Regex;
     use rstest::rstest_parametrize;
     use rust_decimal::Decimal;
