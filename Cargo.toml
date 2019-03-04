@@ -32,8 +32,8 @@ pest_derive = "2"
 serde = "1"
 serde_derive = "1"
 serde_json = "1"
-strum = "0.13"
-strum_macros = "0.13"
+strum = "0.14"
+strum_macros = "0.14"
 
 [build-dependencies]
 skeptic = "0.13"
