@@ -34,7 +34,7 @@ fn has_parent_dir(p: String) -> Result<(), String> {
     }
 }
 
-fn main() -> Result<(), Box<std::error::Error>> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     let matches = App::new(crate_name!())
         .version(crate_version!())
         .author(crate_authors!())
