@@ -76,7 +76,7 @@ pub use crate::errors::{
 };
 
 use crate::tag_parsers::{
-    parse_20_tag, parse_21_tag, parse_25_tag, parse_28c_tag, parse_60_tag, parse_61_tag,
+    parse_20_tag, parse_21_tag, parse_25_tag, parse_28_tag, parse_60_tag, parse_61_tag,
     parse_62_tag, parse_64_tag, parse_65_tag, parse_86_tag,
 };
 pub use crate::transaction_types::TransactionTypeIdentificationCode;
@@ -239,7 +239,7 @@ impl Message {
         let mut current_acceptable_tags: &[&str] = &["20"];
         // TODO: Make this into an Enum instead of a bunch of strings.
         let known_tags = [
-            "20", "21", "25", "28C", "60M", "60F", "61", "86", "62M", "62F", "64", "65",
+            "20", "21", "25", "28", "28C", "60M", "60F", "61", "86", "62M", "62F", "64", "65",
         ];
 
         let mut transaction_ref_no = None;
@@ -291,8 +291,8 @@ impl Message {
                     account_id = Some(parse_25_tag(&field)?);
                     current_acceptable_tags = &["28", "28C"];
                 }
-                "28C" => {
-                    let res = parse_28c_tag(&field)?;
+                "28" | "28C" => {
+                    let res = parse_28_tag(&field)?;
                     statement_no = Some(res.0);
                     sequence_no = res.1;
                     current_acceptable_tags = &["60M", "60F"];
