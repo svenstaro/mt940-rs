@@ -46,6 +46,7 @@ fn parse_mt940_statement_success(statement_path: &str) {
     case("mBank/mt940.sta"),
     case("mBank/with_newline_in_tnr.sta"),
     case("sparkasse/buxtehude.sta"),
+    case("abnamro/mt940.sta"),
 )]
 fn parse_mt940_statement_success_with_sanitation(statement_path: &str) {
     let full_path = PathBuf::from(format!("tests/data/mt940/full/{}", statement_path));

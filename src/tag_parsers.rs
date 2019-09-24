@@ -38,9 +38,9 @@ pub fn parse_25_tag(field: &Field) -> Result<String, ParseError> {
     Ok(account_id)
 }
 
-pub fn parse_28c_tag(field: &Field) -> Result<(String, Option<String>), ParseError> {
-    if field.tag != "28C" {
-        Err(RequiredTagNotFoundError::new("28C"))?;
+pub fn parse_28_tag(field: &Field) -> Result<(String, Option<String>), ParseError> {
+    if field.tag != "28" && field.tag != "28C" {
+        Err(RequiredTagNotFoundError::new("28 or 28C"))?;
     }
     let mut statement_no = None;
     let mut sequence_no = None;
@@ -350,8 +350,9 @@ mod tests {
 
     proptest! {
         #[test]
-        fn tag_28c_input(statement_no in r"[[:digit:]]{1, 5}",
-                         sequence_no in r"[[:digit:]]{0, 5}") {
+        fn tag_28_input(statement_no in r"[[:digit:]]{1, 5}",
+                        sequence_no in r"[[:digit:]]{0, 5}",
+                        tag in r"28C?") {
             let input = format!(
                 "{statement_no}{separator}{sequence_no}",
                 statement_no=statement_no,
@@ -364,8 +365,8 @@ mod tests {
             let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$")?;
             prop_assume!(re_no_ws_in_front_or_end.is_match(&input), "Can't have a value that has whitespace in front or end");
 
-            let field = Field::from_str(&format!(":28C:{}", input)).unwrap();
-            let parsed = parse_28c_tag(&field).unwrap();
+            let field = Field::from_str(&format!(":{}:{}", tag, input)).unwrap();
+            let parsed = parse_28_tag(&field).unwrap();
             let expected = (
                 statement_no,
                 if sequence_no.is_empty() {

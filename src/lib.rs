@@ -76,7 +76,7 @@ pub use crate::errors::{
 };
 
 use crate::tag_parsers::{
-    parse_20_tag, parse_21_tag, parse_25_tag, parse_28c_tag, parse_60_tag, parse_61_tag,
+    parse_20_tag, parse_21_tag, parse_25_tag, parse_28_tag, parse_60_tag, parse_61_tag,
     parse_62_tag, parse_64_tag, parse_65_tag, parse_86_tag,
 };
 pub use crate::transaction_types::TransactionTypeIdentificationCode;
@@ -236,7 +236,11 @@ impl Message {
     /// Must start with field `:20:`. Must not contain more than one `:20:` tag.
     pub fn from_fields(fields: Vec<Field>) -> Result<Message, ParseError> {
         // Only a few tags may follow after each specific tag.
-        let mut current_acceptable_tags = vec!["20"];
+        let mut current_acceptable_tags: &[&str] = &["20"];
+        // TODO: Make this into an Enum instead of a bunch of strings.
+        let known_tags = [
+            "20", "21", "25", "28", "28C", "60M", "60F", "61", "86", "62M", "62F", "64", "65",
+        ];
 
         let mut transaction_ref_no = None;
         let mut ref_to_related_msg = None;
@@ -261,10 +265,6 @@ impl Message {
                 .collect();
 
             // We reject unknown tags.
-            // TODO: Make this into an Enum instead of a bunch of strings.
-            let known_tags = vec![
-                "20", "21", "25", "28C", "60M", "60F", "61", "86", "62M", "62F", "64", "65",
-            ];
             if !known_tags.contains(&field.tag.as_str()) {
                 return Err(ParseError::UnknownTagError(field.tag.to_string()));
             }
@@ -281,30 +281,30 @@ impl Message {
             match field.tag.as_str() {
                 "20" => {
                     transaction_ref_no = Some(parse_20_tag(&field)?);
-                    current_acceptable_tags = vec!["21", "25"];
+                    current_acceptable_tags = &["21", "25"];
                 }
                 "21" => {
                     ref_to_related_msg = Some(parse_21_tag(&field)?);
-                    current_acceptable_tags = vec!["25"];
+                    current_acceptable_tags = &["25"];
                 }
                 "25" => {
                     account_id = Some(parse_25_tag(&field)?);
-                    current_acceptable_tags = vec!["28", "28C"];
+                    current_acceptable_tags = &["28", "28C"];
                 }
-                "28C" => {
-                    let res = parse_28c_tag(&field)?;
+                "28" | "28C" => {
+                    let res = parse_28_tag(&field)?;
                     statement_no = Some(res.0);
                     sequence_no = res.1;
-                    current_acceptable_tags = vec!["60M", "60F"];
+                    current_acceptable_tags = &["60M", "60F"];
                 }
                 "60M" | "60F" => {
                     opening_balance = Some(parse_60_tag(&field)?);
-                    current_acceptable_tags = vec!["61", "62M", "62F", "86"];
+                    current_acceptable_tags = &["61", "62M", "62F", "86"];
                 }
                 "61" => {
                     let statement_line = parse_61_tag(&field)?;
                     statement_lines.push(statement_line);
-                    current_acceptable_tags = vec!["61", "86", "62M", "62F"];
+                    current_acceptable_tags = &["61", "86", "62M", "62F"];
                 }
                 "86" => {
                     let info_to_account_owner = parse_86_tag(&field)?;
@@ -329,19 +329,19 @@ impl Message {
                         }
                         _ => (),
                     }
-                    current_acceptable_tags = vec!["61", "62M", "62F", "86"];
+                    current_acceptable_tags = &["61", "62M", "62F", "86"];
                 }
                 "62M" | "62F" => {
                     closing_balance = Some(parse_62_tag(&field)?);
-                    current_acceptable_tags = vec!["64", "65", "86"];
+                    current_acceptable_tags = &["64", "65", "86"];
                 }
                 "64" => {
                     closing_available_balance = Some(parse_64_tag(&field)?);
-                    current_acceptable_tags = vec!["65", "86"];
+                    current_acceptable_tags = &["65", "86"];
                 }
                 "65" => {
                     forward_available_balance = Some(parse_65_tag(&field)?);
-                    current_acceptable_tags = vec!["65", "86"];
+                    current_acceptable_tags = &["65", "86"];
                 }
                 _ => (),
             }
@@ -577,7 +577,7 @@ pub fn parse_mt940(statement: &str) -> Result<Vec<Message>, ParseError> {
         fields_per_message[current_20_tag_index as usize].push(field);
     }
 
-    let mut messages = vec![];
+    let mut messages = Vec::with_capacity(fields_per_message.len());
     for mf in fields_per_message {
         let m = Message::from_fields(mf)?;
         messages.push(m);

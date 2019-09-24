@@ -1,0 +1,110 @@
+[
+  {
+    "transaction_ref_no": "ABN AMRO BANK NV",
+    "ref_to_related_msg": null,
+    "account_id": "123456789",
+    "statement_no": "23801",
+    "sequence_no": "1",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2019-08-25",
+      "iso_currency_code": "EUR",
+      "amount": "1111.10"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2019-08-24",
+        "entry_date": "2019-08-24",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "5.34",
+        "transaction_type_ident_code": {
+          "NonStandard": "426"
+        },
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "BEA   NR:YV7XDL   24.08.19/15.33 RESTAURANT IL SENSO MIDD,PAS263"
+      },
+      {
+        "value_date": "2019-08-24",
+        "entry_date": "2019-08-24",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "2.95",
+        "transaction_type_ident_code": {
+          "NonStandard": "426"
+        },
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "BEA   NR:CT409640 24.08.19/15.49 CCV.IJSSALON FRESCO MIDD,PAS263"
+      },
+      {
+        "value_date": "2019-08-24",
+        "entry_date": "2019-08-24",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "6.45",
+        "transaction_type_ident_code": {
+          "NonStandard": "426"
+        },
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "BEA   NR:CT440388 24.08.19/16.02 CCV.GEMEENTE MIDDELBUR M,PAS263"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2019-08-26",
+      "iso_currency_code": "EUR",
+      "amount": "2222.20"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  },
+  {
+    "transaction_ref_no": "ABN AMRO BANK NV",
+    "ref_to_related_msg": null,
+    "account_id": "123456789",
+    "statement_no": "24101",
+    "sequence_no": "1",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2019-08-27",
+      "iso_currency_code": "EUR",
+      "amount": "5555.20"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2019-08-29",
+        "entry_date": "2019-08-29",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": null,
+        "amount": "8.25",
+        "transaction_type_ident_code": {
+          "NonStandard": "426"
+        },
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "BEA   NR:CT393376 29.08.19/12.12 CCV.MCDONALDS HOOFDDOR H,PAS263"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2019-08-29",
+      "iso_currency_code": "EUR",
+      "amount": "6666.83"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  }
+]
