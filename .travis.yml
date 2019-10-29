@@ -13,6 +13,15 @@ os:
 matrix:
   include:
     - os: linux
+      rust: stable
+      arch: arm64
+    - os: linux
+      rust: beta
+      arch: arm64
+    - os: linux
+      rust: nightly
+      arch: arm64
+    - os: linux
       env: TARGET=wasm32-unknown-unknown
       rust: stable
     - os: linux
