@@ -32,7 +32,7 @@ pest_derive = "2"
 serde = "1"
 serde_derive = "1"
 serde_json = "1"
-strum = "0.16"
+strum = "0.17"
 strum_macros = "0.16"
 
 [build-dependencies]
