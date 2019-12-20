@@ -33,7 +33,7 @@ serde = "1"
 serde_derive = "1"
 serde_json = "1"
 strum = "0.16"
-strum_macros = "0.16"
+strum_macros = "0.17"
 
 [build-dependencies]
 skeptic = "0.13"
