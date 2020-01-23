@@ -1,0 +1,41 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build ${{ matrix.rust }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        rust: [stable, beta, nightly]
+        include:
+          - os: ubuntu-latest
+            target: wasm32-unknown-unknown
+            rust: stable
+          - os: ubuntu-latest
+            target: wasm32-unknown-unknown
+            rust: beta
+          - os: ubuntu-latest
+            target: wasm32-unknown-unknown
+            rust: nightly
+
+    steps:
+    - uses: hecrj/setup-rust-action@master
+      with:
+        rust-version: ${{ matrix.rust }}
+        targets: "wasm32-unknown-unknown"
+    - uses: actions/checkout@v1
+    - run: cargo install cargo-tarpaulin
+      if: os == 'ubuntu-latest' && rust == 'nightly' && target
+    - run: cargo build --target wasm32-unknown-unknown --all
+      if: target == 'wasm32-unknown-unknown'
+    - run: cargo build --all
+      if: target != 'wasm32-unknown-unknown'
+    - run: cargo test --all
+      if: target != 'wasm32-unknown-unknown'
+    - run: |
+        RUSTC=./rustc-proptest-fix cargo tarpaulin --out Xml
+        bash <(curl -s https://codecov.io/bash)
+      if: os == 'ubuntu-latest' && rust == 'nightly' && target
