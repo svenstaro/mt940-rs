@@ -10,20 +10,24 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         rust: [stable, beta, nightly]
-        include:
-          - os: ubuntu-latest
+        target: [wasm32-unknown-unknown, native]
+        exclude:
+          - os: windows-latest
+            target: wasm32-unknown-unknown
             rust: stable
-          - os: ubuntu-latest
+          - os: windows-latest
+            target: wasm32-unknown-unknown
             rust: beta
-          - os: ubuntu-latest
+          - os: windows-latest
+            target: wasm32-unknown-unknown
             rust: nightly
-          - os: ubuntu-latest
+          - os: macos-latest
             target: wasm32-unknown-unknown
             rust: stable
-          - os: ubuntu-latest
+          - os: macos-latest
             target: wasm32-unknown-unknown
             rust: beta
-          - os: ubuntu-latest
+          - os: macos-latest
             target: wasm32-unknown-unknown
             rust: nightly
 
