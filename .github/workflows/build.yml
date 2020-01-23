@@ -30,11 +30,11 @@ jobs:
     - run: cargo install cargo-tarpaulin
       if: matrix.os == 'ubuntu-latest' && matrix.rust == 'nightly' && matrix.target
     - run: cargo build --target wasm32-unknown-unknown --all
-      if: target == 'wasm32-unknown-unknown'
+      if: matrix.target == 'wasm32-unknown-unknown'
     - run: cargo build --all
-      if: target != 'wasm32-unknown-unknown'
+      if: matrix.target != 'wasm32-unknown-unknown'
     - run: cargo test --all
-      if: target != 'wasm32-unknown-unknown'
+      if: matrix.target != 'wasm32-unknown-unknown'
     - run: |
         RUSTC=./rustc-proptest-fix cargo tarpaulin --out Xml
         bash <(curl -s https://codecov.io/bash)
