@@ -36,6 +36,6 @@ jobs:
     - run: cargo test --all
       if: matrix.target != 'wasm32-unknown-unknown'
     - run: |
-        RUSTC=./rustc-proptest-fix cargo tarpaulin --out Xml
+        cargo tarpaulin --out Xml
         bash <(curl -s https://codecov.io/bash)
       if: matrix.os == 'ubuntu-latest' && matrix.rust == 'nightly' && matrix.target
