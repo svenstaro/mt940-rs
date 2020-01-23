@@ -298,7 +298,7 @@ mod tests {
     use proptest::prelude::*;
     use proptest::{prop_assert_eq, prop_assume, proptest};
     use regex::Regex;
-    use rstest::rstest_parametrize;
+    use rstest::rstest;
     use rust_decimal::Decimal;
 
     use super::*;
@@ -379,7 +379,7 @@ mod tests {
         }
     }
 
-    #[rstest_parametrize(
+    #[rstest(
         input,
         expected_decimal,
         case(":60F:C100318EUR380115,12", "380115.12"),

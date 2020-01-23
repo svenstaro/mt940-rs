@@ -1,6 +1,6 @@
 use pest::error::ErrorVariant;
 use pretty_assertions::assert_eq;
-use rstest::rstest_parametrize;
+use rstest::rstest;
 use std::fs;
 use std::io;
 use std::path::PathBuf;
@@ -11,7 +11,7 @@ use mt940::{
 use mt940::sanitizers::sanitize;
 
 /// Parse a bunch of MT940 statements that should just work.
-#[rstest_parametrize(
+#[rstest(
     statement_path,
     case("danskebank/MT940_DK_Example.sta"),
     case("danskebank/MT940_FI_Example.sta"),
@@ -31,7 +31,7 @@ fn parse_mt940_statement_success(statement_path: &str) {
 }
 
 /// Parse a bunch of MT940 statements that only work after sanitation.
-#[rstest_parametrize(
+#[rstest(
     statement_path,
     case("betterplace/sepa_mt9401.sta"),
     case("betterplace/sepa_snippet.sta"),
@@ -60,7 +60,7 @@ fn parse_mt940_statement_success_with_sanitation(statement_path: &str) {
 }
 
 /// Parse a bunch of invalid statements that should fail even with sanitation.
-#[rstest_parametrize(
+#[rstest(
     statement_path,
     case("betterplace/sepa_snippet_broken.sta"),
     case("jejik/knab_broken.sta"),

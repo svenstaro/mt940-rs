@@ -138,7 +138,7 @@ pub fn strip_stuff_between_messages(s: &str) -> String {
 mod tests {
     use pretty_assertions::assert_eq;
     use proptest::{prop_assert, proptest};
-    use rstest::rstest_parametrize;
+    use rstest::rstest;
 
     use super::*;
 
@@ -159,7 +159,7 @@ mod tests {
         assert_eq!(result, expected);
     }
 
-    #[rstest_parametrize(
+    #[rstest(
         input,
         expected,
         case("ä", "a"),
