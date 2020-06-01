@@ -1,17 +1,17 @@
-use failure::Fail;
+use thiserror::Error;
 
 use crate::Rule;
 
-#[derive(Debug, Clone, Eq, PartialEq, Fail)]
+#[derive(Debug, Clone, Eq, PartialEq, Error)]
 pub enum DateParseError {
-    #[fail(display = "Date parsing failed for date: '{}-{}-{}'", year, month, day)]
+    #[error("Date parsing failed for date: '{}-{}-{}'", year, month, day)]
     OutOfRange {
         year: String,
         month: String,
         day: String,
     },
 
-    #[fail(display = "Pest parsing error: {}", _0)]
+    #[error("Pest parsing error: {}", _0)]
     PestParseError(pest::error::Error<Rule>),
 }
 
@@ -22,45 +22,45 @@ impl From<pest::error::Error<Rule>> for DateParseError {
 }
 
 /// Error thrown if a variant for an enum can't be found.
-#[derive(Debug, Clone, Eq, PartialEq, Fail)]
-#[fail(display = "Variant not found: {}", _0)]
+#[derive(Debug, Clone, Eq, PartialEq, Error)]
+#[error("Variant not found: {}", _0)]
 pub struct VariantNotFound(pub String);
 
 /// Error thrown when parsing of a MT940 amount fails.
-#[derive(Debug, Clone, Eq, PartialEq, Fail)]
+#[derive(Debug, Clone, Eq, PartialEq, Error)]
 pub enum AmountParseError {
-    #[fail(display = "Too many commas in amount: '{}'", _0)]
+    #[error("Too many commas in amount: '{}'", _0)]
     TooManyCommas(String),
 
-    #[fail(display = "No comma found in amount: '{}'", _0)]
+    #[error("No comma found in amount: '{}'", _0)]
     NoComma(String),
 
-    #[fail(display = "Couldn't parse as integer: '{}'", _0)]
+    #[error("Couldn't parse as integer: '{}'", _0)]
     IntParseError(std::num::ParseIntError),
 }
 
 /// Error thrown when parsing fails.
-#[derive(Debug, Clone, Eq, PartialEq, Fail)]
+#[derive(Debug, Clone, Eq, PartialEq, Error)]
 pub enum ParseError {
-    #[fail(display = "Pest parsing error: {}", _0)]
+    #[error("Pest parsing error: {}", _0)]
     PestParseError(pest::error::Error<Rule>),
 
-    #[fail(display = "{}", _0)]
+    #[error("{}", _0)]
     UnexpectedTagError(UnexpectedTagError),
 
-    #[fail(display = "{}", _0)]
+    #[error("{}", _0)]
     DateParseError(DateParseError),
 
-    #[fail(display = "{}", _0)]
+    #[error("{}", _0)]
     RequiredTagNotFoundError(RequiredTagNotFoundError),
 
-    #[fail(display = "Unknown tag: '{}'", _0)]
+    #[error("Unknown tag: '{}'", _0)]
     UnknownTagError(String),
 
-    #[fail(display = "{}", _0)]
+    #[error("{}", _0)]
     VariantNotFound(VariantNotFound),
 
-    #[fail(display = "{}", _0)]
+    #[error("{}", _0)]
     AmountParseError(AmountParseError),
 }
 
@@ -104,9 +104,8 @@ impl From<AmountParseError> for ParseError {
 ///
 /// Some tags must never follow other tags. If that happens for some reason, we can safely assume
 /// that the input data is faulty.
-#[derive(Debug, Clone, Eq, PartialEq, Fail)]
-#[fail(
-    display = "Unexpected tag '{}' found. Expected one of '{:?}'. The tag before this one was '{}'.",
+#[derive(Debug, Clone, Eq, PartialEq, Error)]
+#[error("Unexpected tag '{}' found. Expected one of '{:?}'. The tag before this one was '{}'.",
     current_tag, expected_tags, last_tag
 )]
 pub struct UnexpectedTagError {
@@ -130,8 +129,8 @@ impl UnexpectedTagError {
 }
 
 /// Error thrown if a required tag was not found.
-#[derive(Debug, Clone, Eq, PartialEq, Fail)]
-#[fail(display = "Required tag '{}' not found.", required_tag)]
+#[derive(Debug, Clone, Eq, PartialEq, Error)]
+#[error("Required tag '{}' not found.", required_tag)]
 pub struct RequiredTagNotFoundError {
     required_tag: String,
 }

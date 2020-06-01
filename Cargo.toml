@@ -25,7 +25,7 @@ clap = "2"
 chrono = { version = "0.4", features = ["serde"] }
 deunicode = "1.0"
 rust_decimal = { version = "1.0", features = ["serde"] }
-failure = "0.1"
+thiserror = "1.0"
 log = "0.4"
 pest = "2"
 pest_derive = "2"
