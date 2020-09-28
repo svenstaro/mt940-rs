@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        rust: [stable, beta, nightly]
+        rust: [stable, nightly]
         target: [wasm32-unknown-unknown, native]
         exclude:
           - os: windows-latest
@@ -17,16 +17,10 @@ jobs:
             rust: stable
           - os: windows-latest
             target: wasm32-unknown-unknown
-            rust: beta
-          - os: windows-latest
-            target: wasm32-unknown-unknown
             rust: nightly
           - os: macos-latest
             target: wasm32-unknown-unknown
             rust: stable
-          - os: macos-latest
-            target: wasm32-unknown-unknown
-            rust: beta
           - os: macos-latest
             target: wasm32-unknown-unknown
             rust: nightly
