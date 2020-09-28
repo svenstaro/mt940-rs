@@ -10,10 +10,6 @@ keywords = ["mt940", "sepa", "banking", "fints", "hbci"]
 categories = ["parser-implementations", "command-line-utilities", "command-line-interface"]
 edition = "2018"
 
-[badges]
-travis-ci = { repository = "svenstaro/mt940-rs", branch = "master" }
-maintenance = { status = "actively-developed" }
-
 [profile.release]
 lto = true
 
