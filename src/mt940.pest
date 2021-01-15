@@ -37,7 +37,7 @@ tag_65_field = { SOI ~ debit_credit_indicator ~ date ~ iso_currency_code ~ amoun
 
 ext_debit_credit_indicator = { "D" | "C" | "RD" | "RC" }
 funds_code = { ASCII_ALPHA{1} }
-transaction_type_ident_code = { ("N" | "F") ~ ASCII_ALPHANUMERIC{3} }
+transaction_type_ident_code = { ("N" | "F" | "S") ~ ASCII_ALPHANUMERIC{3} }
 customer_ref = { (!("//" | NEWLINE) ~ swift_char){1, 16} }
 bank_ref = { (!NEWLINE ~ swift_char){1, 16} }
 supplementary_details = { swift_char{1, 34} }
