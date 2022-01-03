@@ -13,8 +13,7 @@ use crate::Rule;
 /// is probably the function to use.
 pub fn sanitize(s: &str) -> String {
     let s1 = to_swift_charset(s);
-    let s2 = strip_stuff_between_messages(&s1);
-    s2
+    strip_stuff_between_messages(&s1)
 }
 
 /// Try to make a given input conform to the SWIFT MT101 allowed charset.
@@ -79,7 +78,7 @@ pub fn strip_stuff_between_messages(s: &str) -> String {
 
     // Do one pass to find all the indices of tag 20 and non-tag 20 lines.
     for (i, line) in s.lines().enumerate() {
-        let parsed = MT940Parser::parse(Rule::field, &line);
+        let parsed = MT940Parser::parse(Rule::field, line);
         if let Ok(mut parsed) = parsed {
             last_tag = parsed
                 .next()

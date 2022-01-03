@@ -30,7 +30,7 @@ pub fn decimal_from_mt940_amount(s: &str) -> Result<Decimal, AmountParseError> {
 /// MT940 has a weird date format in the form of YYMMDD. Since it has a shortened year, the
 /// assumption is made that all statement are in the year 20XX.
 pub fn date_from_mt940_date(s: &str) -> Result<NaiveDate, DateParseError> {
-    let parsed_date = MT940Parser::parse(Rule::date, &s)?
+    let parsed_date = MT940Parser::parse(Rule::date, s)?
         .next()
         .unwrap()
         .into_inner();
@@ -57,7 +57,7 @@ pub fn date_from_mt940_date(s: &str) -> Result<NaiveDate, DateParseError> {
         day.unwrap().parse().unwrap(),
     )
     .ok_or_else(|| DateParseError::OutOfRange {
-        year: year.unwrap().to_string(),
+        year: year.unwrap(),
         month: month.unwrap().to_string(),
         day: day.unwrap().to_string(),
     })

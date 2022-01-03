@@ -105,8 +105,11 @@ impl From<AmountParseError> for ParseError {
 /// Some tags must never follow other tags. If that happens for some reason, we can safely assume
 /// that the input data is faulty.
 #[derive(Debug, Clone, Eq, PartialEq, Error)]
-#[error("Unexpected tag '{}' found. Expected one of '{:?}'. The tag before this one was '{}'.",
-    current_tag, expected_tags, last_tag
+#[error(
+    "Unexpected tag '{}' found. Expected one of '{:?}'. The tag before this one was '{}'.",
+    current_tag,
+    expected_tags,
+    last_tag
 )]
 pub struct UnexpectedTagError {
     current_tag: String,
@@ -118,12 +121,12 @@ impl UnexpectedTagError {
     pub fn new(
         current_tag: &str,
         last_tag: &str,
-        expected_tags: &Vec<String>,
+        expected_tags: Vec<String>,
     ) -> UnexpectedTagError {
         UnexpectedTagError {
             current_tag: current_tag.to_string(),
             last_tag: last_tag.to_string(),
-            expected_tags: expected_tags.clone(),
+            expected_tags,
         }
     }
 }

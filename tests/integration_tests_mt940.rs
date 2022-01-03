@@ -5,10 +5,10 @@ use std::fs;
 use std::io;
 use std::path::PathBuf;
 
+use mt940::sanitizers::sanitize;
 use mt940::{
     parse_mt940, DateParseError, Message, ParseError, RequiredTagNotFoundError, UnexpectedTagError,
 };
-use mt940::sanitizers::sanitize;
 
 /// Parse a bunch of MT940 statements that should just work.
 #[rstest(
@@ -17,7 +17,7 @@ use mt940::sanitizers::sanitize;
     case("danskebank/MT940_FI_Example.sta"),
     case("danskebank/MT940_NO_Example.sta"),
     case("danskebank/MT940_SE_Example.sta"),
-    case("cmxl/mt940_1.sta"),
+    case("cmxl/mt940_1.sta")
 )]
 fn parse_mt940_statement_success(statement_path: &str) {
     let full_path = PathBuf::from(format!("tests/data/mt940/full/{}", statement_path));
@@ -46,7 +46,7 @@ fn parse_mt940_statement_success(statement_path: &str) {
     case("mBank/mt940.sta"),
     case("mBank/with_newline_in_tnr.sta"),
     case("sparkasse/buxtehude.sta"),
-    case("abnamro/mt940.sta"),
+    case("abnamro/mt940.sta")
 )]
 fn parse_mt940_statement_success_with_sanitation(statement_path: &str) {
     let full_path = PathBuf::from(format!("tests/data/mt940/full/{}", statement_path));
@@ -63,7 +63,7 @@ fn parse_mt940_statement_success_with_sanitation(statement_path: &str) {
 #[rstest(
     statement_path,
     case("betterplace/sepa_snippet_broken.sta"),
-    case("jejik/knab_broken.sta"),
+    case("jejik/knab_broken.sta")
 )]
 fn parse_mt940_statement_fail(statement_path: &str) {
     let full_path = PathBuf::from(format!("tests/data/mt940/full/{}", statement_path));
@@ -158,7 +158,7 @@ fn fail_unexpected_tag() {
         if let ParseError::UnexpectedTagError(e) = e {
             assert_eq!(
                 e,
-                UnexpectedTagError::new("28C", "20", &vec!["21".to_string(), "25".to_string()])
+                UnexpectedTagError::new("28C", "20", vec!["21".to_string(), "25".to_string()])
             );
             return;
         }

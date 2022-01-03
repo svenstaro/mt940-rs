@@ -87,7 +87,7 @@ pub struct MT940Parser;
 /// Many of these might be contained in a bank statement.
 ///
 /// For specific field documentation, see here:
-/// http://www.sepaforcorporates.com/swift-for-corporates/account-statement-mt940-file-format-overview/
+/// <http://www.sepaforcorporates.com/swift-for-corporates/account-statement-mt940-file-format-overview/>
 #[derive(Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub struct Message {
     /// Tag `:20:`
@@ -262,7 +262,7 @@ impl Message {
 
             // We reject unknown tags.
             if !known_tags.contains(&field.tag.as_str()) {
-                return Err(ParseError::UnknownTagError(field.tag.to_string()));
+                return Err(ParseError::UnknownTagError(field.tag));
             }
 
             // We reject unexpected tags.
@@ -270,8 +270,9 @@ impl Message {
                 return Err(UnexpectedTagError::new(
                     &field.tag,
                     &last_tag,
-                    &current_acceptable_tags_owned,
-                ))?;
+                    current_acceptable_tags_owned,
+                )
+                .into());
             }
 
             match field.tag.as_str() {
@@ -556,7 +557,7 @@ pub fn parse_fields(statement: &str) -> Result<Vec<Field>, pest::error::Error<Ru
 pub fn parse_mt940(statement: &str) -> Result<Vec<Message>, ParseError> {
     let fields = parse_fields(statement)?;
     if fields.is_empty() {
-        Err(RequiredTagNotFoundError::new("20"))?;
+        return Err(RequiredTagNotFoundError::new("20").into());
     }
 
     let mut fields_per_message = vec![];
@@ -568,7 +569,7 @@ pub fn parse_mt940(statement: &str) -> Result<Vec<Message>, ParseError> {
             fields_per_message.push(vec![]);
         }
         if current_20_tag_index < 0 {
-            return Err(RequiredTagNotFoundError::new("20"))?;
+            return Err(RequiredTagNotFoundError::new("20").into());
         }
         fields_per_message[current_20_tag_index as usize].push(field);
     }

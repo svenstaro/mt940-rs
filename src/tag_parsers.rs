@@ -13,7 +13,7 @@ use crate::{
 
 pub fn parse_20_tag(field: &Field) -> Result<String, ParseError> {
     if field.tag != "20" {
-        Err(RequiredTagNotFoundError::new("20"))?;
+        return Err(RequiredTagNotFoundError::new("20").into());
     }
     let parsed_field = MT940Parser::parse(Rule::tag_20_field, &field.value);
     let transaction_ref_no = parsed_field?.as_str().to_string();
@@ -22,7 +22,7 @@ pub fn parse_20_tag(field: &Field) -> Result<String, ParseError> {
 
 pub fn parse_21_tag(field: &Field) -> Result<String, ParseError> {
     if field.tag != "21" {
-        Err(RequiredTagNotFoundError::new("21"))?;
+        return Err(RequiredTagNotFoundError::new("21").into());
     }
     let parsed_field = MT940Parser::parse(Rule::tag_21_field, &field.value);
     let ref_to_related_msg = parsed_field?.as_str().to_string();
@@ -31,7 +31,7 @@ pub fn parse_21_tag(field: &Field) -> Result<String, ParseError> {
 
 pub fn parse_25_tag(field: &Field) -> Result<String, ParseError> {
     if field.tag != "25" {
-        Err(RequiredTagNotFoundError::new("21"))?;
+        return Err(RequiredTagNotFoundError::new("21").into());
     }
     let parsed_field = MT940Parser::parse(Rule::tag_25_field, &field.value);
     let account_id = parsed_field?.as_str().to_string();
@@ -40,7 +40,7 @@ pub fn parse_25_tag(field: &Field) -> Result<String, ParseError> {
 
 pub fn parse_28_tag(field: &Field) -> Result<(String, Option<String>), ParseError> {
     if field.tag != "28" && field.tag != "28C" {
-        Err(RequiredTagNotFoundError::new("28 or 28C"))?;
+        return Err(RequiredTagNotFoundError::new("28 or 28C").into());
     }
     let mut statement_no = None;
     let mut sequence_no = None;
@@ -58,7 +58,7 @@ pub fn parse_28_tag(field: &Field) -> Result<(String, Option<String>), ParseErro
 
 pub fn parse_60_tag(field: &Field) -> Result<Balance, ParseError> {
     if field.tag != "60M" && field.tag != "60F" {
-        Err(RequiredTagNotFoundError::new("60"))?;
+        return Err(RequiredTagNotFoundError::new("60").into());
     }
     let is_intermediate = field.tag.as_str() == "60M";
     let mut debit_credit_indicator = None;
@@ -92,7 +92,7 @@ pub fn parse_60_tag(field: &Field) -> Result<Balance, ParseError> {
 
 pub fn parse_61_tag(field: &Field) -> Result<StatementLine, ParseError> {
     if field.tag != "61" {
-        Err(RequiredTagNotFoundError::new("61"))?;
+        return Err(RequiredTagNotFoundError::new("61").into());
     }
     let mut date = None;
     let mut short_date = None;
@@ -188,7 +188,7 @@ pub fn parse_61_tag(field: &Field) -> Result<StatementLine, ParseError> {
 
 pub fn parse_86_tag(field: &Field) -> Result<String, ParseError> {
     if field.tag != "86" {
-        Err(RequiredTagNotFoundError::new("86"))?;
+        return Err(RequiredTagNotFoundError::new("86").into());
     }
     let parsed_field = MT940Parser::parse(Rule::tag_86_field, &field.value);
     let information_to_account_owner = parsed_field?.as_str().to_string();
@@ -197,7 +197,7 @@ pub fn parse_86_tag(field: &Field) -> Result<String, ParseError> {
 
 pub fn parse_62_tag(field: &Field) -> Result<Balance, ParseError> {
     if field.tag != "62M" && field.tag != "62F" {
-        Err(RequiredTagNotFoundError::new("62"))?;
+        return Err(RequiredTagNotFoundError::new("62").into());
     }
     let is_intermediate = field.tag.as_str() == "62M";
     let mut debit_credit_indicator = None;
@@ -231,7 +231,7 @@ pub fn parse_62_tag(field: &Field) -> Result<Balance, ParseError> {
 
 pub fn parse_64_tag(field: &Field) -> Result<AvailableBalance, ParseError> {
     if field.tag != "64" {
-        Err(RequiredTagNotFoundError::new("64"))?;
+        return Err(RequiredTagNotFoundError::new("64").into());
     }
     let mut debit_credit_indicator = None;
     let mut date = None;
@@ -263,7 +263,7 @@ pub fn parse_64_tag(field: &Field) -> Result<AvailableBalance, ParseError> {
 
 pub fn parse_65_tag(field: &Field) -> Result<AvailableBalance, ParseError> {
     if field.tag != "65" {
-        Err(RequiredTagNotFoundError::new("65"))?;
+        return Err(RequiredTagNotFoundError::new("65").into());
     }
     let mut debit_credit_indicator = None;
     let mut date = None;
@@ -389,7 +389,7 @@ mod tests {
         case(":60F:C100318EUR00,12", "0.12"),
         case(":60F:C100318EUR001,12", "1.12"),
         case(":60F:C100318EUR0,", "0"),
-        case(":60F:C100318EUR00000,00", "0"),
+        case(":60F:C100318EUR00000,00", "0")
     )]
     fn tag_60_input_specific(input: &str, expected_decimal: &str) {
         let expected = Balance {

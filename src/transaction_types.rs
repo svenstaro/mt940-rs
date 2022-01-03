@@ -1,11 +1,11 @@
+use serde_derive::{Deserialize, Serialize};
 use std::fmt;
 use strum_macros::{EnumIter, EnumString};
-use serde_derive::{Deserialize, Serialize};
 
 /// Enum containing every SEPA-specified transaction type identification code.
 ///
 /// See here for source:
-/// http://www.sepaforcorporates.com/swift-for-corporates/list-mt940-transaction-type-identification-codes/
+/// <http://www.sepaforcorporates.com/swift-for-corporates/list-mt940-transaction-type-identification-codes/>
 #[derive(Debug, Clone, Eq, PartialEq, Serialize, Deserialize, EnumString, EnumIter)]
 pub enum TransactionTypeIdentificationCode {
     BNK,
