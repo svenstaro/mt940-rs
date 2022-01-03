@@ -4,25 +4,23 @@
 //! ```
 //! use mt940::parse_mt940;
 //!
-//! fn main() {
-//!     let input = "\
-//!         :20:3996-11-11111111\r\n\
-//!         :25:DABADKKK/111111-11111111\r\n\
-//!         :28C:00001/001\r\n\
-//!         :60F:C090924EUR54484,04\r\n\
-//!         :61:0909250925DR583,92NMSC1110030403010139//1234\r\n\
-//!         :86:11100304030101391234\r\n\
-//!         Beneficiary name\r\n\
-//!         Something else\r\n\
-//!         :61:0910010930DR62,60NCHGcustomer id//bank id\r\n\
-//!         :86:Fees according to advice\r\n\
-//!         :62F:C090930EUR53126,94\r\n\
-//!         :64:C090930EUR53189,31\r\n\
-//!         \r\n";
+//! let input = "\
+//!     :20:3996-11-11111111\r\n\
+//!     :25:DABADKKK/111111-11111111\r\n\
+//!     :28C:00001/001\r\n\
+//!     :60F:C090924EUR54484,04\r\n\
+//!     :61:0909250925DR583,92NMSC1110030403010139//1234\r\n\
+//!     :86:11100304030101391234\r\n\
+//!     Beneficiary name\r\n\
+//!     Something else\r\n\
+//!     :61:0910010930DR62,60NCHGcustomer id//bank id\r\n\
+//!     :86:Fees according to advice\r\n\
+//!     :62F:C090930EUR53126,94\r\n\
+//!     :64:C090930EUR53189,31\r\n\
+//!     \r\n";
 //!
-//!     let input_parsed = parse_mt940(input).unwrap();
-//!     assert_eq!(input_parsed[0].transaction_ref_no, "3996-11-11111111");
-//! }
+//! let input_parsed = parse_mt940(input).unwrap();
+//! assert_eq!(input_parsed[0].transaction_ref_no, "3996-11-11111111");
 //! ```
 //!
 //! ## Sanitizing input
@@ -37,24 +35,22 @@
 //! use mt940::parse_mt940;
 //! use mt940::sanitizers::to_swift_charset;
 //!
-//! fn main() {
-//!     let input = "\
-//!         :20:äö===hallo===\r\n\
-//!         :25:DABADKKK/111111-11111111\r\n\
-//!         :28C:00001/001\r\n\
-//!         :60F:C090924EUR54484,04\r\n\
-//!         :61:0909250925DR583,92NMSC1110030403010139//1234\r\n\
-//!         :86:ääääää«»«»«ëáßðæ©®bñéë«óüë«ó»µ©b©äé\r\n\
-//!         :61:0910010930DR62,60NCHGcustomer id//bank id\r\n\
-//!         :86:äääääää¤¤¤¤¤¤¤¤¤€€€€€€€€€€€€€€€³¹²³\r\n\
-//!         :62F:C090930EUR53126,94\r\n\
-//!         :64:C090930EUR53189,31\r\n\
-//!         \r\n";
+//! let input = "\
+//!     :20:äö===hallo===\r\n\
+//!     :25:DABADKKK/111111-11111111\r\n\
+//!     :28C:00001/001\r\n\
+//!     :60F:C090924EUR54484,04\r\n\
+//!     :61:0909250925DR583,92NMSC1110030403010139//1234\r\n\
+//!     :86:ääääää«»«»«ëáßðæ©®bñéë«óüë«ó»µ©b©äé\r\n\
+//!     :61:0910010930DR62,60NCHGcustomer id//bank id\r\n\
+//!     :86:äääääää¤¤¤¤¤¤¤¤¤€€€€€€€€€€€€€€€³¹²³\r\n\
+//!     :62F:C090930EUR53126,94\r\n\
+//!     :64:C090930EUR53189,31\r\n\
+//!     \r\n";
 //!
-//!     let sanitized_input = to_swift_charset(input);
-//!     let input_parsed = parse_mt940(&sanitized_input).unwrap();
-//!     assert_eq!(input_parsed[0].transaction_ref_no, "ao...hallo...");
-//! }
+//! let sanitized_input = to_swift_charset(input);
+//! let input_parsed = parse_mt940(&sanitized_input).unwrap();
+//! assert_eq!(input_parsed[0].transaction_ref_no, "ao...hallo...");
 //! ```
 
 mod errors;
