@@ -133,6 +133,49 @@ pub fn strip_stuff_between_messages(s: &str) -> String {
         .collect()
 }
 
+/// Remove excess lines on tag 86 statements beyond the 6 allowed.
+///
+/// Note that you potentionally lose information with this sanitizer
+pub fn strip_excess_tag86_lines(input: &str) -> String {
+    let mut lines_to_delete = vec![];
+
+    let tag_86_lines = input.lines().enumerate().filter_map(|(line, contents)| {
+        if contents.starts_with(":86") {
+            Some(line)
+        } else {
+            None
+        }
+    });
+
+    for line_no in tag_86_lines {
+        let lines = input.lines().skip(line_no + 1);
+
+        // find all lines excess of the 5 allowed additional lines
+        let to_delete = lines
+            .enumerate()
+            .take_while(|(_, contents)| !contents.starts_with(':'))
+            .filter_map(move |(line, _)| {
+                if line >= 5 {
+                    Some(line + line_no + 1)
+                } else {
+                    None
+                }
+            });
+
+        lines_to_delete.extend(to_delete);
+    }
+
+    let filtered_lines = input.lines().enumerate().filter_map(|(line, contents)| {
+        if !lines_to_delete.contains(&line) {
+            Some(format!("{}\r\n", contents))
+        } else {
+            None
+        }
+    });
+
+    filtered_lines.collect()
+}
+
 #[cfg(test)]
 mod tests {
     use pretty_assertions::assert_eq;
@@ -236,6 +279,34 @@ mod tests {
                         --\r\n\
                         ";
         let result = strip_stuff_between_messages(input);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn excess_tag86_are_stripped() {
+        let input = "\
+            :20:vvvvv\r\n\
+            :86:hello\r\n\
+            multi line string\r\n\
+            here is ok\r\n\
+            but not when\r\n\
+            it is way too many\r\n\
+            lines\r\n\
+            in fact i should be here\r\n\
+            and i shouldnt either\r\n\
+            :62F:C123EUR321,98\r\n\
+        ";
+        let expected = "\
+            :20:vvvvv\r\n\
+            :86:hello\r\n\
+            multi line string\r\n\
+            here is ok\r\n\
+            but not when\r\n\
+            it is way too many\r\n\
+            lines\r\n\
+            :62F:C123EUR321,98\r\n\
+        ";
+        let result = strip_excess_tag86_lines(input);
         assert_eq!(result, expected);
     }
 }
