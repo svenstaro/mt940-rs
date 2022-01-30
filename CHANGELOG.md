@@ -1,8 +1,12 @@
 # Changelog
 
+## 1.0.0
+
+* Fixed parsing failure when a tag-like string exists in the value of a tag 86 (#51).
+
 ## 0.3.2 - 2019-09-24
 
-* Added tag 28 (thanks @twistedfall in #17)
+* Added tag 28 (thanks @twistedfall in #17).
 
 ## 0.3.1 - 2018-12-03
 
