@@ -616,9 +616,6 @@ mod tests {
     proptest! {
         #[test]
         fn dont_crash(tag in "[[:alnum:]]+", value in r"[0-9A-Za-z/\-\?:\(\)\.,‘\+\{\} ]+") {
-            let re_tag_like = Regex::new(":.*:").unwrap();
-            prop_assume!(!re_tag_like.is_match(&value), "Can't have a value that looks like a tag");
-
             // I know this is pretty arbitrary but I think it's a reasonable assumption to make.
             // I don't think banks encode information in leading or trailing whitespace considering
             // these formats are made for print.

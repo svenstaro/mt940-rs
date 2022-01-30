@@ -10,7 +10,7 @@ use mt940::{
     parse_mt940, DateParseError, Message, ParseError, RequiredTagNotFoundError, UnexpectedTagError,
 };
 
-/// Parse a bunch of MT940 statements that should just work.
+/// Parse a bunch of MT940 statements that should just work even without sanitation.
 #[rstest(
     statement_path,
     case("danskebank/MT940_DK_Example.sta"),
@@ -46,7 +46,8 @@ fn parse_mt940_statement_success(statement_path: &str) {
     case("mBank/mt940.sta"),
     case("mBank/with_newline_in_tnr.sta"),
     case("sparkasse/buxtehude.sta"),
-    case("abnamro/mt940.sta")
+    case("abnamro/mt940.sta"),
+    case("bugs/issue-51.sta")
 )]
 fn parse_mt940_statement_success_with_sanitation(statement_path: &str) {
     let full_path = PathBuf::from(format!("tests/data/mt940/full/{}", statement_path));
@@ -75,7 +76,7 @@ fn parse_mt940_statement_fail(statement_path: &str) {
 
 #[test]
 fn fail_no_tag_20() {
-    let input_data = "http://i.4cdn.org/wsg/1543777162262.webm";
+    let input_data = "http://example.com";
     let parsed = parse_mt940(&input_data);
     let expected = RequiredTagNotFoundError::new("20");
     if let Err(ParseError::RequiredTagNotFoundError(e)) = parsed {

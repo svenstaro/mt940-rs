@@ -1,19 +1,24 @@
-tag_no = { ASCII_ALPHANUMERIC+ }
-tag = { ":" ~ tag_no ~ ":" }
-// From: http://www.sepaforcorporates.com/swift-for-corporates/quick-guide-swift-mt101-format/
+// General data type defintions
 swift_char = _{ ASCII_ALPHANUMERIC | "/" | "-" | "?" | ":" | "(" | ")" | "." | "," | "‘" | "+" | "{" | "}" | " " | NEWLINE }
 swift_chars = { SOI ~ swift_char+ ~ EOI }
 amount_char = _{ ASCII_DIGIT | "," }
-field_value = { (!tag ~ swift_char)+ }
-field = { tag ~ field_value }
-fields = _{ SOI ~ (field | swift_char)+ ~ EOI }
 
+// SWIFT date formats
 year = { ASCII_DIGIT{2} }
 month = { '0'..'1' ~ '0'..'9' }
 day = { '0'..'3' ~ ASCII_DIGIT }
 date = { year ~ month ~ day }
 short_date = { month ~ day }
 
+// Overall statement-level parsing
+tag_no = { ASCII_ALPHANUMERIC+ }
+tag = { ":" ~ tag_no ~ ":" }
+// From: http://www.sepaforcorporates.com/swift-for-corporates/quick-guide-swift-mt101-format/
+field_value = { (!(NEWLINE ~ tag) ~ swift_char)+ }
+field = { tag ~ field_value }
+fields = _{ SOI ~ (field | swift_char)+ ~ EOI }
+
+// All field-level parsing below
 transaction_ref_no = { swift_char{1, 16} }
 tag_20_field = { SOI ~ transaction_ref_no ~ EOI }
 

@@ -1,0 +1,66 @@
+[
+  {
+    "transaction_ref_no": "STARTUMSE",
+    "ref_to_related_msg": null,
+    "account_id": "20752041/0291593375",
+    "statement_no": "00000",
+    "sequence_no": "001",
+    "opening_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2018-11-26",
+      "iso_currency_code": "EUR",
+      "amount": "13564.13"
+    },
+    "statement_lines": [
+      {
+        "value_date": "2018-11-27",
+        "entry_date": "2018-11-27",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "119.35",
+        "transaction_type_ident_code": "DDT",
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "basically some information here\nlots of information\nthen some"
+      },
+      {
+        "value_date": "2018-11-27",
+        "entry_date": "2018-11-27",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "16.69",
+        "transaction_type_ident_code": "DDT",
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, seda\ndiam nonumy eirmod tempor invidunt ut labore et dolore magna alda\nquyam erat, sed diam voluptua. At vero eos et accusam et justo da\nuo dolores et ea rebum. 20:44:45 clita kasd gubergren, no sea tak\na sanctus est Lorem ipsum dolor sit amet."
+      },
+      {
+        "value_date": "2018-11-27",
+        "entry_date": "2018-11-27",
+        "ext_debit_credit_indicator": "Debit",
+        "funds_code": "R",
+        "amount": "5.00",
+        "transaction_type_ident_code": {
+          "NonStandard": "033"
+        },
+        "customer_ref": "NONREF",
+        "bank_ref": null,
+        "supplementary_details": null,
+        "information_to_account_owner": "a lot of information again\nvery important indeed\nbut totally conformant\nhowever, some umlaute and other stuff for some reason\nwhich the bank didn.t escape"
+      }
+    ],
+    "closing_balance": {
+      "is_intermediate": false,
+      "debit_credit_indicator": "Credit",
+      "date": "2018-11-27",
+      "iso_currency_code": "EUR",
+      "amount": "13523.09"
+    },
+    "closing_available_balance": null,
+    "forward_available_balance": null,
+    "information_to_account_owner": null
+  }
+]
