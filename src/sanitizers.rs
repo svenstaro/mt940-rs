@@ -297,16 +297,45 @@ mod tests {
             in fact i shouldnt be here\r\n\
             and i shouldnt either\r\n\
             :62F:C123EUR321,98\r\n\
+            :20:vvvvv\r\n\
+            :86:hello\r\n\
+            multi line string\r\n\
+            but not many lines\r\n\
+            :62F:C123EUR321,98\r\n\
+            :20:vvvvv\r\n\
+            :86:hi there\r\n\
+            a very multi lined string\r\n\
+            here is ok even with date that looks like a tag 20:86:43\r\n\
+            but not when\r\n\
+            it is way too many\r\n\
+            lines\r\n\
+            in fact i shouldnt be here\r\n\
+            and i shouldnt either\r\n\
+            and i certainly aint supposed to be here as well\r\n\
+            :62F:C321EUR123,98\r\n\
         ";
         let expected = "\
             :20:vvvvv\r\n\
             :86:hello\r\n\
             multi line string\r\n\
-            here is ok\r\n\
+            here is ok even with date that looks like a tag 20:10:43\r\n\
             but not when\r\n\
             it is way too many\r\n\
             lines\r\n\
             :62F:C123EUR321,98\r\n\
+            :20:vvvvv\r\n\
+            :86:hello\r\n\
+            multi line string\r\n\
+            but not many lines\r\n\
+            :62F:C123EUR321,98\r\n\
+            :20:vvvvv\r\n\
+            :86:hi there\r\n\
+            a very multi lined string\r\n\
+            here is ok even with date that looks like a tag 20:86:43\r\n\
+            but not when\r\n\
+            it is way too many\r\n\
+            lines\r\n\
+            :62F:C321EUR123,98\r\n\
         ";
         let result = strip_excess_tag86_lines(input);
         assert_eq!(result, expected);
