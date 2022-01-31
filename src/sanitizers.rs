@@ -10,10 +10,12 @@ use crate::Rule;
 /// Run all sanitizers on the input in a useful order.
 ///
 /// If you don't really care exactly _how_ you're input is sanitized and just want it to work, this
-/// is probably the function to use.
+/// is probably the function to use. Be aware that it's possible that some data could be truncated
+/// in order to make valid statements.
 pub fn sanitize(s: &str) -> String {
     let s1 = to_swift_charset(s);
-    strip_stuff_between_messages(&s1)
+    let s2 = strip_stuff_between_messages(&s1);
+    strip_excess_tag86_lines(&s2)
 }
 
 /// Try to make a given input conform to the SWIFT MT101 allowed charset.
