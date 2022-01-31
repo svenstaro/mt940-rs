@@ -130,9 +130,9 @@ pub fn strip_stuff_between_messages(s: &str) -> String {
     // Do a third pass to actually copy only the wanted lines from the input to the output.
     s.lines()
         .enumerate()
-        .filter(|(i, _)| !lines_to_delete.contains(i))
-        .map(|(_, line)| format!("{}\r\n", line))
-        .collect()
+        .filter_map(|(i, contents)| (!lines_to_delete.contains(&i)).then(|| contents))
+        .collect::<Vec<&str>>()
+        .join("\r\n")
 }
 
 /// Remove excess lines on tag 86 statements beyond the 6 allowed.
@@ -168,15 +168,12 @@ pub fn strip_excess_tag86_lines(input: &str) -> String {
         lines_to_delete.extend(to_delete);
     }
 
-    let filtered_lines = input.lines().enumerate().filter_map(|(line, contents)| {
-        if !lines_to_delete.contains(&line) {
-            Some(format!("{}\r\n", contents))
-        } else {
-            None
-        }
-    });
-
-    filtered_lines.collect()
+    input
+        .lines()
+        .enumerate()
+        .filter_map(|(line, contents)| (!lines_to_delete.contains(&line)).then(|| contents))
+        .collect::<Vec<&str>>()
+        .join("\r\n")
 }
 
 #[cfg(test)]
