@@ -131,6 +131,7 @@ pub fn strip_stuff_between_messages(s: &str) -> String {
     s.lines()
         .enumerate()
         .filter_map(|(i, contents)| (!lines_to_delete.contains(&i)).then(|| contents))
+        .chain(std::iter::once(""))
         .collect::<Vec<&str>>()
         .join("\r\n")
 }
@@ -172,6 +173,7 @@ pub fn strip_excess_tag86_lines(input: &str) -> String {
         .lines()
         .enumerate()
         .filter_map(|(line, contents)| (!lines_to_delete.contains(&line)).then(|| contents))
+        .chain(std::iter::once(""))
         .collect::<Vec<&str>>()
         .join("\r\n")
 }
