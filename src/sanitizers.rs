@@ -135,12 +135,13 @@ pub fn strip_stuff_between_messages(s: &str) -> String {
 
 /// Remove excess lines on tag 86 statements beyond the 6 allowed.
 ///
-/// Note that you potentionally lose information with this sanitizer
+/// Note that you potentially lose information with this sanitizer.
 pub fn strip_excess_tag86_lines(input: &str) -> String {
     let mut lines_to_delete = vec![];
 
+    // Get a list of lines where tag 86 messages start.
     let tag_86_lines = input.lines().enumerate().filter_map(|(line, contents)| {
-        if contents.starts_with(":86") {
+        if contents.starts_with(":86:") {
             Some(line)
         } else {
             None
@@ -150,7 +151,7 @@ pub fn strip_excess_tag86_lines(input: &str) -> String {
     for line_no in tag_86_lines {
         let lines = input.lines().skip(line_no + 1);
 
-        // find all lines excess of the 5 allowed additional lines
+        // Find all lines excess of the 5 allowed additional lines (6 in total counting the skipped line above).
         let to_delete = lines
             .enumerate()
             .take_while(|(_, contents)| !contents.starts_with(':'))
@@ -288,11 +289,11 @@ mod tests {
             :20:vvvvv\r\n\
             :86:hello\r\n\
             multi line string\r\n\
-            here is ok\r\n\
+            here is ok even with date that looks like a tag 20:10:43\r\n\
             but not when\r\n\
             it is way too many\r\n\
             lines\r\n\
-            in fact i should be here\r\n\
+            in fact i shouldnt be here\r\n\
             and i shouldnt either\r\n\
             :62F:C123EUR321,98\r\n\
         ";
