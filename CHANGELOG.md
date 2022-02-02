@@ -1,6 +1,11 @@
 # Changelog
 
-## 1.0.0
+## 1.0.1 - 2022-02-02
+
+* Add `strip_excess_tag86_lines` sanitizer to truncate overlong tag 86 messages
+    [#52](https://github.com/svenstaro/mt940-rs/pull/52) (thanks @markus-k)
+
+## 1.0.0 - 2022-01-30
 
 * Fixed parsing failure when a tag-like string exists in the value of a tag 86 (#51).
 
