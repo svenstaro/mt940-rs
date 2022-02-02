@@ -10,10 +10,12 @@ use crate::Rule;
 /// Run all sanitizers on the input in a useful order.
 ///
 /// If you don't really care exactly _how_ you're input is sanitized and just want it to work, this
-/// is probably the function to use.
+/// is probably the function to use. Be aware that it's possible that some data could be truncated
+/// in order to make valid statements.
 pub fn sanitize(s: &str) -> String {
     let s1 = to_swift_charset(s);
-    strip_stuff_between_messages(&s1)
+    let s2 = strip_stuff_between_messages(&s1);
+    strip_excess_tag86_lines(&s2)
 }
 
 /// Try to make a given input conform to the SWIFT MT101 allowed charset.
@@ -128,9 +130,52 @@ pub fn strip_stuff_between_messages(s: &str) -> String {
     // Do a third pass to actually copy only the wanted lines from the input to the output.
     s.lines()
         .enumerate()
-        .filter(|(i, _)| !lines_to_delete.contains(i))
-        .map(|(_, line)| format!("{}\r\n", line))
-        .collect()
+        .filter_map(|(i, contents)| (!lines_to_delete.contains(&i)).then(|| contents))
+        .chain(std::iter::once(""))
+        .collect::<Vec<&str>>()
+        .join("\r\n")
+}
+
+/// Remove excess lines on tag 86 statements beyond the 6 allowed.
+///
+/// Note that you potentially lose information with this sanitizer.
+pub fn strip_excess_tag86_lines(input: &str) -> String {
+    let mut lines_to_delete = vec![];
+
+    // Get a list of lines where tag 86 messages start.
+    let tag_86_lines = input.lines().enumerate().filter_map(|(line, contents)| {
+        if contents.starts_with(":86:") {
+            Some(line)
+        } else {
+            None
+        }
+    });
+
+    for line_no in tag_86_lines {
+        let lines = input.lines().skip(line_no + 1);
+
+        // Find all lines excess of the 5 allowed additional lines (6 in total counting the skipped line above).
+        let to_delete = lines
+            .enumerate()
+            .take_while(|(_, contents)| !contents.starts_with(':'))
+            .filter_map(move |(line, _)| {
+                if line >= 5 {
+                    Some(line + line_no + 1)
+                } else {
+                    None
+                }
+            });
+
+        lines_to_delete.extend(to_delete);
+    }
+
+    input
+        .lines()
+        .enumerate()
+        .filter_map(|(line, contents)| (!lines_to_delete.contains(&line)).then(|| contents))
+        .chain(std::iter::once(""))
+        .collect::<Vec<&str>>()
+        .join("\r\n")
 }
 
 #[cfg(test)]
@@ -236,6 +281,63 @@ mod tests {
                         --\r\n\
                         ";
         let result = strip_stuff_between_messages(input);
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn excess_tag86_are_stripped() {
+        let input = "\
+            :20:vvvvv\r\n\
+            :86:hello\r\n\
+            multi line string\r\n\
+            here is ok even with date that looks like a tag 20:10:43\r\n\
+            but not when\r\n\
+            it is way too many\r\n\
+            lines\r\n\
+            in fact i shouldnt be here\r\n\
+            and i shouldnt either\r\n\
+            :62F:C123EUR321,98\r\n\
+            :20:vvvvv\r\n\
+            :86:hello\r\n\
+            multi line string\r\n\
+            but not many lines\r\n\
+            :62F:C123EUR321,98\r\n\
+            :20:vvvvv\r\n\
+            :86:hi there\r\n\
+            a very multi lined string\r\n\
+            here is ok even with date that looks like a tag 20:86:43\r\n\
+            but not when\r\n\
+            it is way too many\r\n\
+            lines\r\n\
+            in fact i shouldnt be here\r\n\
+            and i shouldnt either\r\n\
+            and i certainly aint supposed to be here as well\r\n\
+            :62F:C321EUR123,98\r\n\
+        ";
+        let expected = "\
+            :20:vvvvv\r\n\
+            :86:hello\r\n\
+            multi line string\r\n\
+            here is ok even with date that looks like a tag 20:10:43\r\n\
+            but not when\r\n\
+            it is way too many\r\n\
+            lines\r\n\
+            :62F:C123EUR321,98\r\n\
+            :20:vvvvv\r\n\
+            :86:hello\r\n\
+            multi line string\r\n\
+            but not many lines\r\n\
+            :62F:C123EUR321,98\r\n\
+            :20:vvvvv\r\n\
+            :86:hi there\r\n\
+            a very multi lined string\r\n\
+            here is ok even with date that looks like a tag 20:86:43\r\n\
+            but not when\r\n\
+            it is way too many\r\n\
+            lines\r\n\
+            :62F:C321EUR123,98\r\n\
+        ";
+        let result = strip_excess_tag86_lines(input);
         assert_eq!(result, expected);
     }
 }
