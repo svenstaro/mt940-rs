@@ -19,7 +19,7 @@ lto = true
 codegen-units = 1
 
 [dependencies]
-clap = { version = "3.0.0", features = ["derive", "wrap_help"] }
+clap = { version = "4.0.8", features = ["derive", "wrap_help"] }
 chrono = { version = "0.4", features = ["serde"] }
 deunicode = "1.0"
 rust_decimal = { version = "1.0", features = ["serde"] }
