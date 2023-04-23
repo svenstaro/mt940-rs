@@ -126,11 +126,14 @@ pub fn parse_61_tag(field: &Field) -> Result<StatementLine, ParseError> {
                 // which would then result in this the entry date ending up as
                 // 2018-01-01 even though it should be 2019-01-01. I'll not be too
                 // smart about this for now but I'll keep an eye on this.
-                short_date = Some(NaiveDate::from_ymd(
-                    date.unwrap().year(),
-                    month.unwrap().parse().unwrap(),
-                    day.unwrap().parse().unwrap(),
-                ));
+                short_date = Some(
+                    NaiveDate::from_ymd_opt(
+                        date.unwrap().year(),
+                        month.unwrap().parse().unwrap(),
+                        day.unwrap().parse().unwrap(),
+                    )
+                    .unwrap(),
+                );
             }
             Rule::ext_debit_credit_indicator => {
                 ext_debit_credit_indicator = Some(ExtDebitOrCredit::from_str(pair.as_str())?);
@@ -395,7 +398,7 @@ mod tests {
         let expected = Balance {
             is_intermediate: false,
             debit_credit_indicator: DebitOrCredit::Credit,
-            date: NaiveDate::from_ymd(2010, 3, 18),
+            date: NaiveDate::from_ymd_opt(2010, 3, 18).unwrap(),
             iso_currency_code: "EUR".into(),
             amount: Decimal::from_str(expected_decimal).unwrap(),
         };

@@ -35,7 +35,7 @@ strum_macros = "0.24"
 
 [dev-dependencies]
 pretty_assertions = "1.0"
-rstest = "0.15"
+rstest = "0.17"
 doc-comment = "0.3"
 proptest = "1.0.0"
 regex = "1"
