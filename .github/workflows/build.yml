@@ -4,42 +4,21 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: Build ${{ matrix.rust }} on ${{ matrix.os }} (${{ matrix.target }})
+    name: Build ${{ matrix.target }} ${{ matrix.rust }} (on ${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         rust: [stable, nightly]
-        target: [wasm32-unknown-unknown, native]
-        exclude:
-          - os: windows-latest
-            target: wasm32-unknown-unknown
-            rust: stable
-          - os: windows-latest
-            target: wasm32-unknown-unknown
-            rust: nightly
-          - os: macos-latest
-            target: wasm32-unknown-unknown
-            rust: stable
-          - os: macos-latest
-            target: wasm32-unknown-unknown
-            rust: nightly
 
     steps:
-    - uses: hecrj/setup-rust-action@master
-      with:
-        rust-version: ${{ matrix.rust }}
-        targets: "wasm32-unknown-unknown"
-    - uses: actions/checkout@v1
-    - run: cargo install cargo-tarpaulin
-      if: matrix.os == 'ubuntu-latest' && matrix.rust == 'nightly' && matrix.target == 'native'
-    - run: cargo build --target wasm32-unknown-unknown --all
-      if: matrix.target == 'wasm32-unknown-unknown'
-    - run: cargo build --all
-      if: matrix.target != 'wasm32-unknown-unknown'
-    - run: cargo test --all
-      if: matrix.target != 'wasm32-unknown-unknown'
-    - run: |
-        cargo tarpaulin --out Xml
-        bash <(curl -s https://codecov.io/bash)
-      if: matrix.os == 'ubuntu-latest' && matrix.rust == 'nightly' && matrix.target == 'native'
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - uses: actions/checkout@v3
+      - run: cargo install cargo-tarpaulin
+      - run: cargo build --all
+      - run: cargo test --all
+      - run: |
+          cargo tarpaulin --out Xml
+          bash <(curl -s https://codecov.io/bash)
+        if: matrix.os == 'ubuntu-latest' && matrix.rust == 'nightly' && matrix.target == 'native'
