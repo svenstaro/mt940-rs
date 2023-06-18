@@ -9,6 +9,7 @@ readme = "README.md"
 keywords = ["mt940", "sepa", "banking", "fints", "hbci"]
 categories = ["parser-implementations", "command-line-utilities", "command-line-interface"]
 edition = "2018"
+resolver = "2"
 
 [profile.release]
 lto = true
