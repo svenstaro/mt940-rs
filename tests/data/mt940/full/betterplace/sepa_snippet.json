@@ -23,7 +23,16 @@
         "customer_ref": "NONREF",
         "bank_ref": "0724710333343453",
         "supplementary_details": null,
-        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+EndToEndId TFNR 22 004?21 00001?22\nSVWZ+Verw CTSc-01 BC-PPP TF?23Nr 22 004?30DRESDEFF508?31DE1450880\n0500194785000?32KARL?33        KAUFMANN?70Empfaenger Marta Metzge\nr"
+        "information_to_account_owner": {
+          "transaction_code": "166",
+          "posting_text": "GUTSCHRIFT",
+          "prima_nota": "0399",
+          "purpose": "EREF+EndToEndId TFNR 22 004 00001SVWZ+Verw CTSc-01 BC-PPP TFNr 22 004",
+          "applicant_bin": "DRESDEFF508",
+          "applicant_iban": "DE14508800500194785000",
+          "applicant_name": "KARL        KAUFMANN",
+          "unknown70": "Empfaenger Marta Metzger"
+        }
       },
       {
         "value_date": "2007-09-07",
@@ -35,7 +44,16 @@
         "customer_ref": "NONREF",
         "bank_ref": "0724710324647450",
         "supplementary_details": null,
-        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+TFNR 0300300004?21SVWZ+Strukturier\nter Verwend?22ungszweck 30030004 DE?30DRESDEFF508?31DE03508800500\n194791600?32Quentin Quast?70Empfaenger bei DRESDE mit 7?710 Zeich\nen Empfaenger bei DR"
+        "information_to_account_owner": {
+          "transaction_code": "166",
+          "posting_text": "GUTSCHRIFT",
+          "prima_nota": "0399",
+          "purpose": "EREF+TFNR 0300300004SVWZ+Strukturierter Verwendungszweck 30030004 DE",
+          "applicant_bin": "DRESDEFF508",
+          "applicant_iban": "DE03508800500194791600",
+          "applicant_name": "Quentin Quast",
+          "unknown70": "Empfaenger bei DRESDE mit 70 Zeichen Empfaenger bei DR"
+        }
       },
       {
         "value_date": "2007-09-07",
@@ -47,7 +65,16 @@
         "customer_ref": "NONREF",
         "bank_ref": "0724710324661090",
         "supplementary_details": null,
-        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+TFNR 0500500004?21SVWZ+Strukturier\nter Verwend?22ungszweck 50050004 DE?30DRESDEFF508?31DE14508800500\n194785000?32Karl Kaufmann?70Empfaenger bei DRESDE"
+        "information_to_account_owner": {
+          "transaction_code": "166",
+          "posting_text": "GUTSCHRIFT",
+          "prima_nota": "0399",
+          "purpose": "EREF+TFNR 0500500004SVWZ+Strukturierter Verwendungszweck 50050004 DE",
+          "applicant_bin": "DRESDEFF508",
+          "applicant_iban": "DE14508800500194785000",
+          "applicant_name": "Karl Kaufmann",
+          "unknown70": "Empfaenger bei DRESDE"
+        }
       },
       {
         "value_date": "2007-09-04",
@@ -59,7 +86,12 @@
         "customer_ref": "KREF+",
         "bank_ref": "536D80EFEC56ACF8",
         "supplementary_details": null,
-        "information_to_account_owner": "191?00SEPA-UEBERW?100399?20KREF+TFNr 01022 MSGID CTSc-?2101 EBB?2\n2MTLG:SEPA-Ueberweisungsauft?23rag Datei mit 0000001 Zahlu?24ngen"
+        "information_to_account_owner": {
+          "transaction_code": "191",
+          "posting_text": "SEPA-UEBERW",
+          "prima_nota": "0399",
+          "purpose": "KREF+TFNr 01022 MSGID CTSc-01 EBBMTLG:SEPA-Ueberweisungsauftrag Datei mit 0000001 Zahlungen"
+        }
       }
     ],
     "closing_balance": {
@@ -102,7 +134,13 @@
         "customer_ref": "TFNr 40001 MSGID",
         "bank_ref": "0724710345316116",
         "supplementary_details": null,
-        "information_to_account_owner": "159?00RETOURE?100399?20EREF+TFNR 40001 00005?21MTLG:Grund nicht s\npezifizie?22rt Reject aus SEPA-Ueberwei?23sungsauftrag?34914"
+        "information_to_account_owner": {
+          "transaction_code": "159",
+          "posting_text": "RETOURE",
+          "prima_nota": "0399",
+          "purpose": "EREF+TFNR 40001 00005MTLG:Grund nicht spezifiziert Reject aus SEPA-Ueberweisungsauftrag",
+          "return_debit_notes": "914"
+        }
       },
       {
         "value_date": "2007-09-04",
@@ -114,7 +152,13 @@
         "customer_ref": "TFNr 44001 MSGID",
         "bank_ref": "0724710351063401",
         "supplementary_details": null,
-        "information_to_account_owner": "159?00RETOURE?100399?20EREF+TFNR 44001 00001?21MTLG:Grund nicht s\npezifizie?22rt Reject aus SEPA-Ueberwei?23sungsauftrag?34914"
+        "information_to_account_owner": {
+          "transaction_code": "159",
+          "posting_text": "RETOURE",
+          "prima_nota": "0399",
+          "purpose": "EREF+TFNR 44001 00001MTLG:Grund nicht spezifiziert Reject aus SEPA-Ueberweisungsauftrag",
+          "return_debit_notes": "914"
+        }
       },
       {
         "value_date": "2007-09-04",
@@ -126,7 +170,13 @@
         "customer_ref": "TFNr 40001 MSGID",
         "bank_ref": "0724710345316110",
         "supplementary_details": null,
-        "information_to_account_owner": "159?00RETOURE?100399?20EREF+TFNR 40001 00002?21MTLG:Grund nicht s\npezifizie?22rt Reject aus SEPA-Ueberwei?23sungsauftrag?34914"
+        "information_to_account_owner": {
+          "transaction_code": "159",
+          "posting_text": "RETOURE",
+          "prima_nota": "0399",
+          "purpose": "EREF+TFNR 40001 00002MTLG:Grund nicht spezifiziert Reject aus SEPA-Ueberweisungsauftrag",
+          "return_debit_notes": "914"
+        }
       },
       {
         "value_date": "2007-09-04",
@@ -138,7 +188,16 @@
         "customer_ref": "NONREF",
         "bank_ref": "0724710290659857",
         "supplementary_details": null,
-        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20EREF+EndToEndIdTFNR20001000?2101?22SVWZ\n+TO 13 TFNr 20001 Einga?23ngskanal Mint Unstrukturier?24ter Verwe\nndungszweck 140 Ze?25ichen Beginn Fuellzeichen x?26xxxxxxxxxxxxxx\nxxxxxxxxxxxxx?27xxxxxxxxxx?30PBNKDEFF100?31DE42100100100043921105\n?32Richter Renate 70 Zeichen B?33eginn Fuellzeichen xxxxxxxx?70Qu\nentin Quast 70 Zeichen Be?71ginn Fuellzeichen xxxxxxxxx"
+        "information_to_account_owner": {
+          "transaction_code": "166",
+          "posting_text": "GUTSCHRIFT",
+          "prima_nota": "0399",
+          "purpose": "EREF+EndToEndIdTFNR2000100001SVWZ+TO 13 TFNr 20001 Eingangskanal Mint Unstrukturierter Verwendungszweck 140 Zeichen Beginn Fuellzeichen xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "applicant_bin": "PBNKDEFF100",
+          "applicant_iban": "DE42100100100043921105",
+          "applicant_name": "Richter Renate 70 Zeichen Beginn Fuellzeichen xxxxxxxx",
+          "unknown70": "Quentin Quast 70 Zeichen Beginn Fuellzeichen xxxxxxxxx"
+        }
       },
       {
         "value_date": "2007-09-04",
@@ -150,7 +209,16 @@
         "customer_ref": "NONREF",
         "bank_ref": "0724710290624796",
         "supplementary_details": null,
-        "information_to_account_owner": "166?00GUTSCHRIFT?100399?20SVWZ+TO13 TF20005 MINT?30PBNKDEFF100?31\nDE42100100100043921105?32Richter Renate 70 Zeichen B?33eginn Fuel\nlzeichen xxxxxxxx?70Quentin Quast 70 Zeichen Be?71ginn Fuellzeich\nen xxxxxxxxx"
+        "information_to_account_owner": {
+          "transaction_code": "166",
+          "posting_text": "GUTSCHRIFT",
+          "prima_nota": "0399",
+          "purpose": "SVWZ+TO13 TF20005 MINT",
+          "applicant_bin": "PBNKDEFF100",
+          "applicant_iban": "DE42100100100043921105",
+          "applicant_name": "Richter Renate 70 Zeichen Beginn Fuellzeichen xxxxxxxx",
+          "unknown70": "Quentin Quast 70 Zeichen Beginn Fuellzeichen xxxxxxxxx"
+        }
       },
       {
         "value_date": "2007-09-04",
@@ -162,7 +230,13 @@
         "customer_ref": "TFNr 44001 MSGID",
         "bank_ref": "R724710351063405",
         "supplementary_details": null,
-        "information_to_account_owner": "159?00RETOURE?100399?20EREF+TFNR 44001 00002?21MTLG:IBAN unguelti\ng Rueckue?22berweisung aus SEPA-Ueberwe?23isungsauftrag?34901"
+        "information_to_account_owner": {
+          "transaction_code": "159",
+          "posting_text": "RETOURE",
+          "prima_nota": "0399",
+          "purpose": "EREF+TFNR 44001 00002MTLG:IBAN ungueltig Rueckueberweisung aus SEPA-Ueberweisungsauftrag",
+          "return_debit_notes": "901"
+        }
       },
       {
         "value_date": "2007-09-04",
@@ -174,7 +248,12 @@
         "customer_ref": "NONREF",
         "bank_ref": null,
         "supplementary_details": null,
-        "information_to_account_owner": "079?00SAMMLER?109800?200904059001"
+        "information_to_account_owner": {
+          "transaction_code": "079",
+          "posting_text": "SAMMLER",
+          "prima_nota": "9800",
+          "purpose": "0904059001"
+        }
       }
     ],
     "closing_balance": {

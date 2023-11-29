@@ -133,7 +133,7 @@ pub struct Message {
     ///
     /// A tag `:86:` not preceeded by a tag `:61` will provide information for the whole
     /// [`Message`] as opposed to just the `StatementLine`.
-    pub information_to_account_owner: Option<String>,
+    pub information_to_account_owner: Option<InformationToAccountOwner>,
 }
 
 /// A `StatementLine` holds information contained in tag `:61:` and tag `:86:`.
@@ -149,7 +149,7 @@ pub struct StatementLine {
     pub bank_ref: Option<String>,
     pub supplementary_details: Option<String>,
     /// This information is contained in tag `:86:`
-    pub information_to_account_owner: Option<String>,
+    pub information_to_account_owner: Option<InformationToAccountOwner>,
 }
 
 /// Represents a balance of an account in between statements or at the start of a statement.
@@ -174,6 +174,42 @@ pub struct AvailableBalance {
     pub date: NaiveDate,
     pub iso_currency_code: String,
     pub amount: Decimal,
+}
+
+/// Information to account owner can sometimes contain it's own structured data.
+/// It's difficult to find documentation for it, so the implementation should aim to be mostly
+/// consistent, while never dropping information from the field
+#[derive(Debug, Eq, PartialEq, Serialize, Deserialize, Clone)]
+#[serde(untagged)]
+pub enum InformationToAccountOwner {
+    Plain(String),
+    Structured {
+        transaction_code: String,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        posting_text: Option<String>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        prima_nota: Option<String>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        unknown11: Option<String>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        purpose: Option<String>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        applicant_bin: Option<String>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        applicant_iban: Option<String>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        applicant_name: Option<String>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        return_debit_notes: Option<String>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        recipient_name: Option<String>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        unknown38: Option<String>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        additional_purpose: Option<String>,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        unknown70: Option<String>,
+    },
 }
 
 /// Indiciates whether a transaction was `Debit` or `Credit`.
@@ -248,7 +284,7 @@ impl Message {
         let mut closing_balance = None;
         let mut closing_available_balance = None;
         let mut forward_available_balance = None;
-        let mut information_to_account_owner: Option<String> = None;
+        let mut information_to_account_owner: Option<InformationToAccountOwner> = None;
 
         let mut last_tag = String::default();
 
@@ -310,18 +346,47 @@ impl Message {
                     match last_tag.as_str() {
                         "61" | "86" => {
                             if let Some(sl) = statement_lines.last_mut() {
-                                if let Some(ref mut info) = sl.information_to_account_owner {
-                                    info.push_str(&info_to_account_owner);
-                                } else {
-                                    sl.information_to_account_owner = Some(info_to_account_owner);
+                                match (&mut sl.information_to_account_owner, info_to_account_owner)
+                                {
+                                    (None, info) => {
+                                        sl.information_to_account_owner = Some(info);
+                                    }
+                                    (
+                                        Some(InformationToAccountOwner::Plain(sl_info)),
+                                        InformationToAccountOwner::Plain(info),
+                                    ) => {
+                                        sl_info.push_str(&info);
+                                    }
+                                    (
+                                        Some(InformationToAccountOwner::Plain(_)),
+                                        structured @ InformationToAccountOwner::Structured {
+                                            ..
+                                        },
+                                    ) => {
+                                        sl.information_to_account_owner = Some(structured);
+                                    }
+                                    _ => {}
                                 }
                             }
                         }
                         "62M" | "62F" | "64" | "65" => {
-                            if let Some(ref mut info) = information_to_account_owner {
-                                info.push_str(&info_to_account_owner);
-                            } else {
-                                information_to_account_owner = Some(info_to_account_owner);
+                            match (&mut information_to_account_owner, info_to_account_owner) {
+                                (None, info) => {
+                                    information_to_account_owner = Some(info);
+                                }
+                                (
+                                    Some(InformationToAccountOwner::Plain(ref mut current_info)),
+                                    InformationToAccountOwner::Plain(info),
+                                ) => {
+                                    current_info.push_str(&info);
+                                }
+                                (
+                                    Some(InformationToAccountOwner::Plain(_)),
+                                    structured @ InformationToAccountOwner::Structured { .. },
+                                ) => {
+                                    information_to_account_owner = Some(structured);
+                                }
+                                _ => {}
                             }
                         }
                         _ => (),
@@ -476,7 +541,8 @@ pub fn parse_fields(statement: &str) -> Result<Vec<Field>, Box<pest::error::Erro
 /// # use rust_decimal::Decimal;
 /// # use std::str::FromStr;
 /// # use mt940::{Message, AvailableBalance, Balance, StatementLine};
-/// # use mt940::{DebitOrCredit, ExtDebitOrCredit, TransactionTypeIdentificationCode};
+/// # use mt940::{DebitOrCredit, ExtDebitOrCredit, TransactionTypeIdentificationCode,
+/// InformationToAccountOwner};
 /// use mt940::parse_mt940;
 ///
 /// let input = "\
@@ -519,7 +585,7 @@ pub fn parse_fields(statement: &str) -> Result<Vec<Field>, Box<pest::error::Erro
 ///             bank_ref: Some("1234".to_string()),
 ///             supplementary_details: None,
 ///             information_to_account_owner: Some(
-///                 "11100304030101391234\nBeneficiary name\nSomething else".to_string(),
+///                 InformationToAccountOwner::Plain("11100304030101391234\nBeneficiary name\nSomething else".to_string()),
 ///             ),
 ///         },
 ///         StatementLine {
@@ -532,7 +598,7 @@ pub fn parse_fields(statement: &str) -> Result<Vec<Field>, Box<pest::error::Erro
 ///             customer_ref: "customer id".to_string(),
 ///             bank_ref: Some("bank id".to_string()),
 ///             supplementary_details: None,
-///             information_to_account_owner: Some("Fees according to advice".to_string()),
+///             information_to_account_owner: Some(InformationToAccountOwner::Plain("Fees according to advice".to_string())),
 ///         },
 ///     ],
 ///     closing_balance: Balance {

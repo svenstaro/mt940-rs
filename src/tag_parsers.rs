@@ -8,8 +8,8 @@ use crate::utils::{date_from_mt940_date, decimal_from_mt940_amount};
 use crate::MT940Parser;
 use crate::Rule;
 use crate::{
-    AvailableBalance, Balance, DebitOrCredit, ExtDebitOrCredit, Field, ParseError, StatementLine,
-    TransactionTypeIdentificationCode,
+    AvailableBalance, Balance, DebitOrCredit, ExtDebitOrCredit, Field, InformationToAccountOwner,
+    ParseError, StatementLine, TransactionTypeIdentificationCode,
 };
 
 pub fn parse_20_tag(field: &Field) -> Result<String, ParseError> {
@@ -190,13 +190,90 @@ pub fn parse_61_tag(field: &Field) -> Result<StatementLine, ParseError> {
     Ok(statement_line)
 }
 
-pub fn parse_86_tag(field: &Field) -> Result<String, ParseError> {
+pub fn parse_86_tag(field: &Field) -> Result<InformationToAccountOwner, ParseError> {
     if field.tag != "86" {
         return Err(RequiredTagNotFoundError::new("86").into());
     }
-    let parsed_field = MT940Parser::parse(Rule::tag_86_field, &field.value);
-    let information_to_account_owner = parsed_field?.as_str().to_string();
-    Ok(information_to_account_owner)
+    let raw_field = MT940Parser::parse(Rule::tag_86_field, &field.value)?
+        .as_str()
+        .to_string();
+    match MT940Parser::parse(
+        Rule::information_to_account_owner,
+        &raw_field.replace("\n", ""),
+    ) {
+        Err(_) => Ok(InformationToAccountOwner::Plain(raw_field)),
+        Ok(mut parsed_field) => {
+            let mut inner = parsed_field.next().unwrap().into_inner();
+            let transaction_code = inner
+                .next()
+                .expect("information_to_account_owner must start with transaction_code")
+                .as_str()
+                .to_string();
+            let mut structured = InformationToAccountOwner::Structured {
+                transaction_code,
+                posting_text: None,
+                prima_nota: None,
+                unknown11: None,
+                purpose: None,
+                applicant_bin: None,
+                applicant_iban: None,
+                applicant_name: None,
+                return_debit_notes: None,
+                recipient_name: None,
+                unknown38: None,
+                additional_purpose: None,
+                unknown70: None,
+            };
+            if let InformationToAccountOwner::Structured {
+                ref mut posting_text,
+                ref mut prima_nota,
+                ref mut unknown11,
+                ref mut purpose,
+                ref mut applicant_bin,
+                ref mut applicant_iban,
+                ref mut applicant_name,
+                ref mut return_debit_notes,
+                ref mut recipient_name,
+                ref mut unknown38,
+                ref mut additional_purpose,
+                ref mut unknown70,
+                ..
+            } = structured
+            {
+                for sf in inner {
+                    let mut sf_inner = sf.into_inner();
+                    let tag = sf_inner.next().unwrap().as_str();
+                    let value = sf_inner.next().unwrap().as_str().to_string();
+                    match tag {
+                        "00" => *posting_text = Some(value),
+                        "10" => *prima_nota = Some(value),
+                        "11" => unknown11.get_or_insert_with(String::new).push_str(&value),
+                        "20" | "21" | "22" | "23" | "24" | "25" | "26" | "27" | "28" | "29" => {
+                            purpose.get_or_insert_with(String::new).push_str(&value)
+                        }
+                        "30" => *applicant_bin = Some(value),
+                        "31" => *applicant_iban = Some(value),
+                        "32" | "33" => applicant_name
+                            .get_or_insert_with(String::new)
+                            .push_str(&value),
+                        "34" => *return_debit_notes = Some(value),
+                        "35" => *recipient_name = Some(value),
+                        "38" => unknown38.get_or_insert_with(String::new).push_str(&value),
+                        "60" | "61" | "62" => additional_purpose
+                            .get_or_insert_with(String::new)
+                            .push_str(&value),
+                        "70" | "71" | "72" | "73" | "74" | "75" | "76" | "77" | "78" | "79" => {
+                            unknown70.get_or_insert_with(String::new).push_str(&value)
+                        }
+                        tag => {
+                            panic!("Unknown tag {} with value {}", tag, value)
+                        }
+                    }
+                }
+            }
+            Ok(structured)
+        }
+    }
 }
 
 pub fn parse_62_tag(field: &Field) -> Result<Balance, ParseError> {
@@ -585,7 +662,7 @@ mod tests {
             let information_to_account_owner = (0..information_to_account_owner_count)
                 .map(|_| information_to_account_owner_text.to_string())
                 .collect::<Vec<String>>()
-                .join("\n");
+                .join("");
 
             let re_tag_like = Regex::new(":.*:")?;
             prop_assume!(!re_tag_like.is_match(&information_to_account_owner), "Can't have a value that looks like a tag");
@@ -596,7 +673,12 @@ mod tests {
 
             let field = Field::from_str(&format!(":86:{information_to_account_owner}")).unwrap();
             let parsed = parse_86_tag(&field).unwrap();
-            prop_assert_eq!(parsed, information_to_account_owner);
+            match parsed {
+                InformationToAccountOwner::Plain(plain) => {
+                  prop_assert_eq!(plain, information_to_account_owner);
+                }
+                _ => {}
+            }
         }
     }
 }
