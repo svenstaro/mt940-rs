@@ -15,12 +15,12 @@ jobs:
       - name: Setup Rust toolchain
         uses: dtolnay/rust-toolchain@stable
       - uses: actions/checkout@v4
-      - run: cargo install cargo-tarpaulin
       - run: cargo build --all
       - run: cargo fmt --all -- --check
       - run: cargo clippy -- -D warnings
       - run: cargo test --all
       - run: |
+          cargo install cargo-tarpaulin
           cargo tarpaulin --out Xml
           bash <(curl -s https://codecov.io/bash)
         if: matrix.os == 'ubuntu-latest' && matrix.rust == 'nightly' && matrix.target == 'native'
