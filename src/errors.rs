@@ -12,12 +12,12 @@ pub enum DateParseError {
     },
 
     #[error("Pest parsing error: {}", _0)]
-    PestParseError(pest::error::Error<Rule>),
+    PestParseError(Box<pest::error::Error<Rule>>),
 }
 
 impl From<pest::error::Error<Rule>> for DateParseError {
     fn from(err: pest::error::Error<Rule>) -> DateParseError {
-        DateParseError::PestParseError(err)
+        DateParseError::PestParseError(Box::new(err))
     }
 }
 
@@ -43,13 +43,13 @@ pub enum AmountParseError {
 #[derive(Debug, Clone, Eq, PartialEq, Error)]
 pub enum ParseError {
     #[error("Pest parsing error: {}", _0)]
-    PestParseError(pest::error::Error<Rule>),
+    PestParseError(Box<pest::error::Error<Rule>>),
 
     #[error("{}", _0)]
     UnexpectedTagError(UnexpectedTagError),
 
     #[error("{}", _0)]
-    DateParseError(DateParseError),
+    DateParseError(Box<DateParseError>),
 
     #[error("{}", _0)]
     RequiredTagNotFoundError(RequiredTagNotFoundError),
@@ -66,13 +66,19 @@ pub enum ParseError {
 
 impl From<pest::error::Error<Rule>> for ParseError {
     fn from(err: pest::error::Error<Rule>) -> ParseError {
+        ParseError::PestParseError(Box::new(err))
+    }
+}
+
+impl From<Box<pest::error::Error<Rule>>> for ParseError {
+    fn from(err: Box<pest::error::Error<Rule>>) -> ParseError {
         ParseError::PestParseError(err)
     }
 }
 
 impl From<DateParseError> for ParseError {
     fn from(err: DateParseError) -> ParseError {
-        ParseError::DateParseError(err)
+        ParseError::DateParseError(Box::new(err))
     }
 }
 

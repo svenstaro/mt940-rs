@@ -442,7 +442,7 @@ impl FromStr for Field {
 /// let input_parsed = parse_fields(input).unwrap();
 /// assert_eq!(expected, input_parsed);
 /// ```
-pub fn parse_fields(statement: &str) -> Result<Vec<Field>, pest::error::Error<Rule>> {
+pub fn parse_fields(statement: &str) -> Result<Vec<Field>, Box<pest::error::Error<Rule>>> {
     let parsed_fields = MT940Parser::parse(Rule::fields, statement)?;
 
     let mut fields = vec![];

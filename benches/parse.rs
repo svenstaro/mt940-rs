@@ -15,15 +15,13 @@ static SHORT_STATEMENT: &str =
 
 #[bench]
 fn bench_longer_statement_with_sanitize(b: &mut Bencher) {
-    b.iter(||
-        parse_mt940(&sanitize(&LONGER_STATEMENT)).unwrap());
+    b.iter(|| parse_mt940(&sanitize(&LONGER_STATEMENT)).unwrap());
 }
 
 #[bench]
 fn bench_longer_statement_presanitize(b: &mut Bencher) {
     let sanitized = sanitize(&LONGER_STATEMENT);
-    b.iter(||
-        parse_mt940(&sanitized).unwrap());
+    b.iter(|| parse_mt940(&sanitized).unwrap());
 }
 
 #[bench]
