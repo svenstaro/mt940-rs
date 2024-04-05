@@ -90,11 +90,11 @@ fn fail_no_tag_20() {
 fn fail_februrary_30() {
     let input_data = fs::read_to_string("tests/data/mt940/special-cases/february_30.sta").unwrap();
     let parsed = parse_mt940(&input_data);
-    let expected = ParseError::DateParseError(DateParseError::OutOfRange {
+    let expected = ParseError::DateParseError(Box::new(DateParseError::OutOfRange {
         year: "2016".to_string(),
         month: "02".to_string(),
         day: "30".to_string(),
-    });
+    }));
     assert_eq!(parsed, Err(expected));
 }
 
