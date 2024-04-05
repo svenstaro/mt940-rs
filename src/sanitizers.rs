@@ -37,7 +37,13 @@ pub fn to_swift_charset(s: &str) -> String {
                 char_as_string.clone()
             } else {
                 // This is the first attempt to make a non-SWIFT character into an allowed character.
-                let deunicoded = deunicode_char(x).unwrap_or(".").to_string();
+                let deunicoded = if x == 'ä' {
+                    // Due to https://github.com/kornelski/deunicode/issues/15, we'll deunicode 'ä'
+                    // ourselves.
+                    "a".to_string()
+                } else {
+                    deunicode_char(x).unwrap_or(".").to_string()
+                };
                 // Also note that we have to use the `Rule::swift_chars` here because a single
                 // Unicode character might be deunicoded to multiple ASCII chars!
                 let parsed_after_deunicode = MT940Parser::parse(Rule::swift_chars, &deunicoded);
