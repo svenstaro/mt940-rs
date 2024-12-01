@@ -23,7 +23,7 @@ clap = { version = "4", features = ["derive", "wrap_help"] }
 chrono = { version = "0.4", features = ["serde"] }
 deunicode = "1.0"
 rust_decimal = { version = "1.0", features = ["serde"] }
-thiserror = "1.0"
+thiserror = "2.0"
 log = "0.4"
 pest = "2"
 pest_derive = "2"
