@@ -1,6 +1,7 @@
+use std::str::FromStr;
+
 use chrono::prelude::*;
 use pest::Parser;
-use std::str::FromStr;
 
 use crate::errors::RequiredTagNotFoundError;
 use crate::utils::{date_from_mt940_date, decimal_from_mt940_amount};
@@ -382,19 +383,16 @@ mod tests {
         }
     }
 
-    #[rstest(
-        input,
-        expected_decimal,
-        case(":60F:C100318EUR380115,12", "380115.12"),
-        case(":60F:C100318EUR380115,1", "380115.10"),
-        case(":60F:C100318EUR380115,", "380115.00"),
-        case(":60F:C100318EUR0,12", "0.12"),
-        case(":60F:C100318EUR00,12", "0.12"),
-        case(":60F:C100318EUR001,12", "1.12"),
-        case(":60F:C100318EUR0,", "0"),
-        case(":60F:C100318EUR00000,00", "0")
-    )]
-    fn tag_60_input_specific(input: &str, expected_decimal: &str) {
+    #[rstest]
+    #[case(":60F:C100318EUR380115,12", "380115.12")]
+    #[case(":60F:C100318EUR380115,1", "380115.10")]
+    #[case(":60F:C100318EUR380115,", "380115.00")]
+    #[case(":60F:C100318EUR0,12", "0.12")]
+    #[case(":60F:C100318EUR00,12", "0.12")]
+    #[case(":60F:C100318EUR001,12", "1.12")]
+    #[case(":60F:C100318EUR0,", "0")]
+    #[case(":60F:C100318EUR00000,00", "0")]
+    fn tag_60_input_specific(#[case] input: &str, #[case] expected_decimal: &str) {
         let expected = Balance {
             is_intermediate: false,
             debit_credit_indicator: DebitOrCredit::Credit,

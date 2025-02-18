@@ -11,15 +11,13 @@ use mt940::{
 };
 
 /// Parse a bunch of MT940 statements that should just work even without sanitation.
-#[rstest(
-    statement_path,
-    case("danskebank/MT940_DK_Example.sta"),
-    case("danskebank/MT940_FI_Example.sta"),
-    case("danskebank/MT940_NO_Example.sta"),
-    case("danskebank/MT940_SE_Example.sta"),
-    case("cmxl/mt940_1.sta")
-)]
-fn parse_mt940_statement_success(statement_path: &str) {
+#[rstest]
+#[case("danskebank/MT940_DK_Example.sta")]
+#[case("danskebank/MT940_FI_Example.sta")]
+#[case("danskebank/MT940_NO_Example.sta")]
+#[case("danskebank/MT940_SE_Example.sta")]
+#[case("cmxl/mt940_1.sta")]
+fn parse_mt940_statement_success(#[case] statement_path: &str) {
     let full_path = PathBuf::from(format!("tests/data/mt940/full/{}", statement_path));
     let input_data = fs::read_to_string(&full_path).unwrap();
     let parsed_messaged = parse_mt940(&input_data).unwrap();
@@ -31,25 +29,23 @@ fn parse_mt940_statement_success(statement_path: &str) {
 }
 
 /// Parse a bunch of MT940 statements that only work after sanitation.
-#[rstest(
-    statement_path,
-    case("betterplace/sepa_mt9401.sta"),
-    case("betterplace/sepa_snippet.sta"),
-    case("betterplace/with_binary_character.sta"),
-    case("cmxl/mt940_2.sta"),
-    case("jejik/abnamro.sta"),
-    case("jejik/ing.sta"),
-    case("jejik/knab.sta"),
-    case("jejik/postfinance.sta"),
-    case("jejik/rabobank-iban.sta"),
-    case("jejik/sns.sta"),
-    case("mBank/mt940.sta"),
-    case("mBank/with_newline_in_tnr.sta"),
-    case("sparkasse/buxtehude.sta"),
-    case("abnamro/mt940.sta"),
-    case("bugs/issue-51.sta")
-)]
-fn parse_mt940_statement_success_with_sanitation(statement_path: &str) {
+#[rstest]
+#[case("betterplace/sepa_mt9401.sta")]
+#[case("betterplace/sepa_snippet.sta")]
+#[case("betterplace/with_binary_character.sta")]
+#[case("cmxl/mt940_2.sta")]
+#[case("jejik/abnamro.sta")]
+#[case("jejik/ing.sta")]
+#[case("jejik/knab.sta")]
+#[case("jejik/postfinance.sta")]
+#[case("jejik/rabobank-iban.sta")]
+#[case("jejik/sns.sta")]
+#[case("mBank/mt940.sta")]
+#[case("mBank/with_newline_in_tnr.sta")]
+#[case("sparkasse/buxtehude.sta")]
+#[case("abnamro/mt940.sta")]
+#[case("bugs/issue-51.sta")]
+fn parse_mt940_statement_success_with_sanitation(#[case] statement_path: &str) {
     let full_path = PathBuf::from(format!("tests/data/mt940/full/{}", statement_path));
     let input_data = fs::read_to_string(&full_path).unwrap();
     let parsed_messages = parse_mt940(&sanitize(&input_data)).unwrap();

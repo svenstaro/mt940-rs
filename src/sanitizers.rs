@@ -211,24 +211,21 @@ mod tests {
         assert_eq!(result, expected);
     }
 
-    #[rstest(
-        input,
-        expected,
-        case("ä", "a"),
-        case("ö", "o"),
-        case("ú", "u"),
-        case("é", "e"),
-        case("å", "a"),
-        case("á", "a"),
-        case("ß", "ss"),
-        case("ú", "u"),
-        case("ó", "o"),
-        case("í", "i"),
-        case("ë", "e"),
-        case("=", "."),
-        case("!", ".")
-    )]
-    fn to_swift_charset_special_char_conversions(input: &str, expected: &str) {
+    #[rstest]
+    #[case("ä", "a")]
+    #[case("ö", "o")]
+    #[case("ú", "u")]
+    #[case("é", "e")]
+    #[case("å", "a")]
+    #[case("á", "a")]
+    #[case("ß", "ss")]
+    #[case("ú", "u")]
+    #[case("ó", "o")]
+    #[case("í", "i")]
+    #[case("ë", "e")]
+    #[case("=", ".")]
+    #[case("!", ".")]
+    fn to_swift_charset_special_char_conversions(#[case] input: &str, #[case] expected: &str) {
         let result = to_swift_charset(input);
         assert_eq!(result, expected);
     }
