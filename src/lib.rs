@@ -622,7 +622,7 @@ mod tests {
             let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$").unwrap();
             prop_assume!(re_no_ws_in_front_or_end.is_match(&value), "Can't have a value that has whitespace in front or end");
 
-            let parsed = parse_fields(&format!(":{}:{}", tag, value)).unwrap();
+            let parsed = parse_fields(&format!(":{tag}:{value}")).unwrap();
             prop_assert_eq!((&parsed[0].tag, &parsed[0].value), (&tag, &value));
         }
     }

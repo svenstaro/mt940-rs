@@ -136,7 +136,7 @@ pub fn strip_stuff_between_messages(s: &str) -> String {
     // Do a third pass to actually copy only the wanted lines from the input to the output.
     s.lines()
         .enumerate()
-        .filter(|&(i, _contents)| (!lines_to_delete.contains(&i)))
+        .filter(|&(i, _contents)| !lines_to_delete.contains(&i))
         .map(|(_i, contents)| contents)
         .chain(std::iter::once(""))
         .collect::<Vec<&str>>()
@@ -179,7 +179,7 @@ pub fn strip_excess_tag86_lines(input: &str) -> String {
     input
         .lines()
         .enumerate()
-        .filter(|&(line, _contents)| (!lines_to_delete.contains(&line)))
+        .filter(|&(line, _contents)| !lines_to_delete.contains(&line))
         .map(|(_line, contents)| contents)
         .chain(std::iter::once(""))
         .collect::<Vec<&str>>()

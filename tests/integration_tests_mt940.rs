@@ -18,7 +18,7 @@ use mt940::{
 #[case("danskebank/MT940_SE_Example.sta")]
 #[case("cmxl/mt940_1.sta")]
 fn parse_mt940_statement_success(#[case] statement_path: &str) {
-    let full_path = PathBuf::from(format!("tests/data/mt940/full/{}", statement_path));
+    let full_path = PathBuf::from(format!("tests/data/mt940/full/{statement_path}"));
     let input_data = fs::read_to_string(&full_path).unwrap();
     let parsed_messaged = parse_mt940(&input_data).unwrap();
 
@@ -46,7 +46,7 @@ fn parse_mt940_statement_success(#[case] statement_path: &str) {
 #[case("abnamro/mt940.sta")]
 #[case("bugs/issue-51.sta")]
 fn parse_mt940_statement_success_with_sanitation(#[case] statement_path: &str) {
-    let full_path = PathBuf::from(format!("tests/data/mt940/full/{}", statement_path));
+    let full_path = PathBuf::from(format!("tests/data/mt940/full/{statement_path}"));
     let input_data = fs::read_to_string(&full_path).unwrap();
     let parsed_messages = parse_mt940(&sanitize(&input_data)).unwrap();
 
@@ -63,7 +63,7 @@ fn parse_mt940_statement_success_with_sanitation(#[case] statement_path: &str) {
     case("jejik/knab_broken.sta")
 )]
 fn parse_mt940_statement_fail(statement_path: &str) {
-    let full_path = PathBuf::from(format!("tests/data/mt940/full/{}", statement_path));
+    let full_path = PathBuf::from(format!("tests/data/mt940/full/{statement_path}"));
     let input_data = fs::read_to_string(&full_path).unwrap();
     let parsed_messages = parse_mt940(&sanitize(&input_data));
 
@@ -73,7 +73,7 @@ fn parse_mt940_statement_fail(statement_path: &str) {
 #[test]
 fn fail_no_tag_20() {
     let input_data = "http://example.com";
-    let parsed = parse_mt940(&input_data);
+    let parsed = parse_mt940(input_data);
     let expected = RequiredTagNotFoundError::new("20");
     if let Err(ParseError::RequiredTagNotFoundError(e)) = parsed {
         assert_eq!(e, expected);
@@ -132,7 +132,7 @@ fn fail_overly_long_details() {
         fs::read_to_string("tests/data/mt940/special-cases/overly_long_details.sta").unwrap();
     if let Err(e) = parse_mt940(&input_data) {
         if let ParseError::PestParseError(e) = e {
-            let e = format!("{}", e);
+            let e = format!("{e}");
             assert!(e.contains("?33g Erhebung?34992?60000000012345 BIC: BYLADEMM "));
             return;
         }

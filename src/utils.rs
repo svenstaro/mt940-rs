@@ -19,7 +19,7 @@ pub fn decimal_from_mt940_amount(s: &str) -> Result<Decimal, AmountParseError> {
         return Err(AmountParseError::TooManyCommas(s.to_string()));
     }
     let (int_part, frac_part) = (split_decimal_str[0], split_decimal_str[1]);
-    let whole_number: i64 = format!("{}{}", int_part, frac_part)
+    let whole_number: i64 = format!("{int_part}{frac_part}")
         .parse()
         .map_err(AmountParseError::IntParseError)?;
     Ok(Decimal::new(whole_number, frac_part.len() as u32))

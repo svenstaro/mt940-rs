@@ -316,7 +316,7 @@ mod tests {
             let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$")?;
             prop_assume!(re_no_ws_in_front_or_end.is_match(&input), "Can't have a value that has whitespace in front or end");
 
-            let field = Field::from_str(&format!(":20:{}", input)).unwrap();
+            let field = Field::from_str(&format!(":20:{input}")).unwrap();
             let parsed = parse_20_tag(&field).unwrap();
             prop_assert_eq!(&parsed, &input);
         }
@@ -331,7 +331,7 @@ mod tests {
             let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$")?;
             prop_assume!(re_no_ws_in_front_or_end.is_match(&input), "Can't have a value that has whitespace in front or end");
 
-            let field = Field::from_str(&format!(":21:{}", input)).unwrap();
+            let field = Field::from_str(&format!(":21:{input}")).unwrap();
             let parsed = parse_21_tag(&field).unwrap();
             prop_assert_eq!(&parsed, &input);
         }
@@ -346,7 +346,7 @@ mod tests {
             let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$")?;
             prop_assume!(re_no_ws_in_front_or_end.is_match(&input), "Can't have a value that has whitespace in front or end");
 
-            let field = Field::from_str(&format!(":25:{}", input)).unwrap();
+            let field = Field::from_str(&format!(":25:{input}")).unwrap();
             let parsed = parse_25_tag(&field).unwrap();
             prop_assert_eq!(&parsed, &input);
         }
@@ -369,7 +369,7 @@ mod tests {
             let re_no_ws_in_front_or_end = Regex::new(r"^[^\s]+(\s+[^\s]+)*$")?;
             prop_assume!(re_no_ws_in_front_or_end.is_match(&input), "Can't have a value that has whitespace in front or end");
 
-            let field = Field::from_str(&format!(":{}:{}", tag, input)).unwrap();
+            let field = Field::from_str(&format!(":{tag}:{input}")).unwrap();
             let parsed = parse_28_tag(&field).unwrap();
             let expected = (
                 statement_no,
@@ -415,21 +415,17 @@ mod tests {
                         amount_after_decimal in r"[[:digit:]]{0, 2}") {
             prop_assume!(NaiveDate::parse_from_str(&date, "%y%m%d").is_ok(), "We need a valid date");
 
-            let amount = format!("{},{}", amount_before_decimal, amount_after_decimal);
+            let amount = format!("{amount_before_decimal},{amount_after_decimal}");
             let input = format!(
-                "{debit_credit_indicator}{date}{iso_currency_code}{amount}",
-                debit_credit_indicator=debit_credit_indicator,
-                date=date,
-                iso_currency_code=iso_currency_code,
-                amount=amount);
+                "{debit_credit_indicator}{date}{iso_currency_code}{amount}");
 
-            let field = Field::from_str(&format!(":60{}:{}", intermediate, input)).unwrap();
+            let field = Field::from_str(&format!(":60{intermediate}:{input}")).unwrap();
             let parsed = parse_60_tag(&field).unwrap();
             let expected = Balance {
-                is_intermediate: if intermediate == "M" { true } else { false },
+                is_intermediate: intermediate == "M",
                 debit_credit_indicator: DebitOrCredit::from_str(&debit_credit_indicator).unwrap(),
                 date: date_from_mt940_date(&date).unwrap(),
-                iso_currency_code: iso_currency_code,
+                iso_currency_code,
                 amount: decimal_from_mt940_amount(&amount).unwrap(),
             };
             prop_assert_eq!(parsed, expected);
@@ -446,21 +442,17 @@ mod tests {
                         amount_after_decimal in r"[[:digit:]]{0, 2}") {
             prop_assume!(NaiveDate::parse_from_str(&date, "%y%m%d").is_ok(), "We need a valid date");
 
-            let amount = format!("{},{}", amount_before_decimal, amount_after_decimal);
+            let amount = format!("{amount_before_decimal},{amount_after_decimal}");
             let input = format!(
-                "{debit_credit_indicator}{date}{iso_currency_code}{amount}",
-                debit_credit_indicator=debit_credit_indicator,
-                date=date,
-                iso_currency_code=iso_currency_code,
-                amount=amount);
+                "{debit_credit_indicator}{date}{iso_currency_code}{amount}");
 
-            let field = Field::from_str(&format!(":62{}:{}", intermediate, input)).unwrap();
+            let field = Field::from_str(&format!(":62{intermediate}:{input}")).unwrap();
             let parsed = parse_62_tag(&field).unwrap();
             let expected = Balance {
-                is_intermediate: if intermediate == "M" { true } else { false },
+                is_intermediate: intermediate == "M",
                 debit_credit_indicator: DebitOrCredit::from_str(&debit_credit_indicator).unwrap(),
                 date: date_from_mt940_date(&date).unwrap(),
-                iso_currency_code: iso_currency_code,
+                iso_currency_code,
                 amount: decimal_from_mt940_amount(&amount).unwrap(),
             };
             prop_assert_eq!(parsed, expected);
@@ -476,20 +468,16 @@ mod tests {
                         amount_after_decimal in r"[[:digit:]]{0, 2}") {
             prop_assume!(NaiveDate::parse_from_str(&date, "%y%m%d").is_ok(), "We need a valid date");
 
-            let amount = format!("{},{}", amount_before_decimal, amount_after_decimal);
+            let amount = format!("{amount_before_decimal},{amount_after_decimal}");
             let input = format!(
-                "{debit_credit_indicator}{date}{iso_currency_code}{amount}",
-                debit_credit_indicator=debit_credit_indicator,
-                date=date,
-                iso_currency_code=iso_currency_code,
-                amount=amount);
+                "{debit_credit_indicator}{date}{iso_currency_code}{amount}");
 
-            let field = Field::from_str(&format!(":64:{}", input)).unwrap();
+            let field = Field::from_str(&format!(":64:{input}")).unwrap();
             let parsed = parse_64_tag(&field).unwrap();
             let expected = AvailableBalance {
                 debit_credit_indicator: DebitOrCredit::from_str(&debit_credit_indicator).unwrap(),
                 date: date_from_mt940_date(&date).unwrap(),
-                iso_currency_code: iso_currency_code,
+                iso_currency_code,
                 amount: decimal_from_mt940_amount(&amount).unwrap(),
             };
             prop_assert_eq!(parsed, expected);
@@ -505,20 +493,16 @@ mod tests {
                         amount_after_decimal in r"[[:digit:]]{0, 2}") {
             prop_assume!(NaiveDate::parse_from_str(&date, "%y%m%d").is_ok(), "We need a valid date");
 
-            let amount = format!("{},{}", amount_before_decimal, amount_after_decimal);
+            let amount = format!("{amount_before_decimal},{amount_after_decimal}");
             let input = format!(
-                "{debit_credit_indicator}{date}{iso_currency_code}{amount}",
-                debit_credit_indicator=debit_credit_indicator,
-                date=date,
-                iso_currency_code=iso_currency_code,
-                amount=amount);
+                "{debit_credit_indicator}{date}{iso_currency_code}{amount}");
 
-            let field = Field::from_str(&format!(":65:{}", input)).unwrap();
+            let field = Field::from_str(&format!(":65:{input}")).unwrap();
             let parsed = parse_65_tag(&field).unwrap();
             let expected = AvailableBalance {
                 debit_credit_indicator: DebitOrCredit::from_str(&debit_credit_indicator).unwrap(),
                 date: date_from_mt940_date(&date).unwrap(),
-                iso_currency_code: iso_currency_code,
+                iso_currency_code,
                 amount: decimal_from_mt940_amount(&amount).unwrap(),
             };
             prop_assert_eq!(parsed, expected);
@@ -534,7 +518,7 @@ mod tests {
 
     proptest! {
         #[test]
-        fn tag_61_input(date in (r"[[:digit:]]{2}[01][0-9][0-3][[:digit:]]").prop_filter("We need a valid date", |d| NaiveDate::parse_from_str(&d, "%y%m%d").is_ok()),
+        fn tag_61_input(date in (r"[[:digit:]]{2}[01][0-9][0-3][[:digit:]]").prop_filter("We need a valid date", |d| NaiveDate::parse_from_str(d, "%y%m%d").is_ok()),
                         has_short_date in proptest::bool::weighted(0.5),
                         ext_debit_credit_indicator in r"R?[DC]",
                         funds_code in r"[[:alpha:]]?",
@@ -561,7 +545,7 @@ mod tests {
             prop_assume!(re_no_ws_in_front_or_end.is_match(&supplementary_details), "Can't have a value that has whitespace in front or end");
 
             let short_date = if has_short_date { &date[2..6] } else { "" };
-            let amount = format!("{},{}", amount_before_decimal, amount_after_decimal);
+            let amount = format!("{amount_before_decimal},{amount_after_decimal}");
             let transaction_type_ident_code_no_prefix = &transaction_type_ident_code[1..];
             let customer_bank_ref = format!(
                 "{customer_ref}{separator}{bank_ref}",
@@ -572,16 +556,8 @@ mod tests {
             let input = format!(
                 "{date}{short_date}{ext_debit_credit_indicator}{funds_code}\
                  {amount}{transaction_type_ident_code}{customer_bank_ref}\
-                 \n{supplementary_details}",
-                ext_debit_credit_indicator=ext_debit_credit_indicator,
-                date=date,
-                short_date=short_date,
-                funds_code=funds_code,
-                amount=amount,
-                transaction_type_ident_code=transaction_type_ident_code,
-                customer_bank_ref=customer_bank_ref,
-                supplementary_details=supplementary_details);
-            let field = Field::from_str(&format!(":61:{}", input)).unwrap();
+                 \n{supplementary_details}");
+            let field = Field::from_str(&format!(":61:{input}")).unwrap();
             let parsed = parse_61_tag(&field).unwrap();
             let expected = StatementLine {
                 value_date: date_from_mt940_date(&date).unwrap(),
@@ -590,7 +566,7 @@ mod tests {
                 funds_code: if funds_code.is_empty() { None } else { Some(funds_code) },
                 amount: decimal_from_mt940_amount(&amount).unwrap(),
                 transaction_type_ident_code: TransactionTypeIdentificationCode::from_str(
-                    &transaction_type_ident_code_no_prefix).unwrap_or_else(
+                    transaction_type_ident_code_no_prefix).unwrap_or_else(
                         |_| TransactionTypeIdentificationCode::NonStandard(
                             transaction_type_ident_code_no_prefix.to_string())),
                 customer_ref,
@@ -618,7 +594,7 @@ mod tests {
             prop_assume!(re_no_ws_in_front_or_end.is_match(&information_to_account_owner),
                 "Can't have a value that has whitespace in front or end");
 
-            let field = Field::from_str(&format!(":86:{}", information_to_account_owner)).unwrap();
+            let field = Field::from_str(&format!(":86:{information_to_account_owner}")).unwrap();
             let parsed = parse_86_tag(&field).unwrap();
             prop_assert_eq!(parsed, information_to_account_owner);
         }

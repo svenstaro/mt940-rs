@@ -130,6 +130,6 @@ impl fmt::Display for TransactionTypeIdentificationCode {
             TransactionTypeIdentificationCode::WAR => "Securities Related Item – Warrant",
             TransactionTypeIdentificationCode::NonStandard(_) => "Non-standard MT940 Transaction Type Identification Code",
         };
-        write!(f, "({:?}, {})", self, description)
+        write!(f, "({self:?}, {description})")
     }
 }
