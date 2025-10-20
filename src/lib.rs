@@ -181,33 +181,22 @@ pub struct AvailableBalance {
 /// consistent, while never dropping information from the field
 #[derive(Debug, Eq, PartialEq, Serialize, Deserialize, Clone)]
 #[serde(untagged)]
+#[serde_with::skip_serializing_none]
 pub enum InformationToAccountOwner {
     Plain(String),
     Structured {
         transaction_code: String,
-        #[serde(skip_serializing_if = "Option::is_none")]
         posting_text: Option<String>,
-        #[serde(skip_serializing_if = "Option::is_none")]
         prima_nota: Option<String>,
-        #[serde(skip_serializing_if = "Option::is_none")]
         unknown11: Option<String>,
-        #[serde(skip_serializing_if = "Option::is_none")]
         purpose: Option<String>,
-        #[serde(skip_serializing_if = "Option::is_none")]
         applicant_bin: Option<String>,
-        #[serde(skip_serializing_if = "Option::is_none")]
         applicant_iban: Option<String>,
-        #[serde(skip_serializing_if = "Option::is_none")]
         applicant_name: Option<String>,
-        #[serde(skip_serializing_if = "Option::is_none")]
         return_debit_notes: Option<String>,
-        #[serde(skip_serializing_if = "Option::is_none")]
         recipient_name: Option<String>,
-        #[serde(skip_serializing_if = "Option::is_none")]
         unknown38: Option<String>,
-        #[serde(skip_serializing_if = "Option::is_none")]
         additional_purpose: Option<String>,
-        #[serde(skip_serializing_if = "Option::is_none")]
         unknown70: Option<String>,
     },
 }
