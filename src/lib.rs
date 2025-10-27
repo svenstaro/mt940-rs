@@ -176,7 +176,8 @@ pub struct AvailableBalance {
     pub amount: Decimal,
 }
 
-/// Information to account owner can sometimes contain it's own structured data.
+/// Information to account owner can sometimes contain its own structured data.
+///
 /// It's difficult to find documentation for it, so the implementation should aim to be mostly
 /// consistent, while never dropping information from the field
 #[serde_with::skip_serializing_none]
