@@ -179,9 +179,9 @@ pub struct AvailableBalance {
 /// Information to account owner can sometimes contain it's own structured data.
 /// It's difficult to find documentation for it, so the implementation should aim to be mostly
 /// consistent, while never dropping information from the field
+#[serde_with::skip_serializing_none]
 #[derive(Debug, Eq, PartialEq, Serialize, Deserialize, Clone)]
 #[serde(untagged)]
-#[serde_with::skip_serializing_none]
 pub enum InformationToAccountOwner {
     Plain(String),
     Structured {
