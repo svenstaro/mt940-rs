@@ -240,6 +240,10 @@ pub fn parse_86_tag(field: &Field) -> Result<InformationToAccountOwner, ParseErr
                 ..
             } = structured
             {
+                // Finding documentation for the semantics of different subfield IDs is difficult.
+                // This was mostly derived from the python mt940 implementation
+                // https://github.com/wolph/mt940/blob/fcb7b72704e2cea0f3ee774c5aecbf889654f5fb/mt940/processors.py#L171-L182
+                // and some observations from the test data.
                 for sf in inner {
                     let mut sf_inner = sf.into_inner();
                     let tag = sf_inner.next().unwrap().as_str();
