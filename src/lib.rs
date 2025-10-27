@@ -179,7 +179,7 @@ pub struct AvailableBalance {
 /// Information to account owner can sometimes contain its own structured data.
 ///
 /// It's difficult to find documentation for it, so the implementation should aim to be mostly
-/// consistent, while never dropping information from the field
+/// consistent with other implementations, while never dropping information from the field
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Eq, PartialEq, Serialize, Deserialize, Clone)]
 #[serde(untagged)]
