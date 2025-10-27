@@ -338,15 +338,18 @@ impl Message {
                             if let Some(sl) = statement_lines.last_mut() {
                                 match (&mut sl.information_to_account_owner, info_to_account_owner)
                                 {
+                                    // If there is nothing yet, we can just attach the value
                                     (None, info) => {
                                         sl.information_to_account_owner = Some(info);
                                     }
+                                    // If both are plain variants, we concatenate them
                                     (
                                         Some(InformationToAccountOwner::Plain(sl_info)),
                                         InformationToAccountOwner::Plain(info),
                                     ) => {
                                         sl_info.push_str(&info);
                                     }
+                                    // If the new value is Structured, we ditch the old one
                                     (
                                         Some(InformationToAccountOwner::Plain(_)),
                                         structured @ InformationToAccountOwner::Structured {
@@ -361,15 +364,18 @@ impl Message {
                         }
                         "62M" | "62F" | "64" | "65" => {
                             match (&mut information_to_account_owner, info_to_account_owner) {
+                                // If there is nothing yet, we can just attach the value
                                 (None, info) => {
                                     information_to_account_owner = Some(info);
                                 }
+                                // If both are plain variants, we concatenate them
                                 (
                                     Some(InformationToAccountOwner::Plain(ref mut current_info)),
                                     InformationToAccountOwner::Plain(info),
                                 ) => {
                                     current_info.push_str(&info);
                                 }
+                                // If the new value is Structured, we ditch the old one
                                 (
                                     Some(InformationToAccountOwner::Plain(_)),
                                     structured @ InformationToAccountOwner::Structured { .. },
