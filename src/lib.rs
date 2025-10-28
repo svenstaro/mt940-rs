@@ -183,6 +183,7 @@ pub struct AvailableBalance {
 #[serde_with::skip_serializing_none]
 #[derive(Debug, Eq, PartialEq, Serialize, Deserialize, Clone)]
 #[serde(untagged)]
+#[allow(clippy::large_enum_variant)]
 pub enum InformationToAccountOwner {
     Plain(String),
     Structured {
