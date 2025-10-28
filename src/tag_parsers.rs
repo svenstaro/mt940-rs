@@ -251,7 +251,11 @@ pub fn parse_86_tag(field: &Field) -> Result<InformationToAccountOwner, ParseErr
                     "70" | "71" | "72" | "73" | "74" | "75" | "76" | "77" | "78" | "79" => {
                         unknown70.get_or_insert_with(String::new).push_str(&value)
                     }
-                    _ => {}
+                    unknown_subfield_id => {
+                        return Err(ParseError::UnknownSubfieldError(
+                            unknown_subfield_id.to_string(),
+                        ));
+                    }
                 }
             }
 
