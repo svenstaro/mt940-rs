@@ -23,7 +23,16 @@
         "customer_ref": "NONREF",
         "bank_ref": "55555",
         "supplementary_details": null,
-        "information_to_account_owner": "008?00DAUERAUFTRAG?100599?20Miete November?3010020030?31234567?32MUELLER?34339"
+        "information_to_account_owner": {
+          "transaction_code": "008",
+          "posting_text": "DAUERAUFTRAG",
+          "prima_nota": "0599",
+          "purpose": "Miete November",
+          "applicant_bin": "10020030",
+          "applicant_iban": "234567",
+          "applicant_name": "MUELLER",
+          "return_debit_notes": "339"
+        }
       },
       {
         "value_date": "2002-11-02",
@@ -35,7 +44,16 @@
         "customer_ref": "NONREF",
         "bank_ref": "55555",
         "supplementary_details": null,
-        "information_to_account_owner": "051?00UEBERWEISUNG?100599?20Gehalt Oktob\ner\n?21Firma\nMustermann\nGmbH?3050060400?31084756\n4700?32MUELLER?34339"
+        "information_to_account_owner": {
+          "transaction_code": "051",
+          "posting_text": "UEBERWEISUNG",
+          "prima_nota": "0599",
+          "purpose": "Gehalt OktoberFirmaMustermannGmbH",
+          "applicant_bin": "50060400",
+          "applicant_iban": "0847564700",
+          "applicant_name": "MUELLER",
+          "return_debit_notes": "339"
+        }
       }
     ],
     "closing_balance": {

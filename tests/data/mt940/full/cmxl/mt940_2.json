@@ -23,7 +23,15 @@
         "customer_ref": "NONREF",
         "bank_ref": "8327000090031789",
         "supplementary_details": "Card transaction",
-        "information_to_account_owner": "020?00Wyplata-(dysp/przel)?2008106000760000777777777777?2115617?\n22INFO INFO INFO INFO INFO INFO 1 END?23INFO INFO INFO INFO INFO \nINFO 2 END?24ZAPLATA ZA FABRYKATY DO TUB?25 - 200 S ZTUK, TRANZY \nSTORY-?26300 SZT GR544 I OPORNIKI-5?2700 SZT GTX847 FAKTURA 333/ \n2?28003.?3010600076?310000777777777777?32HUTA SZKLA TOPIC UL \nPRZEMY?33SLOWA 67 32-669 WROCLAW?38PL081060007600007777777"
+        "information_to_account_owner": {
+          "transaction_code": "020",
+          "posting_text": "Wyplata-(dysp/przel)",
+          "purpose": "0810600076000077777777777715617INFO INFO INFO INFO INFO INFO 1 ENDINFO INFO INFO INFO INFO INFO 2 ENDZAPLATA ZA FABRYKATY DO TUB - 200 S ZTUK, TRANZY STORY-300 SZT GR544 I OPORNIKI-500 SZT GTX847 FAKTURA 333/ 2003.",
+          "applicant_bin": "10600076",
+          "applicant_iban": "0000777777777777",
+          "applicant_name": "HUTA SZKLA TOPIC UL PRZEMYSLOWA 67 32-669 WROCLAW",
+          "unknown38": "PL081060007600007777777"
+        }
       },
       {
         "value_date": "2003-10-20",
@@ -35,7 +43,14 @@
         "customer_ref": "REF 25611247",
         "bank_ref": "8327000090031790",
         "supplementary_details": "Transfer",
-        "information_to_account_owner": "020?00Wyplata-(dysp/przel)?2008106000760000777777777777?2115617?\n22INFO INFO INFO INFO INFO INFO 1 END?23INFO INFO INFO INFO INFO \nINFO 2 END?24ZAPLATA ZA FABRYKATY DO TUB?25 - 200 S ZTUK, TRANZY \nSTORY-?26300 SZT GR544 I OPORNIKI-5?2700 SZT GTX847 FAKTURA 333/ \n2?28003.?3010600076?310000777777777777?38PL081060007600007777777 \n77777"
+        "information_to_account_owner": {
+          "transaction_code": "020",
+          "posting_text": "Wyplata-(dysp/przel)",
+          "purpose": "0810600076000077777777777715617INFO INFO INFO INFO INFO INFO 1 ENDINFO INFO INFO INFO INFO INFO 2 ENDZAPLATA ZA FABRYKATY DO TUB - 200 S ZTUK, TRANZY STORY-300 SZT GR544 I OPORNIKI-500 SZT GTX847 FAKTURA 333/ 2003.",
+          "applicant_bin": "10600076",
+          "applicant_iban": "0000777777777777",
+          "unknown38": "PL081060007600007777777 77777"
+        }
       },
       {
         "value_date": "2003-10-20",
@@ -47,7 +62,11 @@
         "customer_ref": "NONREF",
         "bank_ref": "8327000090031791",
         "supplementary_details": "Interest credit",
-        "information_to_account_owner": "844?00Uznanie kwota odsetek?20Odsetki od lokaty nr 101000?21022086"
+        "information_to_account_owner": {
+          "transaction_code": "844",
+          "posting_text": "Uznanie kwota odsetek",
+          "purpose": "Odsetki od lokaty nr 101000022086"
+        }
       }
     ],
     "closing_balance": {

@@ -57,6 +57,9 @@ pub enum ParseError {
     #[error("Unknown tag: '{}'", _0)]
     UnknownTagError(String),
 
+    #[error("Unknown subfield: '{}'", _0)]
+    UnknownSubfieldError(String),
+
     #[error("{}", _0)]
     VariantNotFound(VariantNotFound),
 
