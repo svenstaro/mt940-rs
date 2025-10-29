@@ -1,9 +1,12 @@
 # Changelog
 
+## 1.1.0 - 2025-10-29
+
+* Add parsing of tag 86 [#77](https://github.com/svenstaro/mt940-rs/pull/77) (thanks @erictapen)
+
 ## 1.0.1 - 2022-02-02
 
-* Add `strip_excess_tag86_lines` sanitizer to truncate overlong tag 86 messages
-    [#52](https://github.com/svenstaro/mt940-rs/pull/52) (thanks @markus-k)
+* Add `strip_excess_tag86_lines` sanitizer to truncate overlong tag 86 messages [#52](https://github.com/svenstaro/mt940-rs/pull/52) (thanks @markus-k)
 
 ## 1.0.0 - 2022-01-30
 
